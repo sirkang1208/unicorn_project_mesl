@@ -50,6 +50,7 @@ def print_mem(uc):
     print(">>> MEM = ", end = "")
     for i in range(len(tot_mem)):
         print("\\x%x" %tot_mem[i], end = "")
+    print()
 
 def select_func(uc,a):
     if a == 'r':
@@ -83,47 +84,67 @@ def change_reg(uc):
 def hook_code(uc, address, size, user_data):
     #break every each instruction and get input
     while(1):
+        print('-----------------------------')
+        print("function: ")
+        print('r: change register')
+        print('m: change memory')
+        print('rv: print all register')
+        print('mv: print memory')
+        print('p: pass') #프로그램 출력 p
+        print('q: quit') #프로그램 종료 q
+        print('-----------------------------')
         a = input('input your function : ')
+
         select_func(uc,a)
-        if a == 'p':
+
+        if a == 'q':
             break
+
     print(">>> Tracing instruction at 0x%x, instruction size = 0x%x" %(address, size))
 
 
     # do single step debugging here
 
-print("Emulate ARM code")
-try:
-    mu = Uc(UC_ARCH_ARM, UC_MODE_ARM)
-    # Initialize emulator in ARM mode
+
+def main():
+
+    print("Emulate ARM code")
+
+    try:
+        mu = Uc(UC_ARCH_ARM, UC_MODE_ARM)
+        # Initialize emulator in ARM mode
 
 
-    # map 2MB memory for this emulation
-    mu.mem_map(ADDRESS,2*1024*1024)
+        # map 2MB memory for this emulation
+        mu.mem_map(ADDRESS,2*1024*1024)
 
-    # write machine code to be emulated to memory
-    mu.mem_write(ADDRESS, ARM_CODE32)
+        # write machine code to be emulated to memory
+        mu.mem_write(ADDRESS, ARM_CODE32)
 
-    # initialize machine registers
-    mu.reg_write(UC_ARM_REG_R0, 0x1234)
-    mu.reg_write(UC_ARM_REG_R2, 0x6789)
-    mu.reg_write(UC_ARM_REG_R3, 0x3333)
-    mu.reg_write(UC_ARM_REG_APSR, 0xFFFFFFFF) #All application flags turned on
-    
-    # tracing one instruction at ADDRESS with customized callback
-    mu.hook_add(UC_HOOK_CODE, hook_code, begin=ADDRESS, end=ADDRESS+len(ARM_CODE32))
-    
+        # initialize machine registers
+        mu.reg_write(UC_ARM_REG_R0, 0x1234)
+        mu.reg_write(UC_ARM_REG_R2, 0x6789)
+        mu.reg_write(UC_ARM_REG_R3, 0x3333)
+        mu.reg_write(UC_ARM_REG_APSR, 0xFFFFFFFF) #All application flags turned on
+        
+        # tracing one instruction at ADDRESS with customized callback
+        mu.hook_add(UC_HOOK_CODE, hook_code, begin=ADDRESS, end=ADDRESS+len(ARM_CODE32))
+        
 
-    # emulate machine code in infinite time
-    mu.emu_start(ADDRESS, ADDRESS + len(ARM_CODE32))
+        # emulate machine code in infinite time
+        mu.emu_start(ADDRESS, ADDRESS + len(ARM_CODE32))
 
-    # now print out some registers
-    print(">>> Emulation done. Below is the CPU context")
+        # now print out some registers
+        print(">>> Emulation done. Below is the CPU context")
 
-    #print(debug())
-    
-    print_all_reg(mu)
-    print_mem(mu)
+        #print(debug())
+        
+        print_all_reg(mu)
+        print_mem(mu)
 
-except UcError as e:
-    print("ERROR: %s" % e)
+    except UcError as e:
+        print("ERROR: %s" % e)
+
+
+if __name__ == "__main__":
+    main()
