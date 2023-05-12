@@ -101,10 +101,13 @@ def hook_code(uc, address, size, user_data):
         print('q: quit') #프로그램 종료 q
         print('-----------------------------')
         a = input('input your function : ')
+
         select_func(uc,a)
+
         if a == 'q':
             break
-        print(">>> Tracing instruction at 0x%x, instruction size = 0x%x, instruction is = %s" %(address, size, mnemonic))
+
+    print(">>> Tracing instruction at 0x%x, instruction size = 0x%x" %(address, size))
 
 
     # do single step debugging here
@@ -117,11 +120,8 @@ def main():
     try:
         mu = Uc(UC_ARCH_ARM, UC_MODE_ARM)
         # Initialize emulator in ARM mode
-        mc = Cs(UC_ARCH_ARM, UC_MODE_ARM)
-        
-        for i in mc.disasm(ARM_CODE32, ADDRESS):
-            print("0x%x:\t%s\t%s" %(i.address, i.mnemonic, i.op_str))
-        
+
+
         # map 2MB memory for this emulation
         mu.mem_map(ADDRESS,2*1024*1024)
 
