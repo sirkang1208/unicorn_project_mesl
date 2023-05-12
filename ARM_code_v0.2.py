@@ -79,7 +79,7 @@ def print_all_reg(uc):
     
 def print_mem(uc,a):
     tot_mem = uc.mem_read(a,4)
-    print("memory data : ", end = "")
+    print("/ memory data : ", end = "")
     for i in range(len(tot_mem)):
         print("\\x%x" %tot_mem[i], end = "")
     print()
@@ -121,9 +121,9 @@ def hook_code(uc, address, size, user_data):
     #break every each instruction and get input
     print("instruction :", user_data[COUNT][0],end=' ')
     # print(clock(user_data[count][0]))
-    print("register data :", end="")
+    print("/ register data :", end="")
     print_all_reg(uc)
-    print("modified register : ", end ='')
+    print("/ modified register : ", end ='')
     print(user_data[COUNT][1:], end = ' ')
     print_mem(uc,address)
     COUNT += 1
