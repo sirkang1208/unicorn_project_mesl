@@ -9,7 +9,7 @@ import datetime
 
 
 
-filename = datetime.datetime.now()
+
 
 ARM_CODE32 = b"\x37\x00\xa0\xe3\x03\x10\x42\xe0\x37\x00\xa0\xe3\x03\x10\x42\xe0\x37\x00\xa0\xe3\x03\x10\x42\xe0\x37\x00\xa0\xe3\x03\x10\x42\xe0"
 
@@ -114,8 +114,9 @@ def change_reg(uc):
 
 # callback for tracing instructions
 def hook_code(uc, address, size, user_data):
-    fname = 'output_'+ str(filename)[:19] + '.txt'
-    f = open('fname.txt','a')
+    filename = datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S")
+    filename = filename + ".txt"
+    sys.stdout = open(filename,'a')
     
     global COUNT
     #break every each instruction and get input
