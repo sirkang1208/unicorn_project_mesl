@@ -9,8 +9,6 @@ import datetime
 
 
 
-
-
 ARM_CODE32 = b"\x37\x00\xa0\xe3\x03\x10\x42\xe0\x37\x00\xa0\xe3\x03\x10\x42\xe0\x37\x00\xa0\xe3\x03\x10\x42\xe0\x37\x00\xa0\xe3\x03\x10\x42\xe0"
 
 # memory address where emulation starts
@@ -114,8 +112,10 @@ def change_reg(uc):
 
 # callback for tracing instructions
 def hook_code(uc, address, size, user_data):
+
+    # save the log file
     filename = datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S")
-    filename = filename + ".txt"
+    filename = "./log/" + filename + ".txt"
     sys.stdout = open(filename,'a')
     
     global COUNT
