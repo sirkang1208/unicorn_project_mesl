@@ -1,0 +1,235 @@
+Header
+======
+Magic:                           7f 45 4c 46 
+Class:                           CLASS32
+Endianness:                      LSB
+Version:                         CURRENT
+OS/ABI:                          SYSTEMV
+ABI Version:                     0
+Machine type:                    ARM
+File type:                       EXECUTABLE
+Object file version:             CURRENT
+Entry Point:                     0x816c
+Program header offset:           0x34
+Section header offset:           40244
+Processor Flag:                  83886592 SOFT_FLOAT EABI_VER5
+Header size:                     52
+Size of program header:          32
+Number of program header:        3
+Size of section header:          40
+Number of section headers:       18
+Section Name Table idx:          17
+
+Sections
+========
+                    NULL           0         0         0         0                                                      
+.init               PROGBITS       8000      18        8000      4.4183    ALLOC EXECINSTR               LOAD           
+.text               PROGBITS       8018      6ac       8018      5.69778   ALLOC EXECINSTR               LOAD           
+.fini               PROGBITS       86c4      18        86c4      4.4183    ALLOC EXECINSTR               LOAD           
+.rodata             PROGBITS       86dc      4         86dc      1.5       ALLOC                         LOAD           
+.ARM.exidx          ARM_EXIDX      86e0      8         86e0      2.40564   ALLOC LINK_ORDER              ARM_UNWIND LOAD
+.eh_frame           PROGBITS       86e8      4         86e8      -0        ALLOC                         LOAD           
+.init_array         INIT_ARRAY     186ec     8         86ec      1.75      WRITE ALLOC                   LOAD           
+.fini_array         FINI_ARRAY     186f4     4         86f4      1.5       WRITE ALLOC                   LOAD           
+.data               PROGBITS       186f8     434       86f8      0.270334  WRITE ALLOC                   LOAD           
+.bss                NOBITS         18b2c     40        8b2c      4.77686   WRITE ALLOC                   LOAD           
+.comment            PROGBITS       0         4c        8b2c      4.87768   MERGE STRINGS                                
+.debug_frame        PROGBITS       0         280       8b78      4.11152                                                
+.ARM.attributes     ARM_ATTRIBUTES 0         26        8df8      4.04657                                                
+.noinit             PROGBITS       18b6c     0         8e1e      0         WRITE                         LOAD           
+.symtab             SYMTAB         0         8e0       8e20      2.75055                                                
+.strtab             STRTAB         0         598       9700      4.5386                                                 
+.shstrtab           STRTAB         0         9b        9c98      4.12775                                                
+
+Segments
+========
+ARM_UNWIND        r--       86e0      86e0      86e0      8         8         4         
+Sections in this segment :
+	.ARM.exidx
+
+LOAD              r-x       0         0         0         86ec      86ec      10000     
+Sections in this segment :
+	.init
+	.text
+	.fini
+	.rodata
+	.ARM.exidx
+	.eh_frame
+
+LOAD              rw-       86ec      186ec     186ec     440       480       10000     
+Sections in this segment :
+	.init_array
+	.fini_array
+	.data
+	.bss
+	.noinit
+
+
+Dynamic entries
+===============
+
+Dynamic symbols
+===============
+
+Static symbols
+==============
+                              NOTYPE    LOCAL     0         0         
+                              SECTION   LOCAL     8000      0         
+                              SECTION   LOCAL     8018      0         
+                              SECTION   LOCAL     86c4      0         
+                              SECTION   LOCAL     86dc      0         
+                              SECTION   LOCAL     86e0      0         
+                              SECTION   LOCAL     86e8      0         
+                              SECTION   LOCAL     186ec     0         
+                              SECTION   LOCAL     186f4     0         
+                              SECTION   LOCAL     186f8     0         
+                              SECTION   LOCAL     18b2c     0         
+                              SECTION   LOCAL     0         0         
+                              SECTION   LOCAL     0         0         
+                              SECTION   LOCAL     0         0         
+                              SECTION   LOCAL     18b6c     0         
+/opt/gcc-arm-none-eabi-9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/crti.oFILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     8000      0         
+$a                            NOTYPE    LOCAL     86c4      0         
+/opt/gcc-arm-none-eabi-9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/crtn.oFILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     800c      0         
+$a                            NOTYPE    LOCAL     86d0      0         
+exit.c                        FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     8018      0         
+$d                            NOTYPE    LOCAL     8048      0         
+__call_atexit.c               FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     804c      0         
+register_fini                 FUNC      LOCAL     804c      28        
+$d                            NOTYPE    LOCAL     806c      0         
+$d                            NOTYPE    LOCAL     186ec     0         
+$a                            NOTYPE    LOCAL     8438      0         
+$d                            NOTYPE    LOCAL     8568      0         
+$d                            NOTYPE    LOCAL     18b28     0         
+crtstuff.c                    FILE      LOCAL     0         0         
+                              OBJECT    LOCAL     86e8      0         
+$d                            NOTYPE    LOCAL     186f8     0         
+$a                            NOTYPE    LOCAL     8074      0         
+__do_global_dtors_aux         FUNC      LOCAL     8074      0         
+$d                            NOTYPE    LOCAL     80a8      0         
+completed.8914                NOTYPE    LOCAL     18b2c     1         
+$d                            NOTYPE    LOCAL     186f4     0         
+__do_global_dtors_aux_fini_array_entryOBJECT    LOCAL     186f4     0         
+$a                            NOTYPE    LOCAL     80b4      0         
+frame_dummy                   FUNC      LOCAL     80b4      0         
+$d                            NOTYPE    LOCAL     80d8      0         
+object.8919                   NOTYPE    LOCAL     18b30     18        
+$d                            NOTYPE    LOCAL     186f0     0         
+__frame_dummy_init_array_entryOBJECT    LOCAL     186f0     0         
+$d                            NOTYPE    LOCAL     18b2c     0         
+/opt/gcc-arm-none-eabi-9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/crt0.oFILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     80e4      0         
+$d                            NOTYPE    LOCAL     86e0      0         
+$d                            NOTYPE    LOCAL     81fc      0         
+test.c                        FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     821c      0         
+impure.c                      FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     186fc     0         
+impure_data                   OBJECT    LOCAL     18700     428       
+$d                            NOTYPE    LOCAL     18700     0         
+$d                            NOTYPE    LOCAL     86dc      0         
+init.c                        FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     8294      0         
+$d                            NOTYPE    LOCAL     830c      0         
+memset.c                      FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     831c      0         
+atexit.c                      FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     8570      0         
+fini.c                        FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     8590      0         
+$d                            NOTYPE    LOCAL     85cc      0         
+lock.c                        FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     85d4      0         
+$a                            NOTYPE    LOCAL     85d8      0         
+$a                            NOTYPE    LOCAL     85dc      0         
+$a                            NOTYPE    LOCAL     85e0      0         
+$a                            NOTYPE    LOCAL     85e4      0         
+$a                            NOTYPE    LOCAL     85e8      0         
+$a                            NOTYPE    LOCAL     85ec      0         
+$a                            NOTYPE    LOCAL     85f4      0         
+$a                            NOTYPE    LOCAL     85fc      0         
+$a                            NOTYPE    LOCAL     8600      0         
+__atexit.c                    FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     8604      0         
+$d                            NOTYPE    LOCAL     86b8      0         
+_exit.c                       FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     86c0      0         
+crtstuff.c                    FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     86e8      0         
+__FRAME_END__                 OBJECT    LOCAL     86e8      0         
+                              FILE      LOCAL     0         0         
+__fini_array_end              NOTYPE    LOCAL     186f8     0         
+__fini_array_start            NOTYPE    LOCAL     186f4     0         
+__init_array_end              NOTYPE    LOCAL     186f4     0         
+__preinit_array_end           NOTYPE    LOCAL     186ec     0         
+__init_array_start            NOTYPE    LOCAL     186ec     0         
+__preinit_array_start         NOTYPE    LOCAL     186ec     0         
+__lock___atexit_recursive_mutexOBJECT    GLOBAL    18b48     1         
+__lock___arc4random_mutex     OBJECT    GLOBAL    18b4c     1         
+__atexit_recursive_mutex      OBJECT    GLOBAL    18b28     4         
+__retarget_lock_close         FUNC      GLOBAL    85dc      4         
+_bss_end__                    NOTYPE    GLOBAL    18b6c     0         
+__bss_start__                 NOTYPE    GLOBAL    18b2c     0         
+__dso_handle                  OBJECT    GLOBAL    186f8     0         
+__lock___env_recursive_mutex  OBJECT    GLOBAL    18b50     1         
+__lock___sinit_recursive_mutexOBJECT    GLOBAL    18b54     1         
+_global_impure_ptr            OBJECT    GLOBAL    86dc      4         
+__libc_init_array             FUNC      GLOBAL    8294      88        
+_mainCRTStartup               NOTYPE    GLOBAL    816c      0         
+_init                         FUNC      GLOBAL    8000      0         
+__libc_fini_array             FUNC      GLOBAL    8590      44        
+__lock___malloc_recursive_mutexOBJECT    GLOBAL    18b58     1         
+add                           FUNC      GLOBAL    821c      38        
+__retarget_lock_release_recursiveFUNC      GLOBAL    8600      4         
+__retarget_lock_try_acquire_recursiveFUNC      GLOBAL    85f4      8         
+__bss_end__                   NOTYPE    GLOBAL    18b6c     0         
+__call_exitprocs              FUNC      GLOBAL    8438      138       
+_start                        NOTYPE    GLOBAL    816c      0         
+__retarget_lock_try_acquire   FUNC      GLOBAL    85ec      8         
+__register_exitproc           FUNC      GLOBAL    8604      bc        
+_stack_init                   NOTYPE    WEAK      80e4      0         
+__retarget_lock_close_recursiveFUNC      GLOBAL    85e0      4         
+__retarget_lock_acquire_recursiveFUNC      GLOBAL    85e8      4         
+__bss_start                   NOTYPE    GLOBAL    18b2c     0         
+memset                        FUNC      GLOBAL    831c      11c       
+main                          FUNC      GLOBAL    8254      40        
+__retarget_lock_init_recursiveFUNC      GLOBAL    85d8      4         
+__end__                       NOTYPE    GLOBAL    18b6c     0         
+__retarget_lock_init          FUNC      GLOBAL    85d4      4         
+_fini                         FUNC      GLOBAL    86c4      0         
+atexit                        FUNC      GLOBAL    8570      20        
+_impure_ptr                   OBJECT    GLOBAL    186fc     4         
+_edata                        NOTYPE    GLOBAL    18b2c     0         
+_end                          NOTYPE    GLOBAL    18b6c     0         
+__lock___at_quick_exit_mutex  OBJECT    GLOBAL    18b5c     1         
+exit                          FUNC      GLOBAL    8018      34        
+__retarget_lock_acquire       FUNC      GLOBAL    85e4      4         
+__retarget_lock_release       FUNC      GLOBAL    85fc      4         
+_exit                         FUNC      GLOBAL    86c0      4         
+__lock___dd_hash_mutex        OBJECT    GLOBAL    18b60     1         
+__lock___tz_mutex             OBJECT    GLOBAL    18b64     1         
+_stack                        NOTYPE    GLOBAL    80000     0         
+__data_start                  NOTYPE    GLOBAL    186f8     0         
+__lock___sfp_recursive_mutex  OBJECT    GLOBAL    18b68     1         
+
+Symbol versions
+===============
+
+Symbol versions definition
+==========================
+
+Symbol version requirement
+==========================
+
+Dynamic relocations
+===================
+
+.plt.got relocations
+====================
+
+
+

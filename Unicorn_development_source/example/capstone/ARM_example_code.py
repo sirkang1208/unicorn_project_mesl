@@ -1,5 +1,4 @@
 from unicorn import *
-from capstone import *
 from unicorn.arm_const import *
 
 ARM_CODE32 = b"\x37\x00\xa0\xe3\x03\x10\x42\xe0" # mov r0, #0x37; sub r1, r2, r3
@@ -28,24 +27,23 @@ def print_all_reg(uc):
     pc = uc.reg_read(UC_ARM_REG_PC)
     cpsr = uc.reg_read(UC_ARM_REG_CPSR)
     
-    print("R0 = 0x%x" %r0, end = ', ')
-    print("R1 = 0x%x" %r1, end = ', ')
-    print("R2 = 0x%x" %r2, end = ', ')
-    print("R3 = 0x%x" %r3, end = ', ')
-    print("R4 = 0x%x" %r4, end = ', ')
-    print("R5 = 0x%x" %r5, end = ', ')
-    print("R6 = 0x%x" %r6, end = ', ')
-    print("R7 = 0x%x" %r7, end = ', ')
-    print("R8 = 0x%x" %r8, end = ', ')
-    print("R9 = 0x%x" %r9, end = ', ')
-    print("R10 = 0x%x" %r10, end = ', ')
-    print("FP = 0x%x" %fp, end = ', ')
-    print("IP = 0x%x" %ip, end = ', ')
-    print("SP = 0x%x" %sp, end = ', ')
-    print("LR = 0x%x" %lr, end = ', ')
-    print("PC = 0x%x" %pc, end = ', ')
-    print("CPSR = 0x%x" %cpsr, end = ', ')
-    print()
+    print(">>> R0 = 0x%x" %r0)
+    print(">>> R1 = 0x%x" %r1)
+    print(">>> R2 = 0x%x" %r2)
+    print(">>> R3 = 0x%x" %r3)
+    print(">>> R4 = 0x%x" %r4)
+    print(">>> R5 = 0x%x" %r5)
+    print(">>> R6 = 0x%x" %r6)
+    print(">>> R7 = 0x%x" %r7)
+    print(">>> R8 = 0x%x" %r8)
+    print(">>> R9 = 0x%x" %r9)
+    print(">>> R10 = 0x%x" %r10)
+    print(">>> FP = 0x%x" %fp)
+    print(">>> IP = 0x%x" %ip)
+    print(">>> SP = 0x%x" %sp)
+    print(">>> LR = 0x%x" %lr)
+    print(">>> PC = 0x%x" %pc)
+    print(">>> CPSR = 0x%x" %cpsr)
     
 def print_mem(uc):
     tot_mem = uc.mem_read(ADDRESS,len(ARM_CODE32))
@@ -85,11 +83,6 @@ def change_reg(uc):
 # callback for tracing instructions
 def hook_code(uc, address, size, user_data):
     #break every each instruction and get input
-    
-    # for i in cs.disasm(ARM_CODE32, ADDRESS):
-    #     #when we disassemble, we get array which have address, mnemonic, op_str
-    #     print("0x%x:\t%s\t%s" %(i.address, i.mnemonic, i.op_str))
-    
     while(1):
         print('-----------------------------')
         print("function: ")

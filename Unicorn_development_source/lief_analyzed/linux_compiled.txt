@@ -1,0 +1,261 @@
+Header
+======
+Magic:                           7f 45 4c 46 
+Class:                           CLASS64
+Endianness:                      LSB
+Version:                         CURRENT
+OS/ABI:                          SYSTEMV
+ABI Version:                     0
+Machine type:                    x86_64
+File type:                       DYNAMIC
+Object file version:             CURRENT
+Entry Point:                     0x1040
+Program header offset:           0x40
+Section header offset:           13920
+Processor Flag:                  0 
+Header size:                     64
+Size of program header:          56
+Number of program header:        13
+Size of section header:          64
+Number of section headers:       29
+Section Name Table idx:          28
+
+Sections
+========
+                    NULL           0         0         0         0                                                      
+.interp             PROGBITS       318       1c        318       3.94076   ALLOC                         INTERP LOAD    
+.note.gnu.property  NOTE           338       30        338       1.93455   ALLOC                         LOAD NOTE GNU_PROPERTY
+.note.gnu.build-id  NOTE           368       24        368       4.19161   ALLOC                         LOAD NOTE      
+.note.ABI-tag       NOTE           38c       20        38c       1.56128   ALLOC                         LOAD NOTE      
+.gnu.hash           GNU_HASH       3b0       24        3b0       1.71961   ALLOC                         LOAD           
+.dynsym             DYNSYM         3d8       90        3d8       0.561516  ALLOC                         LOAD           
+.dynstr             STRTAB         468       88        468       4.59199   ALLOC                         LOAD           
+.gnu.version        HIOS           4f0       c         4f0       1.5511    ALLOC                         LOAD           
+.gnu.version_r      GNU_VERNEED    500       30        500       2.30204   ALLOC                         LOAD           
+.rela.dyn           RELA           530       c0        530       1.38661   ALLOC                         LOAD           
+.init               PROGBITS       1000      1b        1000      4.23637   ALLOC EXECINSTR               LOAD           
+.plt                PROGBITS       1020      10        1020      3.0244    ALLOC EXECINSTR               LOAD           
+.plt.got            PROGBITS       1030      10        1030      3.375     ALLOC EXECINSTR               LOAD           
+.text               PROGBITS       1040      111       1040      5.18331   ALLOC EXECINSTR               LOAD           
+.fini               PROGBITS       1154      d         1154      3.2389    ALLOC EXECINSTR               LOAD           
+.rodata             PROGBITS       2000      4         2000      1.5       ALLOC MERGE                   LOAD           
+.eh_frame_hdr       PROGBITS       2004      2c        2004      3.10003   ALLOC                         LOAD GNU_EH_FRAME
+.eh_frame           PROGBITS       2030      94        2030      3.62066   ALLOC                         LOAD           
+.init_array         INIT_ARRAY     3df0      8         2df0      1.06128   WRITE ALLOC                   LOAD GNU_RELRO 
+.fini_array         FINI_ARRAY     3df8      8         2df8      1.06128   WRITE ALLOC                   LOAD GNU_RELRO 
+.dynamic            DYNAMIC        3e00      1c0       2e00      1.42134   WRITE ALLOC                   LOAD DYNAMIC GNU_RELRO
+.got                PROGBITS       3fc0      40        2fc0      0.116115  WRITE ALLOC                   LOAD GNU_RELRO 
+.data               PROGBITS       4000      10        3000      0.668564  WRITE ALLOC                   LOAD           
+.bss                NOBITS         4010      8         3010      2.75      WRITE ALLOC                   LOAD           
+.comment            PROGBITS       0         2b        3010      4.02536   MERGE STRINGS                                
+.symtab             SYMTAB         0         348       3040      1.74396                                                
+.strtab             STRTAB         0         1c9       3388      4.77856                                                
+.shstrtab           STRTAB         0         10c       3551      4.26853                                                
+
+Segments
+========
+PHDR              r--       40        40        40        2d8       2d8       8         
+
+INTERP            r--       318       318       318       1c        1c        1         
+Sections in this segment :
+	.interp
+
+LOAD              r--       0         0         0         5f0       5f0       1000      
+Sections in this segment :
+	.interp
+	.note.gnu.property
+	.note.gnu.build-id
+	.note.ABI-tag
+	.gnu.hash
+	.dynsym
+	.dynstr
+	.gnu.version
+	.gnu.version_r
+	.rela.dyn
+
+LOAD              r-x       1000      1000      1000      161       161       1000      
+Sections in this segment :
+	.init
+	.plt
+	.plt.got
+	.text
+	.fini
+
+LOAD              r--       2000      2000      2000      c4        c4        1000      
+Sections in this segment :
+	.rodata
+	.eh_frame_hdr
+	.eh_frame
+
+LOAD              rw-       2df0      3df0      3df0      220       228       1000      
+Sections in this segment :
+	.init_array
+	.fini_array
+	.dynamic
+	.got
+	.data
+	.bss
+
+DYNAMIC           rw-       2e00      3e00      3e00      1c0       1c0       8         
+Sections in this segment :
+	.dynamic
+
+NOTE              r--       338       338       338       30        30        8         
+Sections in this segment :
+	.note.gnu.property
+
+NOTE              r--       368       368       368       44        44        4         
+Sections in this segment :
+	.note.gnu.build-id
+	.note.ABI-tag
+
+GNU_PROPERTY      r--       338       338       338       30        30        8         
+Sections in this segment :
+	.note.gnu.property
+
+GNU_EH_FRAME      r--       2004      2004      2004      2c        2c        4         
+Sections in this segment :
+	.eh_frame_hdr
+
+GNU_STACK         rw-       0         0         0         0         0         10        
+
+GNU_RELRO         r--       2df0      3df0      3df0      210       210       1         
+Sections in this segment :
+	.init_array
+	.fini_array
+	.dynamic
+	.got
+
+
+Dynamic entries
+===============
+NEEDED              22        libc.so.6 
+INIT                1000      
+FINI                1154      
+INIT_ARRAY          3df0      [0x1120]
+INIT_ARRAYSZ        8         
+FINI_ARRAY          3df8      [0x10e0]
+FINI_ARRAYSZ        8         
+GNU_HASH            3b0       
+STRTAB              468       
+SYMTAB              3d8       
+STRSZ               88        
+SYMENT              18        
+DEBUG               0         
+PLTGOT              3fc0      
+RELA                530       
+RELASZ              c0        
+RELAENT             18        
+FLAGS               8          BIND_NOW
+FLAGS_1             8000001    NOW - PIE
+VERNEED             500       
+VERNEEDNUM          1         
+VERSYM              4f0       
+RELACOUNT           3         
+NULL                0         
+
+Dynamic symbols
+===============
+                              NOTYPE    LOCAL     0         0         * Local * 
+__libc_start_main             FUNC      GLOBAL    0         0         GLIBC_2.34(2)
+_ITM_deregisterTMCloneTable   NOTYPE    WEAK      0         0         * Global *
+__gmon_start__                NOTYPE    WEAK      0         0         * Global *
+_ITM_registerTMCloneTable     NOTYPE    WEAK      0         0         * Global *
+__cxa_finalize                FUNC      WEAK      0         0         GLIBC_2.2.5(3)
+
+Static symbols
+==============
+                              NOTYPE    LOCAL     0         0         
+Scrt1.o                       FILE      LOCAL     0         0         
+__abi_tag                     OBJECT    LOCAL     38c       20        
+crtstuff.c                    FILE      LOCAL     0         0         
+deregister_tm_clones          FUNC      LOCAL     1070      0         
+register_tm_clones            FUNC      LOCAL     10a0      0         
+__do_global_dtors_aux         FUNC      LOCAL     10e0      0         
+completed.0                   OBJECT    LOCAL     4010      1         
+__do_global_dtors_aux_fini_array_entryOBJECT    LOCAL     3df8      0         
+frame_dummy                   FUNC      LOCAL     1120      0         
+__frame_dummy_init_array_entryOBJECT    LOCAL     3df0      0         
+test.c                        FILE      LOCAL     0         0         
+crtstuff.c                    FILE      LOCAL     0         0         
+__FRAME_END__                 OBJECT    LOCAL     20c0      0         
+                              FILE      LOCAL     0         0         
+_DYNAMIC                      OBJECT    LOCAL     3e00      0         
+__GNU_EH_FRAME_HDR            NOTYPE    LOCAL     2004      0         
+_GLOBAL_OFFSET_TABLE_         OBJECT    LOCAL     3fc0      0         
+__libc_start_main@GLIBC_2.34  FUNC      GLOBAL    0         0         
+_ITM_deregisterTMCloneTable   NOTYPE    WEAK      0         0         
+data_start                    NOTYPE    WEAK      4000      0         
+_edata                        NOTYPE    GLOBAL    4010      0         
+_fini                         FUNC      GLOBAL    1154      0         
+__data_start                  NOTYPE    GLOBAL    4000      0         
+__gmon_start__                NOTYPE    WEAK      0         0         
+__dso_handle                  OBJECT    GLOBAL    4008      0         
+_IO_stdin_used                OBJECT    GLOBAL    2000      4         
+_end                          NOTYPE    GLOBAL    4018      0         
+_start                        FUNC      GLOBAL    1040      26        
+__bss_start                   NOTYPE    GLOBAL    4010      0         
+main                          FUNC      GLOBAL    1129      28        
+__TMC_END__                   OBJECT    GLOBAL    4010      0         
+_ITM_registerTMCloneTable     NOTYPE    WEAK      0         0         
+__cxa_finalize@GLIBC_2.2.5    FUNC      WEAK      0         0         
+_init                         FUNC      GLOBAL    1000      0         
+
+Symbol versions
+===============
+* Local *
+GLIBC_2.34(2)
+* Global *
+* Global *
+* Global *
+GLIBC_2.2.5(3)
+
+Symbol versions definition
+==========================
+
+Symbol version requirement
+==========================
+1 libc.so.6
+
+Dynamic relocations
+===================
+3df0      RELATIVE  64  1120      0         DYNAMIC             
+3df8      RELATIVE  64  10e0      0         DYNAMIC             
+4008      RELATIVE  64  4008      0         DYNAMIC             
+3fd8      GLOB_DAT  64  0         1         DYNAMIC   __libc_start_main
+3fe0      GLOB_DAT  64  0         2         DYNAMIC   _ITM_deregisterTMCloneTable
+3fe8      GLOB_DAT  64  0         3         DYNAMIC   __gmon_start__
+3ff0      GLOB_DAT  64  0         4         DYNAMIC   _ITM_registerTMCloneTable
+3ff8      GLOB_DAT  64  0         5         DYNAMIC   __cxa_finalize
+
+.plt.got relocations
+====================
+
+Notes
+=====
+Note #0
+-------
+Name:                            GNU
+Type:                            PROPERTY_TYPE_0
+Description:                     [02 00 00 c0 04 00 00 00 03 00 00 00 00 00 00 00 ...]
+
+Note #1
+-------
+Name:                            GNU
+Type:                            BUILD_ID
+Description:                     [a8 a1 ae c8 46 b2 0d 73 9a a1 b8 4b 17 db d7 aa ...]
+ID Hash:                         a8a1aec846b20d739aa1b84b17dbd7aa4a3583be
+
+Note #2
+-------
+Name:                            GNU
+Type:                            ABI_TAG
+Description:                     [00 00 00 00 03 00 00 00 02 00 00 00 00 00 00 00]
+
+
+
+GNU Hash Table
+==============
+0x562142be6c00
+
+

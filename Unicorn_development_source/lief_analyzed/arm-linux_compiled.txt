@@ -1,0 +1,292 @@
+Header
+======
+Magic:                           7f 45 4c 46 
+Class:                           CLASS32
+Endianness:                      LSB
+Version:                         CURRENT
+OS/ABI:                          SYSTEMV
+ABI Version:                     0
+Machine type:                    ARM
+File type:                       EXECUTABLE
+Object file version:             CURRENT
+Entry Point:                     0x102f4
+Program header offset:           0x34
+Section header offset:           6480
+Processor Flag:                  83886592 SOFT_FLOAT EABI_VER5
+Header size:                     52
+Size of program header:          32
+Number of program header:        9
+Size of section header:          40
+Number of section headers:       29
+Section Name Table idx:          28
+
+Sections
+========
+                    NULL           0         0         0         0                                                      
+.interp             PROGBITS       10154     13        154       3.68188   ALLOC                         INTERP LOAD    
+.note.gnu.build-id  NOTE           10168     24        168       4.19161   ALLOC                         LOAD NOTE      
+.note.ABI-tag       NOTE           1018c     20        18c       1.56128   ALLOC                         LOAD NOTE      
+.gnu.hash           GNU_HASH       101ac     24        1ac       2.70574   ALLOC                         LOAD           
+.dynsym             DYNSYM         101d0     40        1d0       0.659955  ALLOC                         LOAD           
+.dynstr             STRTAB         10210     47        210       4.30342   ALLOC                         LOAD           
+.gnu.version        HIOS           10258     8         258       1.54879   ALLOC                         LOAD           
+.gnu.version_r      GNU_VERNEED    10260     30        260       2.26038   ALLOC                         LOAD           
+.rel.dyn            REL            10290     8         290       2.40564   ALLOC                         LOAD           
+.rel.plt            REL            10298     18        298       2.53145   ALLOC INFO_LINK               LOAD           
+.init               PROGBITS       102b0     c         2b0       3.25163   ALLOC EXECINSTR               LOAD           
+.plt                PROGBITS       102bc     38        2bc       4.24398   ALLOC EXECINSTR               LOAD           
+.text               PROGBITS       102f4     138       2f4       5.11414   ALLOC EXECINSTR               LOAD           
+.fini               PROGBITS       1042c     8         42c       2.75      ALLOC EXECINSTR               LOAD           
+.rodata             PROGBITS       10434     124       434       1.54568   ALLOC                         LOAD           
+.ARM.exidx          ARM_EXIDX      10558     8         558       2.40564   ALLOC LINK_ORDER              ARM_UNWIND LOAD
+.eh_frame           PROGBITS       10560     4         560       -0        ALLOC                         LOAD           
+.init_array         INIT_ARRAY     20f10     4         f10       2         WRITE ALLOC                   LOAD GNU_RELRO 
+.fini_array         FINI_ARRAY     20f14     4         f14       2         WRITE ALLOC                   LOAD GNU_RELRO 
+.dynamic            DYNAMIC        20f18     e8        f18       2.51417   WRITE ALLOC                   LOAD DYNAMIC GNU_RELRO
+.got                PROGBITS       21000     20        1000      2.17995   WRITE ALLOC                   LOAD           
+.data               PROGBITS       21020     8         1020      -0        WRITE ALLOC                   LOAD           
+.bss                NOBITS         21028     4         1028      1.5       WRITE ALLOC                   LOAD           
+.comment            PROGBITS       0         2b        1028      4.02536   MERGE STRINGS                                
+.ARM.attributes     ARM_ATTRIBUTES 0         2a        1053      4.15422                                                
+.symtab             SYMTAB         0         600       1080      2.55272                                                
+.strtab             STRTAB         0         1c9       1680      4.62288                                                
+.shstrtab           STRTAB         0         105       1849      4.31859                                                
+
+Segments
+========
+ARM_UNWIND        r--       558       10558     10558     8         8         4         
+Sections in this segment :
+	.ARM.exidx
+
+PHDR              r--       34        10034     10034     120       120       4         
+
+INTERP            r--       154       10154     10154     13        13        1         
+Sections in this segment :
+	.interp
+
+LOAD              r-x       0         10000     10000     564       564       10000     
+Sections in this segment :
+	.interp
+	.note.gnu.build-id
+	.note.ABI-tag
+	.gnu.hash
+	.dynsym
+	.dynstr
+	.gnu.version
+	.gnu.version_r
+	.rel.dyn
+	.rel.plt
+	.init
+	.plt
+	.text
+	.fini
+	.rodata
+	.ARM.exidx
+	.eh_frame
+
+LOAD              rw-       f10       20f10     20f10     118       11c       10000     
+Sections in this segment :
+	.init_array
+	.fini_array
+	.dynamic
+	.got
+	.data
+	.bss
+
+DYNAMIC           rw-       f18       20f18     20f18     e8        e8        4         
+Sections in this segment :
+	.dynamic
+
+NOTE              r--       168       10168     10168     44        44        4         
+Sections in this segment :
+	.note.gnu.build-id
+	.note.ABI-tag
+
+GNU_STACK         rw-       0         0         0         0         0         10        
+
+GNU_RELRO         r--       f10       20f10     20f10     f0        f0        1         
+Sections in this segment :
+	.init_array
+	.fini_array
+	.dynamic
+
+
+Dynamic entries
+===============
+NEEDED              19        libc.so.6 
+INIT                102b0     
+FINI                1042c     
+INIT_ARRAY          20f10     [0x103e8]
+INIT_ARRAYSZ        4         
+FINI_ARRAY          20f14     [0x103c0]
+FINI_ARRAYSZ        4         
+GNU_HASH            101ac     
+STRTAB              10210     
+SYMTAB              101d0     
+STRSZ               47        
+SYMENT              10        
+DEBUG               0         
+PLTGOT              21000     
+PLTRELSZ            18        
+PLTREL              11        
+JMPREL              10298     
+REL                 10290     
+RELSZ               8         
+RELENT              8         
+VERNEED             10260     
+VERNEEDNUM          1         
+VERSYM              10258     
+NULL                0         
+
+Dynamic symbols
+===============
+                              NOTYPE    LOCAL     0         0         * Local * 
+__gmon_start__                NOTYPE    WEAK      0         0         * Global *
+__libc_start_main             FUNC      GLOBAL    0         0         GLIBC_2.34(2)
+abort                         FUNC      GLOBAL    0         0         GLIBC_2.4 (3)
+
+Static symbols
+==============
+                              NOTYPE    LOCAL     0         0         
+                              SECTION   LOCAL     10154     0         
+                              SECTION   LOCAL     10168     0         
+                              SECTION   LOCAL     1018c     0         
+                              SECTION   LOCAL     101ac     0         
+                              SECTION   LOCAL     101d0     0         
+                              SECTION   LOCAL     10210     0         
+                              SECTION   LOCAL     10258     0         
+                              SECTION   LOCAL     10260     0         
+                              SECTION   LOCAL     10290     0         
+                              SECTION   LOCAL     10298     0         
+                              SECTION   LOCAL     102b0     0         
+                              SECTION   LOCAL     102bc     0         
+                              SECTION   LOCAL     102f4     0         
+                              SECTION   LOCAL     1042c     0         
+                              SECTION   LOCAL     10434     0         
+                              SECTION   LOCAL     10558     0         
+                              SECTION   LOCAL     10560     0         
+                              SECTION   LOCAL     20f10     0         
+                              SECTION   LOCAL     20f14     0         
+                              SECTION   LOCAL     20f18     0         
+                              SECTION   LOCAL     21000     0         
+                              SECTION   LOCAL     21020     0         
+                              SECTION   LOCAL     21028     0         
+                              SECTION   LOCAL     0         0         
+                              SECTION   LOCAL     0         0         
+crt1.o                        FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     1018c     0         
+__abi_tag                     OBJECT    LOCAL     1018c     20        
+$a                            NOTYPE    LOCAL     102f4     0         
+$d                            NOTYPE    LOCAL     10330     0         
+$d                            NOTYPE    LOCAL     10558     0         
+$d                            NOTYPE    LOCAL     10434     0         
+$d                            NOTYPE    LOCAL     21020     0         
+crti.o                        FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     10338     0         
+call_weak_fn                  FUNC      LOCAL     10338     0         
+$d                            NOTYPE    LOCAL     10354     0         
+$a                            NOTYPE    LOCAL     102b0     0         
+$a                            NOTYPE    LOCAL     1042c     0         
+crtn.o                        FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     102b8     0         
+$a                            NOTYPE    LOCAL     10430     0         
+crtstuff.c                    FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     10438     0         
+all_implied_fbits             OBJECT    LOCAL     10438     0         
+$a                            NOTYPE    LOCAL     1035c     0         
+deregister_tm_clones          FUNC      LOCAL     1035c     0         
+$d                            NOTYPE    LOCAL     1037c     0         
+$a                            NOTYPE    LOCAL     10388     0         
+register_tm_clones            FUNC      LOCAL     10388     0         
+$d                            NOTYPE    LOCAL     103b4     0         
+$d                            NOTYPE    LOCAL     21024     0         
+$a                            NOTYPE    LOCAL     103c0     0         
+__do_global_dtors_aux         FUNC      LOCAL     103c0     0         
+$d                            NOTYPE    LOCAL     103e4     0         
+completed.0                   OBJECT    LOCAL     21028     1         
+$d                            NOTYPE    LOCAL     20f14     0         
+__do_global_dtors_aux_fini_array_entryOBJECT    LOCAL     20f14     0         
+$a                            NOTYPE    LOCAL     103e8     0         
+frame_dummy                   FUNC      LOCAL     103e8     0         
+$d                            NOTYPE    LOCAL     20f10     0         
+__frame_dummy_init_array_entryOBJECT    LOCAL     20f10     0         
+$d                            NOTYPE    LOCAL     21028     0         
+test.c                        FILE      LOCAL     0         0         
+$a                            NOTYPE    LOCAL     103ec     0         
+crtstuff.c                    FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     104c8     0         
+all_implied_fbits             OBJECT    LOCAL     104c8     0         
+$d                            NOTYPE    LOCAL     10560     0         
+__FRAME_END__                 OBJECT    LOCAL     10560     0         
+                              FILE      LOCAL     0         0         
+_DYNAMIC                      OBJECT    LOCAL     20f18     0         
+_GLOBAL_OFFSET_TABLE_         OBJECT    LOCAL     21000     0         
+$a                            NOTYPE    LOCAL     102bc     0         
+$d                            NOTYPE    LOCAL     102cc     0         
+$a                            NOTYPE    LOCAL     102d0     0         
+__libc_start_main@GLIBC_2.34  FUNC      GLOBAL    0         0         
+data_start                    NOTYPE    WEAK      21020     0         
+__bss_start__                 NOTYPE    GLOBAL    21028     0         
+_bss_end__                    NOTYPE    GLOBAL    2102c     0         
+_edata                        NOTYPE    GLOBAL    21028     0         
+_fini                         FUNC      GLOBAL    1042c     0         
+__bss_end__                   NOTYPE    GLOBAL    2102c     0         
+__data_start                  NOTYPE    GLOBAL    21020     0         
+__gmon_start__                NOTYPE    WEAK      0         0         
+__dso_handle                  OBJECT    GLOBAL    21024     0         
+_IO_stdin_used                OBJECT    GLOBAL    10434     4         
+_end                          NOTYPE    GLOBAL    2102c     0         
+_start                        FUNC      GLOBAL    102f4     0         
+__end__                       NOTYPE    GLOBAL    2102c     0         
+__bss_start                   NOTYPE    GLOBAL    21028     0         
+main                          FUNC      GLOBAL    103ec     40        
+__TMC_END__                   OBJECT    GLOBAL    21028     0         
+abort@GLIBC_2.4               FUNC      GLOBAL    0         0         
+_init                         FUNC      GLOBAL    102b0     0         
+
+Symbol versions
+===============
+* Local *
+* Global *
+GLIBC_2.34(2)
+GLIBC_2.4(3)
+
+Symbol versions definition
+==========================
+
+Symbol version requirement
+==========================
+1 libc.so.6
+
+Dynamic relocations
+===================
+21018     GLOB_DAT  32  0         1         DYNAMIC   __gmon_start__
+
+.plt.got relocations
+====================
+2100c     JUMP_SLOT 32  0         2         PLTGOT    __libc_start_main
+21010     JUMP_SLOT 32  0         1         PLTGOT    __gmon_start__
+21014     JUMP_SLOT 32  0         3         PLTGOT    abort     
+
+Notes
+=====
+Note #0
+-------
+Name:                            GNU
+Type:                            BUILD_ID
+Description:                     [05 9f 2d 9d a9 37 cc 3c 16 9e fc bf 25 f1 8e 0e ...]
+ID Hash:                         059f2d9da937cc3c169efcbf25f18e0ea4949525
+
+Note #1
+-------
+Name:                            GNU
+Type:                            ABI_TAG
+Description:                     [00 00 00 00 03 00 00 00 02 00 00 00 00 00 00 00]
+
+
+
+GNU Hash Table
+==============
+0x55fa0e97cd30
+
+
