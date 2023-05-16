@@ -117,8 +117,11 @@ def change_reg(uc):
 
 # callback for tracing instructions
 def hook_code(uc, address, size, user_data):
-    fname = 'output_'+ str(filename)[:19] + '.txt'
-    sys.stdout = open(fname,'a')
+
+    # save the log file
+    filename = datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S")
+    filename = "./log/" + filename + ".txt"
+    sys.stdout = open(filename,'a')
     
     global COUNT
     #break every each instruction and get input
