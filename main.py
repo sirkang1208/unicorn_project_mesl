@@ -10,9 +10,10 @@ import datetime
 # code update start address
 ADDRESS = 0x8000
 
+
 # read file from start address to eof
 with open("./Unicorn_development_source/compiled_program/arm-none_compiled_1", "rb") as f:
-    f.seek(int(str(ADDRESS), 16),0)
+    f.seek(int(str(ADDRESS),0))
     code = f.read()
 
 # code which gonna be emulated
