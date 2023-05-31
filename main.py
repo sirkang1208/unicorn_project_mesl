@@ -6,10 +6,46 @@ from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
 import sys
 import datetime
+import lief
+import operator
+
+elf_file = lief.parse("/home/kibong/Desktop/unicorn_project_mesl/Unicorn_development_source/compiled_program/global_val")
+functions = {}
+
+try:
+    for f in elf_file.exported_functions:
+        tmpn = f.name
+        c = 0
+        while tmpn in functions:
+            c += 1
+            tmpn = f.name + str(c)
+        functions[tmpn] = f.address
+except:
+    pass
+
+d1 = sorted(functions.items(), key = lambda x : x[1] )
+func_sort = dict(d1)
+
+for index, (key,elem) in enumerate(func_sort.items()):
+    if key == 'main':
+        a = index
+        break
+func_list = list(func_sort.items())
 
 # code update start address
-ADDRESS = 0x8000
+ADDRESS = list(func_sort.values())[0]
+print(ADDRESS)
 
+# memory address where emulation starts
+emu_ADDRESS = func_sort.get('main')
+print(emu_ADDRESS)
+
+# emluation length -> main function length is enough
+main_func_length = func_list[a+1][1] - emu_ADDRESS
+print(main_func_length)
+
+# exit addr -> set lr register at the beginning
+exit_addr = hex(func_sort.get('exit'))
 
 # read file from start address to eof
 with open("./Unicorn_development_source/compiled_program/arm-none_compiled_1", "rb") as f:
@@ -23,18 +59,11 @@ ARM_CODE32 = code
 STACK_ADDRESS = 0x80000000
 STACK_SIZE = 0x10000
 
-# memory address where emulation starts
-emu_ADDRESS = 0x8254
-
-# emluation length -> main function length is enough
-main_func_length = 0x40
-
-
 # using at print function
-COUNT = 0
+COUNT = (emu_ADDRESS - ADDRESS)/4
+print(COUNT)
 
 # log file setting before the program starts
-
 filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt"
 
 # print instruction detail -> address: instruction opcode string
@@ -148,7 +177,6 @@ def hook_code(uc, address, size, user_data):
     print_mem(uc,address,4)
     COUNT += 1
 
-
 def main():
 
     print("Emulate ARM code")
@@ -165,7 +193,7 @@ def main():
         mc = Cs(CS_ARCH_ARM, CS_MODE_ARM)
 
         # map 2MB memory for this emulation
-        mu.mem_map(ADDRESS,2*1024*1024)
+        mu.mem_map(ADDRESS, 4*1024*1024)
         
         # map stack region as much as stack size
         mu.mem_map(STACK_ADDRESS - STACK_SIZE, STACK_SIZE)

@@ -2,6 +2,7 @@ import lief
 import sys
 import unicorn as uc
 import capstone as cs
+import operator
 
 # def elfloader(elf_file, emu, map_virtual_segments=False, verbose=False):
 # emu = rainbow_arm
@@ -13,7 +14,7 @@ verbose = False
 unc = uc.Uc(uc.UC_ARCH_ARM, uc.UC_MODE_ARM+uc.UC_MODE_LITTLE_ENDIAN)
 cap = cs.Cs(cs.CS_ARCH_ARM, cs.CS_MODE_ARM+cs.CS_MODE_LITTLE_ENDIAN)
 emu = {}
-emu.functions = {}
+functions = {}
 if verbose:
     print(f"[x] Loading ELF segments...")
 
@@ -28,13 +29,13 @@ if len(list(elf_file.segments)) > 0:
             print(segment.virtual_address + segment.virtual_size)
             print(segment.content)
             print(verbose)
-            unc.mem_write(segment.virtual_address, bytes(segment.content))
+            #unc.mem_write(segment.virtual_address, bytes(segment.content))
         else:
             print(segment.physical_address)
             print(segment.physical_address + segment.physical_size)
             print(verbose)
             print(segment.content)
-            unc.mem_write(segment.physical_address, bytes(segment.content))
+            #unc.mem_write(segment.physical_address, bytes(segment.content))
 else:
     # if there are no segments, still attempt to map .text area
     section = elf_file.get_section(".text")
@@ -55,7 +56,7 @@ for r in elf_file.relocations:
             rsv = r.symbol.value
             print(rsv)
         # emu = rainbow_arm -> information of functions
-        emu.functions[r.symbol.name] = rsv
+        functions[r.symbol.name] = rsv
         if verbose:
             print(f"Relocating {r.symbol.name} at {r.address:x} to {rsv:x}")
         # emu = rainbow_arm -> input value in address -> what value?
@@ -67,34 +68,57 @@ try:
         tmpn = f.name
         print(tmpn)
         c = 0
-        while tmpn in emu.functions:
+        while tmpn in functions:
             c += 1
             tmpn = f.name + str(c)
-        emu.functions[tmpn] = f.address
+        functions[tmpn] = f.address
 except:
     pass
 
 ## TODO: when the ELF has relocated functions exported, LIEF fails on get_function_address
-for i in elf_file.symbols:
-    if i.type == lief.ELF.SYMBOL_TYPES.FUNC:
-        try:
-            tmpn = i.name
-            addr = i.value
-            if tmpn in emu.functions.keys():
-                if emu.functions[tmpn] != addr:
-                    c = 0
-                    while tmpn in emu.functions.keys():
-                        c += 1
-                        tmpn = i.name + str(c)
-                    emu.functions[tmpn] = addr
-            else:
-                emu.functions[tmpn] = addr
-        except Exception as exc:
-            if verbose:
-                print(exc)
+# for i in elf_file.symbols:
+#     if i.type == lief.ELF.SYMBOL_TYPES.FUNC:
+#         try:
+#             tmpn = i.name
+#             addr = i.value
+#             if tmpn in functions.keys():
+#                 if functions[tmpn] != addr:
+#                     c = 0
+#                     while tmpn in functions.keys():
+#                         c += 1
+#                         tmpn = i.name + str(c)
+#                     functions[tmpn] = addr
+#             else:
+#                 functions[tmpn] = addr
+#         except Exception as exc:
+#             if verbose:
+#                 print(exc)
 
-emu.function_names = {emu.functions[x]: x for x in emu.functions.keys()}
+#sort dictionary by values
+d1 = sorted(functions.items(), key = lambda x : x[1] )
+func_sort = dict(d1)
+print(func_sort)
+
+#start address : _init()
+print(list(func_sort.values())[0])
+
+#entry_point
 print(elf_file.entrypoint)
+
+#main_address
+addr = func_sort.get('main')
+print(addr)
+
+for index, (key,elem) in enumerate(func_sort.items()):
+    if key == 'main':
+        a = index
+        print(a)
+        break
+
+func_list = list(func_sort.items())
+main_length = func_list[a+1][1] - addr
+print(hex(main_length))
+
 
 
 
