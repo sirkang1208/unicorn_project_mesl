@@ -9,7 +9,7 @@ import datetime
 import lief
 import operator
 
-elf_file = lief.parse("./Unicorn_development_source/compiled_program/arm-none_compiled_1")
+elf_file = lief.parse("./Unicorn_development_source/compiled_program/toy_example")
 functions = {}
 
 try:
@@ -48,7 +48,7 @@ print(main_func_length)
 exit_addr = hex(func_sort.get('exit'))
 
 # read file from start address to eof
-with open("./Unicorn_development_source/compiled_program/arm-none_compiled_1", "rb") as f:
+with open("./Unicorn_development_source/compiled_program/toy_example", "rb") as f:
     f.seek(int(str(ADDRESS),0))
     code = f.read()
 
