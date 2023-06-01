@@ -9,7 +9,7 @@ import datetime
 import lief
 import operator
 
-elf_file = lief.parse("/home/kibong/Desktop/unicorn_project_mesl/Unicorn_development_source/compiled_program/global_val")
+elf_file = lief.parse("./Unicorn_development_source/compiled_program/arm-none_compiled_1")
 functions = {}
 
 try:
@@ -58,10 +58,6 @@ ARM_CODE32 = code
 # board dependent data, must be set before the emulation
 STACK_ADDRESS = 0x80000000
 STACK_SIZE = 0x10000
-
-# using at print function
-COUNT = (emu_ADDRESS - ADDRESS)/4
-print(COUNT)
 
 # log file setting before the program starts
 filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt"
@@ -168,14 +164,13 @@ def change_reg(uc):
 # hook every instruction and fetch information we need
 def hook_code(uc, address, size, user_data):
     #input result in .txt file
-    global COUNT
-    print("instruction :", user_data[COUNT][0],end=' ')
+    addr = int((address-ADDRESS)/4)
+    print("instruction :", user_data[addr][0],end=' ')
     print("/ register data :", end="")
     print_all_reg(uc)
     print("/ modified register : ", end ='')
-    print(user_data[COUNT][1:], end = ' ')
+    print(user_data[addr][1:], end = ' ')
     print_mem(uc,address,4)
-    COUNT += 1
 
 def main():
 

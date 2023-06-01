@@ -20,6 +20,7 @@ except:
 
 d1 = sorted(functions.items(), key = lambda x : x[1] )
 func_sort = dict(d1)
+print(func_sort)
 
 #start address : _init()
 print(list(func_sort.values())[0])
