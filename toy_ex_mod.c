@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 const uint8_t SBox[256] = {
     0x63,0x7C,0x77,0x7B,0xF2,0x6B,0x6F,0xC5,0x30,0x01,0x67,0x2B,0xFE,0xD7,0xAB,0x76,
@@ -21,6 +22,13 @@ const uint8_t SBox[256] = {
 	0xE1,0xF8,0x98,0x11,0x69,0xD9,0x8E,0x94,0x9B,0x1E,0x87,0xE9,0xCE,0x55,0x28,0xDF,
 	0x8C,0xA1,0x89,0x0D,0xBF,0xE6,0x42,0x68,0x41,0x99,0x2D,0x0F,0xB0,0x54,0xBB,0x16
 };
+
+uint32_t InData[1] = {0x01};
+uint32_t InData1[3] = {0x00, 0x42,0x58};
+uint32_t InData2[3] = {0x00, 0x37,0x94};
+uint32_t InData3[2] = {0x00, 0x40};
+uint32_t InData4[31] = {0x00,0x01,0x03,0x79,0x44,0x05,0x20,0x10,0x35,0x30,0x07,0x03,0x01,0x03,0x31,0x06,0x55,0x30,0x10,0x11,0x12,0x13,0x14,0x15,0x16,0x17,0x18,0x19,0x20,0x21,0x22};
+uint32_t InData5[2] = {0x00, 0x52};
 
 void ADD(uint32_t *out, uint32_t *in){
 	out[1] = in[1] + in[2];
@@ -53,20 +61,20 @@ void RAND_XOR(uint32_t *out, uint32_t *in){
 	out[1] = in[1] ^ tmp[0];
 }
 
-bool IO_RECEIVE(uint32_t* input){
-  for(int i = 0; i < 30;i++){
-    scanf("%d",*(input+i));
-    if(input[i] == "\n"){
-      break;
-    }
-  }
-  if(*(input) != NULL){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
+// bool IO_RECEIVE(uint32_t* input){
+//   for(int i = 0; i < 30;i++){
+//     scanf("%d",*(input+i));
+//     if(input[i] == "\n"){
+//       break;
+//     }
+//   }
+//   if(*(input) != NULL){
+//     return true;
+//   }
+//   else{
+//     return false;
+//   }
+// }
 
 void IO_TRANSMIT(uint32_t* output){
   FILE* fp = fopen("result.txt","w");
@@ -77,26 +85,24 @@ void IO_TRANSMIT(uint32_t* output){
   fclose(fp);
 }
 
-
 void main(void){
-  uint32_t *InData;
   uint32_t *OutData;
-  bool RcvState = IO_RECEIVE(InData);
+  bool RcvState = true; //IO_RECEIVE(InData);
   if(RcvState == true){
     if(InData[0] == 0x01){ 
-      ADD(OutData, InData);        
+      ADD(OutData, InData1);        
     }
     if(InData[0] == 0x02){
-      MUL(OutData, InData);        
+      MUL(OutData, InData2);        
     }
     if(InData[0] == 0x03){
-      LUT(OutData, InData);        
+      LUT(OutData, InData3);        
     }
     if(InData[0] == 0x04){
-      MIXs(OutData, InData);
+      MIXs(OutData, InData4);
     }
     if(InData[0] == 0x05){
-      RAND_XOR(OutData, InData);
+      RAND_XOR(OutData, InData5);
     }
     IO_TRANSMIT(OutData);   
   }       

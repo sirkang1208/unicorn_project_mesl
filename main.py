@@ -1,7 +1,6 @@
 from __future__ import print_function
 from unicorn import *
 from capstone import *
-from capstone.arm import *
 from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
 import sys
@@ -9,80 +8,50 @@ import datetime
 import lief
 import operator
 
-elf_file = lief.parse("./Unicorn_development_source/compiled_program/toy_example")
 functions = {}
+# log file setting before the program starts
+filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt"
 
+elf_file = lief.parse("./Unicorn_development_source/compiled_program/toy_ex_mod")
 try:
     for f in elf_file.exported_functions:
-        tmpn = f.name
+        tmp = f.name
         c = 0
-        while tmpn in functions:
+        while tmp in functions:
             c += 1
-            tmpn = f.name + str(c)
-        functions[tmpn] = f.address
+            tmp = f.name + str(c)
+        functions[tmp] = f.address
 except:
     pass
-
-d1 = sorted(functions.items(), key = lambda x : x[1] )
-func_sort = dict(d1)
-
+func_sort = dict(sorted(functions.items(), key = lambda x : x[1] ))
+func_list = list(func_sort.items())
 for index, (key,elem) in enumerate(func_sort.items()):
     if key == 'main':
         a = index
         break
-func_list = list(func_sort.items())
 
 # code update start address
 ADDRESS = list(func_sort.values())[0]
-print(ADDRESS)
 
 # memory address where emulation starts
 emu_ADDRESS = func_sort.get('main')
-print(emu_ADDRESS)
 
-# emluation length -> main function length is enough
+# emulation length -> main function length is enough
 main_func_length = func_list[a+1][1] - emu_ADDRESS
-print(main_func_length)
 
 # exit addr -> set lr register at the beginning
-exit_addr = hex(func_sort.get('exit'))
+exit_addr = func_sort.get('exit')
 
 # read file from start address to eof
-with open("./Unicorn_development_source/compiled_program/toy_example", "rb") as f:
-    f.seek(int(str(ADDRESS),0))
+with open("./Unicorn_development_source/compiled_program/toy_ex_mod", "rb") as f:
+    f.seek(ADDRESS,0)
     code = f.read()
-
 # code which gonna be emulated
-ARM_CODE32 = code
+ARM_CODE = code
 
 # board dependent data, must be set before the emulation
 STACK_ADDRESS = 0x80000000
 STACK_SIZE = 0x10000
-
-# log file setting before the program starts
-filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt"
-
-# print instruction detail -> address: instruction opcode string
-def print_insn_detail(insn):
-    # print address, mnemonic and operands
-    print("0x%x:\t%s\t%s" % (insn.address, insn.mnemonic, insn.op_str))
-
-    if insn.id == 0:
-        return
-    
-    (regs_read, regs_write) = insn.regs_access()
-
-    if len(regs_read) > 0:
-        print("\tRegisters read:", end="")
-        for r in regs_read:
-            print(" %s" %(insn.reg_name(r)), end="")
-        print()
-
-    if len(regs_write) > 0:
-        print("\tRegisters modified:", end="")
-        for r in regs_write:
-            print(" %s" %(insn.reg_name(r)), end="")
-        print()
 
 # print all register
 def print_all_reg(uc):
@@ -189,22 +158,20 @@ def main():
 
         # map 2MB memory for this emulation
         mu.mem_map(ADDRESS, 4*1024*1024)
+        mu.mem_map(0x0,1024)
         
         # map stack region as much as stack size
         mu.mem_map(STACK_ADDRESS - STACK_SIZE, STACK_SIZE)
 
 
         # write machine code which should be emulated to memory
-        mu.mem_write(ADDRESS, ARM_CODE32)
+        mu.mem_write(ADDRESS, ARM_CODE)
 
         # initialize machine registers
         # stack pointer must be initialized
         mu.reg_write(UC_ARM_REG_SP, STACK_ADDRESS)
         
-        # idx : index of array which contains information about intruction
-        # copy_mne : array that stores mnemonic data copied
-        idx = 0
-        copy_mne = []
+
         # print("*" * 16)
         # print("Platform: ARM")
         # print("Code: %s" % to_hex(ARM_CODE32))
@@ -214,21 +181,27 @@ def main():
         mc.syntax = None
         mc.detail = True
 
+        # idx : index of array which contains information about intruction
+        # copy_mne : array that stores mnemonic data copied
+        idx = 0
+        copy_mne = []
+
         # copy mnemonics to copy_mne
         # add modified register at copy_mne
-        for insn in mc.disasm(ARM_CODE32, 0x10000):
+        for insn in mc.disasm(ARM_CODE, ADDRESS):
+            print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str))
             line = []
             copy_mne.append(line)
             copy_mne[idx].append(insn.mnemonic)
-            (regiread,regiwrite) = insn.regs_access()
-            for r in regiwrite:
+            (regiread,regi_write) = insn.regs_access()
+            for r in regi_write:
                 copy_mne[idx].append(insn.reg_name(r))
-            # print_insn_detail(insn)
-            # print ()
             idx += 1
-        
         # trace every instruction hook
-        mu.hook_add(UC_HOOK_CODE, hook_code, copy_mne, begin= ADDRESS, end= ADDRESS + len(ARM_CODE32))
+        print(len(copy_mne), end = ' / ')
+        print(int(len(ARM_CODE)/4))
+
+        mu.hook_add(UC_HOOK_CODE, hook_code, copy_mne, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
 
         # add address should be same as main function length
         mu.emu_start(emu_ADDRESS, emu_ADDRESS + main_func_length)
