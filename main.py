@@ -3,49 +3,35 @@ from unicorn import *
 from capstone import *
 from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
+from elfloader import *
 import sys
 import datetime
-import lief
 import operator
 
-functions = {}
 # log file setting before the program starts
 filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt"
+elf_file_name = "./Unicorn_development_source/compiled_program/arm-none_compiled_1"
 
-elf_file = lief.parse("./Unicorn_development_source/compiled_program/toy_ex_mod")
-try:
-    for f in elf_file.exported_functions:
-        tmp = f.name
-        c = 0
-        while tmp in functions:
-            c += 1
-            tmp = f.name + str(c)
-        functions[tmp] = f.address
-except:
-    pass
-func_sort = dict(sorted(functions.items(), key = lambda x : x[1] ))
-func_list = list(func_sort.items())
-for index, (key,elem) in enumerate(func_sort.items()):
-    if key == 'main':
-        a = index
-        break
+# making elf loader object for setup address
+e = ElfLoader(elf_file_name) 
 
 # code update start address
-ADDRESS = list(func_sort.values())[0]
+ADDRESS = e.get_start_add()
 
 # memory address where emulation starts
-emu_ADDRESS = func_sort.get('main')
+emu_ADDRESS = e.get_func_address('main')
 
 # emulation length -> main function length is enough
-main_func_length = func_list[a+1][1] - emu_ADDRESS
+main_func_length = e.get_main_len()
 
 # exit addr -> set lr register at the beginning
-exit_addr = func_sort.get('exit')
+exit_addr = e.get_func_address('exit')
 
 # read file from start address to eof
-with open("./Unicorn_development_source/compiled_program/toy_ex_mod", "rb") as f:
+with open(elf_file_name, "rb") as f:
     f.seek(ADDRESS,0)
     code = f.read()
+
 # code which gonna be emulated
 ARM_CODE = code
 

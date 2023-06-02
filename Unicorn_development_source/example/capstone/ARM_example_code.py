@@ -130,7 +130,6 @@ def main():
         # tracing one instruction at ADDRESS with customized callback
         mu.hook_add(UC_HOOK_CODE, hook_code, begin=ADDRESS, end=ADDRESS+len(ARM_CODE32))
         
-
         # emulate machine code in infinite time
         mu.emu_start(ADDRESS, ADDRESS + len(ARM_CODE32))
 
