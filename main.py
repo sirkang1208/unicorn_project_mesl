@@ -12,7 +12,7 @@ functions = {}
 # log file setting before the program starts
 filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt"
 
-elf_file = lief.parse("./Unicorn_development_source/compiled_program/toy_ex_mod")
+elf_file = lief.parse("./Unicorn_development_source/compiled_program/toy_ex_simplify_rand_xor")
 try:
     for f in elf_file.exported_functions:
         tmp = f.name
@@ -32,18 +32,21 @@ for index, (key,elem) in enumerate(func_sort.items()):
 
 # code update start address
 ADDRESS = list(func_sort.values())[0]
-
+print(ADDRESS)
 # memory address where emulation starts
 emu_ADDRESS = func_sort.get('main')
-
+print(emu_ADDRESS)
 # emulation length -> main function length is enough
 main_func_length = func_list[a+1][1] - emu_ADDRESS
 
 # exit addr -> set lr register at the beginning
 exit_addr = func_sort.get('exit')
 
+# _exit addr
+exit_addr_real = func_sort.get('_exit')
+
 # read file from start address to eof
-with open("./Unicorn_development_source/compiled_program/toy_ex_mod", "rb") as f:
+with open("./Unicorn_development_source/compiled_program/toy_ex_simplify_rand_xor", "rb") as f:
     f.seek(ADDRESS,0)
     code = f.read()
 # code which gonna be emulated
@@ -139,15 +142,15 @@ def hook_code(uc, address, size, user_data):
     print_all_reg(uc)
     print("/ modified register : ", end ='')
     print(user_data[addr][1:], end = ' ')
-    print_mem(uc,address,4)
+    print_mem(uc,address,2)
+
+    if address == exit_addr_real:
+        uc.emu_stop()
+
 
 def main():
 
     print("Emulate ARM code")
-
-    # save the log file
-    temp = sys.stdout
-    sys.stdout = open(filename,'a')
 
     try:
         # Initialize Unicorn in ARM mode
@@ -159,7 +162,6 @@ def main():
         # map 2MB memory for this emulation
         mu.mem_map(ADDRESS, 4*1024*1024)
         mu.mem_map(0x0,1024)
-        
         # map stack region as much as stack size
         mu.mem_map(STACK_ADDRESS - STACK_SIZE, STACK_SIZE)
 
@@ -170,7 +172,8 @@ def main():
         # initialize machine registers
         # stack pointer must be initialized
         mu.reg_write(UC_ARM_REG_SP, STACK_ADDRESS)
-        
+        mu.reg_write(UC_ARM_REG_FP, STACK_ADDRESS)
+        mu.reg_write(UC_ARM_REG_LR, exit_addr)
 
         # print("*" * 16)
         # print("Platform: ARM")
@@ -202,6 +205,10 @@ def main():
         print(int(len(ARM_CODE)/4))
 
         mu.hook_add(UC_HOOK_CODE, hook_code, copy_mne, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
+
+        # save the log file
+        temp = sys.stdout
+        sys.stdout = open(filename,'a')
 
         # add address should be same as main function length
         mu.emu_start(emu_ADDRESS, emu_ADDRESS + main_func_length)
