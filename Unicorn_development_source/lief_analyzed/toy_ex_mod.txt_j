@@ -1,0 +1,831 @@
+Header
+======
+Magic:                           7f 45 4c 46 
+Class:                           CLASS32
+Endianness:                      LSB
+Version:                         CURRENT
+OS/ABI:                          SYSTEMV
+ABI Version:                     0
+Machine type:                    ARM
+File type:                       EXECUTABLE
+Object file version:             CURRENT
+Entry Point:                     0x808d
+Program header offset:           0x34
+Section header offset:           94456
+Processor Flag:                  83886592 SOFT_FLOAT EABI_VER5
+Header size:                     52
+Size of program header:          32
+Number of program header:        3
+Size of section header:          40
+Number of section headers:       20
+Section Name Table idx:          19
+
+Sections
+========
+                    NULL           0         0         0         0                                                      
+.init               PROGBITS       8000      c         8000      3.25163   ALLOC EXECINSTR               LOAD           
+.text               PROGBITS       8010      84b8      8010      7.09251   ALLOC EXECINSTR               LOAD           
+.fini               PROGBITS       104c8     c         104c8     3.25163   ALLOC EXECINSTR               LOAD           
+.rodata             PROGBITS       104d8     545       104d8     6.29947   ALLOC                         LOAD           
+.ARM.exidx          ARM_EXIDX      10a20     8         10a20     2.40564   ALLOC LINK_ORDER              ARM_UNWIND LOAD
+.eh_frame           PROGBITS       10a28     4         10a28     -0        ALLOC                         LOAD           
+.init_array         INIT_ARRAY     20a2c     8         10a2c     1.75      WRITE ALLOC                   LOAD           
+.fini_array         FINI_ARRAY     20a34     4         10a34     1.5       WRITE ALLOC                   LOAD           
+.data               PROGBITS       20a38     a58       10a38     2.45322   WRITE ALLOC                   LOAD           
+.bss                NOBITS         21490     80        11490     1.34126   WRITE ALLOC                   LOAD           
+.stab               PROGBITS       0         e4        11490     1.45319                                                
+.stabstr            STRTAB         0         1ed       11574     4.0335                                                 
+.comment            PROGBITS       0         4c        11761     4.87768   MERGE STRINGS                                
+.debug_frame        PROGBITS       0         1948      117b0     4.6492                                                 
+.ARM.attributes     ARM_ATTRIBUTES 0         29        130f8     4.29634                                                
+.noinit             PROGBITS       21510     0         13121     0         WRITE                         LOAD           
+.symtab             SYMTAB         0         2e00      13124     3.00627                                                
+.strtab             STRTAB         0         1129      15f24     4.61948                                                
+.shstrtab           STRTAB         0         aa        1704d     4.08465                                                
+
+Segments
+========
+ARM_UNWIND        r--       10a20     10a20     10a20     8         8         4         
+Sections in this segment :
+	.ARM.exidx
+
+LOAD              r-x       0         0         0         10a2c     10a2c     10000     
+Sections in this segment :
+	.init
+	.text
+	.fini
+	.rodata
+	.ARM.exidx
+	.eh_frame
+
+LOAD              rw-       10a2c     20a2c     20a2c     a64       ae4       10000     
+Sections in this segment :
+	.init_array
+	.fini_array
+	.data
+	.bss
+	.noinit
+
+
+Dynamic entries
+===============
+
+Dynamic symbols
+===============
+
+Static symbols
+==============
+                              NOTYPE    LOCAL     0         0         
+                              SECTION   LOCAL     8000      0         
+                              SECTION   LOCAL     8010      0         
+                              SECTION   LOCAL     104c8     0         
+                              SECTION   LOCAL     104d8     0         
+                              SECTION   LOCAL     10a20     0         
+                              SECTION   LOCAL     10a28     0         
+                              SECTION   LOCAL     20a2c     0         
+                              SECTION   LOCAL     20a34     0         
+                              SECTION   LOCAL     20a38     0         
+                              SECTION   LOCAL     21490     0         
+                              SECTION   LOCAL     0         0         
+                              SECTION   LOCAL     0         0         
+                              SECTION   LOCAL     0         0         
+                              SECTION   LOCAL     0         0         
+                              SECTION   LOCAL     0         0         
+                              SECTION   LOCAL     21510     0         
+/opt/gcc-arm-none-eabi-9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7-m/nofp/crti.oFILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8000      0         
+$t                            NOTYPE    LOCAL     104c8     0         
+/opt/gcc-arm-none-eabi-9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7-m/nofp/crtn.oFILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8004      0         
+$t                            NOTYPE    LOCAL     104cc     0         
+exit.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8010      0         
+$d                            NOTYPE    LOCAL     802c      0         
+__call_atexit.c               FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8030      0         
+register_fini                 FUNC      LOCAL     8031      14        
+$d                            NOTYPE    LOCAL     803c      0         
+$d                            NOTYPE    LOCAL     20a2c     0         
+$t                            NOTYPE    LOCAL     b8c8      0         
+$d                            NOTYPE    LOCAL     b980      0         
+$d                            NOTYPE    LOCAL     21320     0         
+crtstuff.c                    FILE      LOCAL     0         0         
+                              OBJECT    LOCAL     10a28     0         
+$d                            NOTYPE    LOCAL     20a38     0         
+$t                            NOTYPE    LOCAL     8044      0         
+__do_global_dtors_aux         FUNC      LOCAL     8045      0         
+$d                            NOTYPE    LOCAL     805c      0         
+completed.8914                NOTYPE    LOCAL     21490     1         
+$d                            NOTYPE    LOCAL     20a34     0         
+__do_global_dtors_aux_fini_array_entryOBJECT    LOCAL     20a34     0         
+$t                            NOTYPE    LOCAL     8068      0         
+frame_dummy                   FUNC      LOCAL     8069      0         
+$d                            NOTYPE    LOCAL     8078      0         
+object.8919                   NOTYPE    LOCAL     21494     18        
+$d                            NOTYPE    LOCAL     20a30     0         
+__frame_dummy_init_array_entryOBJECT    LOCAL     20a30     0         
+$d                            NOTYPE    LOCAL     21490     0         
+/opt/gcc-arm-none-eabi-9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.oFILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8084      0         
+$d                            NOTYPE    LOCAL     10a20     0         
+$d                            NOTYPE    LOCAL     80e0      0         
+toy_ex_mod.c                  FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     104d8     0         
+$d                            NOTYPE    LOCAL     20a3c     0         
+$t                            NOTYPE    LOCAL     8100      0         
+$d                            NOTYPE    LOCAL     8178      0         
+$t                            NOTYPE    LOCAL     817c      0         
+$d                            NOTYPE    LOCAL     8248      0         
+$t                            NOTYPE    LOCAL     824c      0         
+$d                            NOTYPE    LOCAL     82e0      0         
+$t                            NOTYPE    LOCAL     82ec      0         
+$d                            NOTYPE    LOCAL     835c      0         
+fclose.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8374      0         
+$t                            NOTYPE    LOCAL     8440      0         
+$d                            NOTYPE    LOCAL     844c      0         
+fflush.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8450      0         
+$t                            NOTYPE    LOCAL     8580      0         
+$t                            NOTYPE    LOCAL     85dc      0         
+$d                            NOTYPE    LOCAL     85f4      0         
+findfp.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8600      0         
+std                           FUNC      LOCAL     8601      50        
+$d                            NOTYPE    LOCAL     8640      0         
+$t                            NOTYPE    LOCAL     8650      0         
+$d                            NOTYPE    LOCAL     8658      0         
+$t                            NOTYPE    LOCAL     865c      0         
+__fp_lock                     FUNC      LOCAL     865d      1c        
+$t                            NOTYPE    LOCAL     8678      0         
+__fp_unlock                   FUNC      LOCAL     8679      1c        
+$t                            NOTYPE    LOCAL     8694      0         
+$t                            NOTYPE    LOCAL     86c4      0         
+$d                            NOTYPE    LOCAL     86d0      0         
+$t                            NOTYPE    LOCAL     86d8      0         
+$d                            NOTYPE    LOCAL     872c      0         
+$t                            NOTYPE    LOCAL     8734      0         
+$d                            NOTYPE    LOCAL     87cc      0         
+$t                            NOTYPE    LOCAL     87d8      0         
+$d                            NOTYPE    LOCAL     87e0      0         
+$t                            NOTYPE    LOCAL     87e4      0         
+$d                            NOTYPE    LOCAL     87ec      0         
+$t                            NOTYPE    LOCAL     87f0      0         
+$d                            NOTYPE    LOCAL     87f8      0         
+$t                            NOTYPE    LOCAL     87fc      0         
+$d                            NOTYPE    LOCAL     8804      0         
+$t                            NOTYPE    LOCAL     8808      0         
+$d                            NOTYPE    LOCAL     8820      0         
+$t                            NOTYPE    LOCAL     882c      0         
+$d                            NOTYPE    LOCAL     8844      0         
+fopen.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8850      0         
+$d                            NOTYPE    LOCAL     88fc      0         
+$t                            NOTYPE    LOCAL     890c      0         
+$d                            NOTYPE    LOCAL     8918      0         
+fprintf.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     891c      0         
+$t                            NOTYPE    LOCAL     8938      0         
+$d                            NOTYPE    LOCAL     895c      0         
+mallocr.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8960      0         
+$d                            NOTYPE    LOCAL     89f4      0         
+$t                            NOTYPE    LOCAL     8a00      0         
+$d                            NOTYPE    LOCAL     8c00      0         
+fseek.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8c0c      0         
+$t                            NOTYPE    LOCAL     8c10      0         
+$d                            NOTYPE    LOCAL     8c24      0         
+fseeko.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8c28      0         
+$d                            NOTYPE    LOCAL     8ef4      0         
+$t                            NOTYPE    LOCAL     8ef8      0         
+$d                            NOTYPE    LOCAL     8f0c      0         
+fstatr.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8f10      0         
+$d                            NOTYPE    LOCAL     8f38      0         
+ftello.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     8f3c      0         
+$t                            NOTYPE    LOCAL     9010      0         
+$d                            NOTYPE    LOCAL     901c      0         
+fwalk.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9020      0         
+$t                            NOTYPE    LOCAL     9060      0         
+impure.c                      FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     20ae4     0         
+impure_data                   OBJECT    LOCAL     20ae8     428       
+$d                            NOTYPE    LOCAL     20ae8     0         
+$d                            NOTYPE    LOCAL     105fc     0         
+init.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     90a8      0         
+$d                            NOTYPE    LOCAL     90e0      0         
+lock.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     90f0      0         
+$t                            NOTYPE    LOCAL     90f4      0         
+$t                            NOTYPE    LOCAL     90f8      0         
+$t                            NOTYPE    LOCAL     90fc      0         
+$t                            NOTYPE    LOCAL     9100      0         
+$t                            NOTYPE    LOCAL     9104      0         
+$t                            NOTYPE    LOCAL     9108      0         
+$t                            NOTYPE    LOCAL     910c      0         
+$t                            NOTYPE    LOCAL     9110      0         
+$t                            NOTYPE    LOCAL     9114      0         
+makebuf.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9118      0         
+$t                            NOTYPE    LOCAL     9174      0         
+$d                            NOTYPE    LOCAL     9204      0         
+mallocr.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9208      0         
+$d                            NOTYPE    LOCAL     9704      0         
+$t                            NOTYPE    LOCAL     9720      0         
+$d                            NOTYPE    LOCAL     214ac     0         
+$d                            NOTYPE    LOCAL     214d4     0         
+$d                            NOTYPE    LOCAL     214d8     0         
+$d                            NOTYPE    LOCAL     214dc     0         
+$d                            NOTYPE    LOCAL     20f10     0         
+$d                            NOTYPE    LOCAL     21318     0         
+$d                            NOTYPE    LOCAL     2131c     0         
+memset.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9764      0         
+mlock.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9804      0         
+$d                            NOTYPE    LOCAL     980c      0         
+$t                            NOTYPE    LOCAL     9810      0         
+$d                            NOTYPE    LOCAL     9818      0         
+openr.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     981c      0         
+$d                            NOTYPE    LOCAL     9844      0         
+rand.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9848      0         
+$d                            NOTYPE    LOCAL     9854      0         
+$t                            NOTYPE    LOCAL     9858      0         
+$d                            NOTYPE    LOCAL     9888      0         
+reent.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9894      0         
+$t                            NOTYPE    LOCAL     98b0      0         
+$d                            NOTYPE    LOCAL     9930      0         
+refill.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9934      0         
+lflush                        FUNC      LOCAL     9935      12        
+$t                            NOTYPE    LOCAL     9948      0         
+$d                            NOTYPE    LOCAL     9a58      0         
+sbrkr.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9a60      0         
+$d                            NOTYPE    LOCAL     9a80      0         
+stdio.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     9a84      0         
+$t                            NOTYPE    LOCAL     9aa8      0         
+$t                            NOTYPE    LOCAL     9aac      0         
+$t                            NOTYPE    LOCAL     9aec      0         
+$t                            NOTYPE    LOCAL     9b0c      0         
+vfprintf.c                    FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     10600     0         
+$t                            NOTYPE    LOCAL     9b14      0         
+$d                            NOTYPE    LOCAL     9c06      0         
+$t                            NOTYPE    LOCAL     9cbc      0         
+__sbprintf                    FUNC      LOCAL     b745      88        
+$d                            NOTYPE    LOCAL     a174      0         
+$t                            NOTYPE    LOCAL     a184      0         
+$d                            NOTYPE    LOCAL     a598      0         
+$t                            NOTYPE    LOCAL     a5a4      0         
+$d                            NOTYPE    LOCAL     a928      0         
+$t                            NOTYPE    LOCAL     a934      0         
+$d                            NOTYPE    LOCAL     ad94      0         
+$t                            NOTYPE    LOCAL     ada8      0         
+$d                            NOTYPE    LOCAL     b0a4      0         
+$t                            NOTYPE    LOCAL     b0b4      0         
+$d                            NOTYPE    LOCAL     b468      0         
+$t                            NOTYPE    LOCAL     b46c      0         
+$d                            NOTYPE    LOCAL     b71c      0         
+$t                            NOTYPE    LOCAL     b72c      0         
+$d                            NOTYPE    LOCAL     b740      0         
+$t                            NOTYPE    LOCAL     b744      0         
+$d                            NOTYPE    LOCAL     10644     0         
+blanks.7350                   OBJECT    LOCAL     10644     10        
+$d                            NOTYPE    LOCAL     10654     0         
+zeroes.7351                   OBJECT    LOCAL     10654     10        
+writer.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     b7cc      0         
+$d                            NOTYPE    LOCAL     b7f4      0         
+wsetup.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     b7f8      0         
+$d                            NOTYPE    LOCAL     b8c4      0         
+atexit.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     b988      0         
+closer.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     b994      0         
+$d                            NOTYPE    LOCAL     b9b4      0         
+dtoa.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     b9b8      0         
+quorem                        FUNC      LOCAL     b9b9      120       
+$d                            NOTYPE    LOCAL     10664     0         
+$t                            NOTYPE    LOCAL     bad8      0         
+$d                            NOTYPE    LOCAL     bc6e      0         
+$t                            NOTYPE    LOCAL     bc76      0         
+$d                            NOTYPE    LOCAL     bcd0      0         
+$t                            NOTYPE    LOCAL     bd00      0         
+$d                            NOTYPE    LOCAL     c038      0         
+$t                            NOTYPE    LOCAL     c054      0         
+$d                            NOTYPE    LOCAL     c3e8      0         
+$t                            NOTYPE    LOCAL     c3ec      0         
+$d                            NOTYPE    LOCAL     c744      0         
+$t                            NOTYPE    LOCAL     c75c      0         
+$d                            NOTYPE    LOCAL     c984      0         
+fini.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     c9a0      0         
+$d                            NOTYPE    LOCAL     c9c4      0         
+flags.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     c9cc      0         
+isattyr.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     ca4c      0         
+$d                            NOTYPE    LOCAL     ca6c      0         
+localeconv.c                  FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     ca70      0         
+$t                            NOTYPE    LOCAL     ca74      0         
+$d                            NOTYPE    LOCAL     ca78      0         
+$t                            NOTYPE    LOCAL     ca7c      0         
+$d                            NOTYPE    LOCAL     ca80      0         
+lseekr.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     ca84      0         
+$d                            NOTYPE    LOCAL     caac      0         
+memchr-stub.c                 FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     cab0      0         
+lib_a-memcpy.o                FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     cb30      0         
+mprec.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     cc1c      0         
+$t                            NOTYPE    LOCAL     cc68      0         
+$d                            NOTYPE    LOCAL     10674     0         
+$t                            NOTYPE    LOCAL     cc7c      0         
+$d                            NOTYPE    LOCAL     cd10      0         
+$t                            NOTYPE    LOCAL     cd18      0         
+$d                            NOTYPE    LOCAL     cdc0      0         
+$t                            NOTYPE    LOCAL     cdcc      0         
+$t                            NOTYPE    LOCAL     ce0c      0         
+$t                            NOTYPE    LOCAL     ce6c      0         
+$d                            NOTYPE    LOCAL     ce90      0         
+$t                            NOTYPE    LOCAL     ce98      0         
+$d                            NOTYPE    LOCAL     cff0      0         
+$t                            NOTYPE    LOCAL     cff8      0         
+$d                            NOTYPE    LOCAL     d08c      0         
+$t                            NOTYPE    LOCAL     d090      0         
+$d                            NOTYPE    LOCAL     d170      0         
+$t                            NOTYPE    LOCAL     d178      0         
+$t                            NOTYPE    LOCAL     d1b4      0         
+$d                            NOTYPE    LOCAL     d2fc      0         
+$t                            NOTYPE    LOCAL     d304      0         
+$d                            NOTYPE    LOCAL     d344      0         
+$t                            NOTYPE    LOCAL     d348      0         
+$t                            NOTYPE    LOCAL     d41c      0         
+$d                            NOTYPE    LOCAL     d4d8      0         
+$t                            NOTYPE    LOCAL     d4e0      0         
+$t                            NOTYPE    LOCAL     d53c      0         
+$d                            NOTYPE    LOCAL     d568      0         
+$t                            NOTYPE    LOCAL     d574      0         
+$t                            NOTYPE    LOCAL     d5bc      0         
+$d                            NOTYPE    LOCAL     10788     0         
+$d                            NOTYPE    LOCAL     107b0     0         
+$d                            NOTYPE    LOCAL     10878     0         
+$d                            NOTYPE    LOCAL     108a0     0         
+p05.6122                      OBJECT    LOCAL     108a0     c         
+readr.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     d61c      0         
+$d                            NOTYPE    LOCAL     d644      0         
+s_frexp.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     d648      0         
+$d                            NOTYPE    LOCAL     d6ac      0         
+strlen-stub.c                 FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     d6b8      0         
+strncpy.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     d714      0         
+vfprintf.c                    FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     d77c      0         
+__sprint_r.part.0             FUNC      LOCAL     d77d      76        
+$t                            NOTYPE    LOCAL     d7f4      0         
+$d                            NOTYPE    LOCAL     10624     0         
+$t                            NOTYPE    LOCAL     d808      0         
+$d                            NOTYPE    LOCAL     d8de      0         
+$t                            NOTYPE    LOCAL     d994      0         
+__sbprintf                    FUNC      LOCAL     e54d      88        
+$d                            NOTYPE    LOCAL     e138      0         
+$t                            NOTYPE    LOCAL     e144      0         
+$d                            NOTYPE    LOCAL     e520      0         
+$t                            NOTYPE    LOCAL     e534      0         
+$d                            NOTYPE    LOCAL     e548      0         
+$t                            NOTYPE    LOCAL     e54c      0         
+$d                            NOTYPE    LOCAL     108ac     0         
+blanks.7328                   OBJECT    LOCAL     108ac     10        
+$d                            NOTYPE    LOCAL     108bc     0         
+zeroes.7329                   OBJECT    LOCAL     108bc     10        
+__atexit.c                    FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     e5d4      0         
+$d                            NOTYPE    LOCAL     e658      0         
+assert.c                      FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     108d8     0         
+$t                            NOTYPE    LOCAL     e660      0         
+$d                            NOTYPE    LOCAL     e68c      0         
+$t                            NOTYPE    LOCAL     e69c      0         
+mallocr.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     e6a8      0         
+fiprintf.c                    FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     e708      0         
+$t                            NOTYPE    LOCAL     e724      0         
+$d                            NOTYPE    LOCAL     e748      0         
+fputwc.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     e74c      0         
+$t                            NOTYPE    LOCAL     e7ec      0         
+$t                            NOTYPE    LOCAL     e854      0         
+$d                            NOTYPE    LOCAL     e888      0         
+fvwrite.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     e88c      0         
+$d                            NOTYPE    LOCAL     eb74      0         
+locale.c                      FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     1090c     0         
+$t                            NOTYPE    LOCAL     eb78      0         
+$d                            NOTYPE    LOCAL     ebac      0         
+$t                            NOTYPE    LOCAL     ebb8      0         
+$d                            NOTYPE    LOCAL     ebc0      0         
+$t                            NOTYPE    LOCAL     ebc4      0         
+$d                            NOTYPE    LOCAL     ebd0      0         
+$d                            NOTYPE    LOCAL     10918     0         
+$d                            NOTYPE    LOCAL     214e0     0         
+$d                            NOTYPE    LOCAL     21324     0         
+mbtowc_r.c                    FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     ebd4      0         
+$d                            NOTYPE    LOCAL     ebe4      0         
+$t                            NOTYPE    LOCAL     ebe8      0         
+memmove.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     ec14      0         
+mallocr.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     ece8      0         
+$d                            NOTYPE    LOCAL     f044      0         
+$t                            NOTYPE    LOCAL     f048      0         
+$d                            NOTYPE    LOCAL     f0c4      0         
+lib_a-strcmp.o                FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     f0c8      0         
+wbuf.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     f284      0         
+$t                            NOTYPE    LOCAL     f334      0         
+$d                            NOTYPE    LOCAL     f340      0         
+wcrtomb.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     f344      0         
+$d                            NOTYPE    LOCAL     f37c      0         
+$t                            NOTYPE    LOCAL     f380      0         
+$d                            NOTYPE    LOCAL     f3c4      0         
+wctomb_r.c                    FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     f3cc      0         
+$d                            NOTYPE    LOCAL     f3dc      0         
+$t                            NOTYPE    LOCAL     f3e0      0         
+abort.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     f3fc      0         
+ctype_.c                      FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     1091c     0         
+signal.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     f40c      0         
+_init_signal_r.part.0         FUNC      LOCAL     f40d      2a        
+$t                            NOTYPE    LOCAL     f438      0         
+$t                            NOTYPE    LOCAL     f448      0         
+$t                            NOTYPE    LOCAL     f480      0         
+$t                            NOTYPE    LOCAL     f4d8      0         
+$t                            NOTYPE    LOCAL     f52c      0         
+$d                            NOTYPE    LOCAL     f538      0         
+$t                            NOTYPE    LOCAL     f53c      0         
+$d                            NOTYPE    LOCAL     f548      0         
+$t                            NOTYPE    LOCAL     f54c      0         
+$d                            NOTYPE    LOCAL     f560      0         
+$t                            NOTYPE    LOCAL     f564      0         
+$d                            NOTYPE    LOCAL     f570      0         
+signalr.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     f574      0         
+$d                            NOTYPE    LOCAL     f59c      0         
+$t                            NOTYPE    LOCAL     f5a0      0         
+_arm_muldf3.o                 FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     f5a4      0         
+_arm_addsubdf3.o              FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     f7f8      0         
+_arm_muldivdf3.o              FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     fb70      0         
+_arm_cmpdf2.o                 FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     ff94      0         
+_arm_unorddf2.o               FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     100a4     0         
+_arm_fixdfsi.o                FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     100d0     0         
+_aeabi_uldivmod.o             FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10120     0         
+libgcc2.c                     FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10150     0         
+$d                            NOTYPE    LOCAL     10a28     0         
+_dvmd_tls.o                   FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10414     0         
+close.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10418     0         
+$d                            NOTYPE    LOCAL     10424     0         
+fstat.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10428     0         
+$d                            NOTYPE    LOCAL     10434     0         
+getpid.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10438     0         
+$d                            NOTYPE    LOCAL     10444     0         
+isatty.c                      FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10448     0         
+$d                            NOTYPE    LOCAL     10454     0         
+kill.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10458     0         
+$d                            NOTYPE    LOCAL     10464     0         
+lseek.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10468     0         
+$d                            NOTYPE    LOCAL     10474     0         
+open.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10478     0         
+$d                            NOTYPE    LOCAL     10484     0         
+read.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10488     0         
+$d                            NOTYPE    LOCAL     10494     0         
+sbrk.c                        FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     10498     0         
+$d                            NOTYPE    LOCAL     104ac     0         
+$d                            NOTYPE    LOCAL     214e4     0         
+heap_end.4144                 OBJECT    LOCAL     214e4     4         
+write.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     104b4     0         
+$d                            NOTYPE    LOCAL     104c0     0         
+_exit.c                       FILE      LOCAL     0         0         
+$t                            NOTYPE    LOCAL     104c4     0         
+crtstuff.c                    FILE      LOCAL     0         0         
+$d                            NOTYPE    LOCAL     10a28     0         
+__FRAME_END__                 OBJECT    LOCAL     10a28     0         
+                              FILE      LOCAL     0         0         
+__fini_array_end              NOTYPE    LOCAL     20a38     0         
+__fini_array_start            NOTYPE    LOCAL     20a34     0         
+__init_array_end              NOTYPE    LOCAL     20a34     0         
+__preinit_array_end           NOTYPE    LOCAL     20a2c     0         
+__init_array_start            NOTYPE    LOCAL     20a2c     0         
+__preinit_array_start         NOTYPE    LOCAL     20a2c     0         
+_mprec_log10                  FUNC      GLOBAL    d53d      38        
+__aeabi_dcmpun                FUNC      GLOBAL    100a5     2c        
+__any_on                      FUNC      GLOBAL    d5bd      60        
+_isatty_r                     FUNC      GLOBAL    ca4d      24        
+__mprec_tinytens              OBJECT    GLOBAL    10878     28        
+__aeabi_dcmple                FUNC      GLOBAL    10069     12        
+cleanup_glue                  FUNC      GLOBAL    9895      1a        
+_getpid                       FUNC      GLOBAL    10439     10        
+__cmpdf2                      FUNC      GLOBAL    ffa5      7a        
+_lseek_r                      FUNC      GLOBAL    ca85      2c        
+__sflags                      FUNC      GLOBAL    c9cd      7e        
+__eqdf2                       FUNC      GLOBAL    ffa5      7a        
+LUT                           FUNC      GLOBAL    8153      2a        
+RAND_XOR                      FUNC      GLOBAL    8269      2c        
+__floatdidf                   FUNC      GLOBAL    fb15      5a        
+_kill_r                       FUNC      GLOBAL    f575      2c        
+__lock___atexit_recursive_mutexOBJECT    GLOBAL    214e8     1         
+_wcrtomb_r                    FUNC      GLOBAL    f345      3c        
+_signal_r                     FUNC      GLOBAL    f449      38        
+__sseek                       FUNC      GLOBAL    9aed      20        
+__sinit                       FUNC      GLOBAL    86d9      5c        
+__swbuf_r                     FUNC      GLOBAL    f285      b0        
+_setlocale_r                  FUNC      GLOBAL    eb79      40        
+__sfmoreglue                  FUNC      GLOBAL    8695      2e        
+InData3                       OBJECT    GLOBAL    20a58     8         
+__malloc_unlock               FUNC      GLOBAL    9811      c         
+__lock___arc4random_mutex     OBJECT    GLOBAL    214ec     1         
+memmove                       FUNC      GLOBAL    ec15      d4        
+_cleanup                      FUNC      GLOBAL    86c5      14        
+_Balloc                       FUNC      GLOBAL    cc1d      4c        
+__gtdf2                       FUNC      GLOBAL    ff95      8a        
+__atexit_recursive_mutex      OBJECT    GLOBAL    21320     4         
+__retarget_lock_close         FUNC      GLOBAL    90f9      2         
+__localeconv_l                FUNC      GLOBAL    ca71      4         
+_bss_end__                    NOTYPE    GLOBAL    21510     0         
+_fstat_r                      FUNC      GLOBAL    8f11      2c        
+errno                         OBJECT    GLOBAL    2150c     4         
+__seofread                    FUNC      GLOBAL    9aa9      4         
+__aeabi_cdcmple               FUNC      GLOBAL    10031     10        
+memcpy                        FUNC      GLOBAL    cb31      ec        
+__aeabi_cdrcmple              FUNC      GLOBAL    10021     20        
+_cleanup_r                    FUNC      GLOBAL    8651      c         
+__floatsidf                   FUNC      GLOBAL    fa9d      22        
+__ltdf2                       FUNC      GLOBAL    ff9d      82        
+__aeabi_uldivmod              FUNC      GLOBAL    10121     0         
+__ratio                       FUNC      GLOBAL    d4e1      5c        
+_raise_r                      FUNC      GLOBAL    f481      56        
+_fstat                        FUNC      GLOBAL    10429     10        
+__assert_func                 FUNC      GLOBAL    e661      3c        
+__mprec_tens                  OBJECT    GLOBAL    107b0     c8        
+__malloc_top_pad              OBJECT    GLOBAL    214dc     4         
+_getpid_r                     FUNC      GLOBAL    f5a1      4         
+__bss_start__                 NOTYPE    GLOBAL    21490     0         
+__dso_handle                  OBJECT    GLOBAL    20a38     0         
+__aeabi_ui2d                  FUNC      GLOBAL    fa7d      1e        
+_localeconv_r                 FUNC      GLOBAL    ca75      8         
+__sfvwrite_r                  FUNC      GLOBAL    e88d      2ec       
+__i2b                         FUNC      GLOBAL    ce6d      2c        
+__sigtramp_r                  FUNC      GLOBAL    f4d9      52        
+__udivmoddi4                  FUNC      GLOBAL    10151     2c4       
+__aeabi_drsub                 FUNC      GLOBAL    f7f9      0         
+_sbrk_r                       FUNC      GLOBAL    9a61      24        
+_read_r                       FUNC      GLOBAL    d61d      2c        
+__aeabi_dcmplt                FUNC      GLOBAL    10055     12        
+SBox                          OBJECT    GLOBAL    104d8     100       
+_fclose_r                     FUNC      GLOBAL    8375      cc        
+fflush                        FUNC      GLOBAL    85dd      24        
+__malloc_max_sbrked_mem       OBJECT    GLOBAL    214d4     4         
+__extendsfdf2                 FUNC      GLOBAL    fac1      42        
+__aeabi_ddiv                  FUNC      GLOBAL    fdc5      1d0       
+__adddf3                      FUNC      GLOBAL    f805      276       
+MUL                           FUNC      GLOBAL    8129      2a        
+__b2d                         FUNC      GLOBAL    d349      d2        
+__lock___env_recursive_mutex  OBJECT    GLOBAL    214f0     1         
+__aeabi_dmul                  FUNC      GLOBAL    fb71      254       
+_isatty                       FUNC      GLOBAL    10449     10        
+__lock___sinit_recursive_mutexOBJECT    GLOBAL    214f4     1         
+_global_impure_ptr            OBJECT    GLOBAL    105fc     4         
+_realloc_r                    FUNC      GLOBAL    ece9      3e0       
+__libc_init_array             FUNC      GLOBAL    90a9      48        
+_mainCRTStartup               FUNC      GLOBAL    808d      0         
+_fputwc_r                     FUNC      GLOBAL    e7ed      66        
+__mprec_bigtens               OBJECT    GLOBAL    10788     28        
+__s2b                         FUNC      GLOBAL    cd19      b4        
+abort                         FUNC      GLOBAL    f3fd      e         
+_open                         FUNC      GLOBAL    10479     10        
+__floatunsidf                 FUNC      GLOBAL    fa7d      1e        
+_sbrk                         FUNC      GLOBAL    10499     1c        
+__mcmp                        FUNC      GLOBAL    d179      3a        
+__fp_lock_all                 FUNC      GLOBAL    8809      24        
+_init                         FUNC      GLOBAL    8001      0         
+_fseeko_r                     FUNC      GLOBAL    8c29      2d0       
+__libc_fini_array             FUNC      GLOBAL    c9a1      2c        
+_reclaim_reent                FUNC      GLOBAL    98b1      84        
+__hi0bits                     FUNC      GLOBAL    cdcd      40        
+__fixdfsi                     FUNC      GLOBAL    100d1     4e        
+__lock___malloc_recursive_mutexOBJECT    GLOBAL    214f8     1         
+InData1                       OBJECT    GLOBAL    20a40     c         
+RANDOM                        FUNC      GLOBAL    824d      1c        
+fprintf                       FUNC      GLOBAL    8939      28        
+__aeabi_dadd                  FUNC      GLOBAL    f805      276       
+__ledf2                       FUNC      GLOBAL    ff9d      82        
+__pow5mult                    FUNC      GLOBAL    cff9      98        
+__aeabi_ul2d                  FUNC      GLOBAL    fb05      6a        
+end                           NOTYPE    GLOBAL    21510     0         
+IO_TRANSMIT                   FUNC      GLOBAL    8295      58        
+__retarget_lock_release_recursiveFUNC      GLOBAL    9115      2         
+fseeko                        FUNC      GLOBAL    8ef9      18        
+InData                        OBJECT    GLOBAL    20a3c     4         
+fseek                         FUNC      GLOBAL    8c11      18        
+__retarget_lock_try_acquire_recursiveFUNC      GLOBAL    910d      4         
+__aeabi_dcmpgt                FUNC      GLOBAL    10091     12        
+__sfp_lock_acquire            FUNC      GLOBAL    87d9      c         
+memchr                        FUNC      GLOBAL    cab1      7e        
+__bss_end__                   NOTYPE    GLOBAL    21510     0         
+_free_r                       FUNC      GLOBAL    8a01      20c       
+__locale_mb_cur_max           FUNC      GLOBAL    ebb9      c         
+__aeabi_dcmpge                FUNC      GLOBAL    1007d     12        
+__call_exitprocs              FUNC      GLOBAL    b8c9      c0        
+__aeabi_dsub                  FUNC      GLOBAL    f801      27a       
+__malloc_sbrk_base            OBJECT    GLOBAL    21318     4         
+_start                        FUNC      GLOBAL    808d      0         
+__retarget_lock_try_acquire   FUNC      GLOBAL    9109      4         
+__floatundidf                 FUNC      GLOBAL    fb05      6a        
+rand                          FUNC      GLOBAL    9859      3c        
+_lseek                        FUNC      GLOBAL    10469     10        
+ftello                        FUNC      GLOBAL    9011      10        
+__lshift                      FUNC      GLOBAL    d091      e8        
+signal                        FUNC      GLOBAL    f53d      10        
+_open_r                       FUNC      GLOBAL    981d      2c        
+__register_exitproc           FUNC      GLOBAL    e5d5      8c        
+_stack_init                   FUNC      WEAK      8085      0         
+InData5                       OBJECT    GLOBAL    20adc     8         
+__multiply                    FUNC      GLOBAL    ce99      160       
+strncpy                       FUNC      GLOBAL    d715      68        
+__malloc_current_mallinfo     OBJECT    GLOBAL    214ac     28        
+__d2b                         FUNC      GLOBAL    d41d      c4        
+_close_r                      FUNC      GLOBAL    b995      24        
+__aeabi_i2d                   FUNC      GLOBAL    fa9d      22        
+__retarget_lock_close_recursiveFUNC      GLOBAL    90fd      2         
+InData4                       OBJECT    GLOBAL    20a60     7c        
+_ftello_r                     FUNC      GLOBAL    8f3d      d2        
+__swsetup_r                   FUNC      GLOBAL    b7f9      d0        
+__aeabi_ldiv0                 FUNC      WEAK      10415     2         
+__divdf3                      FUNC      GLOBAL    fdc5      1d0       
+__sfp                         FUNC      GLOBAL    8735      a4        
+__copybits                    FUNC      GLOBAL    d575      46        
+__malloc_av_                  OBJECT    GLOBAL    20f10     408       
+__sinit_lock_release          FUNC      GLOBAL    87fd      c         
+__muldf3                      FUNC      GLOBAL    fb71      254       
+__sread                       FUNC      GLOBAL    9a85      22        
+__malloc_lock                 FUNC      GLOBAL    9805      c         
+_fprintf_r                    FUNC      GLOBAL    891d      1c        
+MIXs                          FUNC      GLOBAL    817d      d0        
+_fflush_r                     FUNC      GLOBAL    8581      5a        
+_calloc_r                     FUNC      GLOBAL    e6a9      5e        
+__retarget_lock_acquire_recursiveFUNC      GLOBAL    9105      2         
+fopen                         FUNC      GLOBAL    890d      10        
+__bss_start                   NOTYPE    GLOBAL    21490     0         
+memset                        FUNC      GLOBAL    9765      a0        
+main                          FUNC      GLOBAL    82ed      88        
+__malloc_max_total_mem        OBJECT    GLOBAL    214d8     4         
+__retarget_lock_init_recursiveFUNC      GLOBAL    90f5      2         
+__swbuf                       FUNC      GLOBAL    f335      10        
+srand                         FUNC      GLOBAL    9849      10        
+__sclose                      FUNC      GLOBAL    9b0d      8         
+fclose                        FUNC      GLOBAL    8441      10        
+_dtoa_r                       FUNC      GLOBAL    bad9      ec8       
+_malloc_r                     FUNC      GLOBAL    9209      55c       
+__ascii_wctomb                FUNC      GLOBAL    f3e1      1c        
+__aeabi_l2d                   FUNC      GLOBAL    fb15      5a        
+_fiprintf_r                   FUNC      GLOBAL    e709      1c        
+_init_signal                  FUNC      GLOBAL    f54d      18        
+_fwalk                        FUNC      GLOBAL    9021      3e        
+__end__                       NOTYPE    GLOBAL    21510     0         
+_mbtowc_r                     FUNC      GLOBAL    ebd5      14        
+_malloc_trim_r                FUNC      GLOBAL    8961      a0        
+strcmp                        FUNC      GLOBAL    f0c9      1ba       
+vfiprintf                     FUNC      GLOBAL    e535      18        
+__retarget_lock_init          FUNC      GLOBAL    90f1      2         
+__nedf2                       FUNC      GLOBAL    ffa5      7a        
+_fini                         FUNC      GLOBAL    104c9     0         
+_PathLocale                   OBJECT    GLOBAL    214e0     4         
+atexit                        FUNC      GLOBAL    b989      c         
+_write_r                      FUNC      GLOBAL    b7cd      2c        
+setlocale                     FUNC      GLOBAL    ebc5      10        
+_impure_ptr                   OBJECT    GLOBAL    20ae4     4         
+__sflush_r                    FUNC      GLOBAL    8451      130       
+_fseek_r                      FUNC      GLOBAL    8c0d      4         
+__srefill_r                   FUNC      GLOBAL    9949      118       
+__ascii_mbtowc                FUNC      GLOBAL    ebe9      2a        
+__ulp                         FUNC      GLOBAL    d305      44        
+__fp_unlock_all               FUNC      GLOBAL    882d      24        
+localeconv                    FUNC      GLOBAL    ca7d      8         
+__swhatbuf_r                  FUNC      GLOBAL    9119      5c        
+__aeabi_dcmpeq                FUNC      GLOBAL    10041     12        
+_write                        FUNC      GLOBAL    104b5     10        
+_edata                        NOTYPE    GLOBAL    21490     0         
+_end                          NOTYPE    GLOBAL    21510     0         
+__fputwc                      FUNC      GLOBAL    e74d      a0        
+__lock___at_quick_exit_mutex  OBJECT    GLOBAL    214fc     1         
+InData2                       OBJECT    GLOBAL    20a4c     c         
+__swrite                      FUNC      GLOBAL    9aad      3e        
+__malloc_trim_threshold       OBJECT    GLOBAL    2131c     4         
+ADD                           FUNC      GLOBAL    8101      28        
+exit                          FUNC      GLOBAL    8011      20        
+fiprintf                      FUNC      GLOBAL    e725      28        
+_vfiprintf_r                  FUNC      GLOBAL    d809      d2c       
+_fwalk_reent                  FUNC      GLOBAL    9061      46        
+__mdiff                       FUNC      GLOBAL    d1b5      150       
+__aeabi_d2iz                  FUNC      GLOBAL    100d1     4e        
+_kill                         FUNC      GLOBAL    10459     10        
+__sfp_lock_release            FUNC      GLOBAL    87e5      c         
+_ctype_                       OBJECT    GLOBAL    1091c     101       
+_read                         FUNC      GLOBAL    10489     10        
+__aeabi_idiv0                 FUNC      WEAK      10415     2         
+__retarget_lock_acquire       FUNC      GLOBAL    9101      2         
+__unorddf2                    FUNC      GLOBAL    100a5     2c        
+__retarget_lock_release       FUNC      GLOBAL    9111      2         
+_fopen_r                      FUNC      GLOBAL    8851      bc        
+_exit                         FUNC      GLOBAL    104c5     2         
+__lock___dd_hash_mutex        OBJECT    GLOBAL    21500     1         
+__smakebuf_r                  FUNC      GLOBAL    9175      94        
+__lock___tz_mutex             OBJECT    GLOBAL    21504     1         
+strlen                        FUNC      GLOBAL    d6b9      5c        
+_init_signal_r                FUNC      GLOBAL    f439      e         
+__aeabi_cdcmpeq               FUNC      GLOBAL    10031     10        
+__gedf2                       FUNC      GLOBAL    ff95      8a        
+_stack                        NOTYPE    GLOBAL    80000     0         
+__assert                      FUNC      GLOBAL    e69d      a         
+__sprint_r                    FUNC      GLOBAL    d7f5      14        
+__aeabi_f2d                   FUNC      GLOBAL    fac1      42        
+__data_start                  NOTYPE    GLOBAL    20a38     0         
+_wctomb_r                     FUNC      GLOBAL    f3cd      14        
+__subdf3                      FUNC      GLOBAL    f801      27a       
+_vfprintf_r                   FUNC      GLOBAL    9b15      1c18      
+__lo0bits                     FUNC      GLOBAL    ce0d      60        
+__sigtramp                    FUNC      GLOBAL    f565      10        
+wcrtomb                       FUNC      GLOBAL    f381      4c        
+frexp                         FUNC      GLOBAL    d649      70        
+__global_locale               OBJECT    GLOBAL    21324     16c       
+vfprintf                      FUNC      GLOBAL    b72d      18        
+__lock___sfp_recursive_mutex  OBJECT    GLOBAL    21508     1         
+fputwc                        FUNC      GLOBAL    e855      38        
+raise                         FUNC      GLOBAL    f52d      10        
+_close                        FUNC      GLOBAL    10419     10        
+__sinit_lock_acquire          FUNC      GLOBAL    87f1      c         
+__multadd                     FUNC      GLOBAL    cc7d      9c        
+_Bfree                        FUNC      GLOBAL    cc69      12        
+
+Symbol versions
+===============
+
+Symbol versions definition
+==========================
+
+Symbol version requirement
+==========================
+
+Dynamic relocations
+===================
+
+.plt.got relocations
+====================
+
+
+
