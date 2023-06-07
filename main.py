@@ -4,6 +4,7 @@ from capstone import *
 from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
 from elfloader import *
+#import clock
 import sys
 import datetime
 import operator
@@ -15,11 +16,16 @@ elf_file_name = "./Unicorn_development_source/compiled_program/arm-none_compiled
 # making elf loader object for setup address
 e = ElfLoader(elf_file_name) 
 
+# function_skip
+# func_test = e.get_func_address('add')
+
+
 # code update start address
 ADDRESS = e.get_start_add()
 
 # memory address where emulation starts
 emu_ADDRESS = e.get_func_address('main')
+print("emu_ADDRESS: ", emu_ADDRESS)
 
 # emulation length -> main function length is enough
 main_func_length = e.get_main_len()
@@ -31,6 +37,7 @@ exit_addr = e.get_func_address('exit')
 with open(elf_file_name, "rb") as f:
     f.seek(ADDRESS,0)
     code = f.read()
+
 
 # code which gonna be emulated
 ARM_CODE = code
@@ -116,7 +123,16 @@ def change_reg(uc):
     data = input('data : ')
     uc.reg_write(REG,int(data))
 
-# hook every instruction and fetch information we need
+
+REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_ARM_REG_R3,
+            '4' : UC_ARM_REG_R4, '5' : UC_ARM_REG_R5, '6' : UC_ARM_REG_R6, '7' : UC_ARM_REG_R7,
+            '8' : UC_ARM_REG_R8, '9' : UC_ARM_REG_R9, '10' : UC_ARM_REG_R10, "fp" : UC_ARM_REG_FP,
+            "ip" : UC_ARM_REG_IP, "sp" : UC_ARM_REG_SP, "lr" : UC_ARM_REG_LR, "pc": UC_ARM_REG_PC,
+            "cpsr" : UC_ARM_REG_CPSR}
+
+
+
+# hook eveLry instruction and fetch information we need
 def hook_code(uc, address, size, user_data):
     #input result in .txt file
     addr = int((address-ADDRESS)/4)
@@ -126,6 +142,12 @@ def hook_code(uc, address, size, user_data):
     print("/ modified register : ", end ='')
     print(user_data[addr][1:], end = ' ')
     print_mem(uc,address,4)
+    print("/ clock count: ", clock.cycle_cal(user_data[addr][0]))
+
+# function_skip
+# def test_hook(uc,b,c,d):
+#     uc.reg_write(REG["pc"], 33404)
+#     함수값 보존하고 싶을 땐 점프 전 r0값 저장해뒀다가 reg_write(r0)로 작성
 
 def main():
 
@@ -187,8 +209,11 @@ def main():
         print(len(copy_mne), end = ' / ')
         print(int(len(ARM_CODE)/4))
 
-        mu.hook_add(UC_HOOK_CODE, hook_code, copy_mne, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
+        # function_skip
+        # mu.hook_add(UC_HOOK_CODE, test_hook, copy_mne, begin= func_test, end=func_test + 52)
 
+        mu.hook_add(UC_HOOK_CODE, hook_code, copy_mne, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
+        
         # add address should be same as main function length
         mu.emu_start(emu_ADDRESS, emu_ADDRESS + main_func_length)
         

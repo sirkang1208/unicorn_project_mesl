@@ -23,7 +23,11 @@ class ElfLoader:
         self.func_list = list(self.func_sort.items())
 
     def get_func_address(self, func_name):
-        return self.func_sort.get(func_name)
+        try:
+            return self.func_sort.get(func_name)
+        except:
+            print("Err: it is not a function name that exists in that file.")
+            exit()
     
     def get_main_len(self):
         for index, (key,elem) in enumerate(self.func_sort.items()):
