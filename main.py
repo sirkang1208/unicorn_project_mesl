@@ -6,6 +6,7 @@ from unicorn.arm_const import *
 from elfloader import *
 import sys
 import datetime
+import random
 import operator
 
 # log file setting before the program starts
@@ -41,6 +42,32 @@ ARM_CODE = code
 # board dependent data, must be set before the emulation
 STACK_ADDRESS = 0x80000000
 STACK_SIZE = 0x10000
+
+# select function
+def select_senario(uc,cmd,user_data,address):
+    if cmd == 'p':
+        pass
+    elif cmd == 's':
+        userInsn = input("input instruction : ")
+        skip_insn(uc,user_data,address, userInsn)
+    elif cmd == 'r':
+        change_reg(uc)  
+    elif cmd == 'set':
+        s_range = input("input modify range : ")
+        set_mem(uc,address,s_range)
+    elif cmd == 'clr':
+        c_range = input("input modify range : ")
+        clr_mem(uc,address,c_range)
+    elif cmd == 'bf':
+        b_range = input("input modify range : ")
+        bit_flip(uc,address,b_range)
+    elif cmd == 'rand':
+        r_range = input("input modify range : ")
+        rand_mem(uc,address,r_range)
+    else:
+        print("wrong input, please enter again")
+        select_senario(uc,cmd,user_data,address)
+    
 
 # print all register
 def print_all_reg(uc):
@@ -88,22 +115,10 @@ def print_mem(uc,addr, m_len):
         print("\\x%x" %tot_mem[i], end = "")
     print()
 
-# select function
-def select_func(uc,a):
-    if a == 'r':
-        change_reg(uc)
-    elif a == 'm':
-        change_mem(uc)
-    elif a == 'rv':
-        print_all_reg(uc)
-    elif a == 'mv':
-        print_mem(uc)
-    elif a == 'p':
-        pass
-
 # TODO change memory
-def change_mem(uc,a):
+def change_mem(uc, data):
     addr = input("input address : ")
+    uc.mem_write(addr,data)
 
 # change register by command / ex) 10 1000 -> r10's data change into 1000
 def change_reg(uc):
@@ -132,6 +147,39 @@ def hook_code(uc, address, size, user_data):
 
     if address == exit_addr_real:
         uc.emu_stop()
+
+# skip instruction
+def skip_insn(uc, user_data, address, userInsn):
+    if user_data[int((address-ADDRESS)/4)][0] == userInsn:
+        address += 4
+
+# set all data 1
+def set_mem(uc, address,s_range):
+    for i in range(s_range/4):
+        uc.mem_write(address+i*4, b'\xff\xff\xff\xff')
+
+# set all data 0
+def clr_mem(uc, address,c_range):
+    for i in range(c_range/4):
+        uc.mem_write(address+i*4, b'\x00\x00\x00\x00')
+
+
+# set all data bit_flip
+def bit_flip(uc, address,b_range):
+    for i in range(b_range/4):
+        x = uc.mem_read(address + i*4)
+        cvrt_x = int.from_bytes(x, byteorder='little')
+        cvrt_x = 0xFFFFFFFF - cvrt_x
+        res_x = cvrt_x.to_bytes(4,"little")
+        uc.mem_write(address+i*4, res_x)
+
+# set data random
+def rand_mem(uc, address,r_range):
+    for i in range(r_range/4):
+        x = random.randint(0,0xFFFFFFFF)
+        res_x = x.to_bytes(4,'little')
+        uc.mem_write(address+i*4,res_x)
+
 
 
 def main():
