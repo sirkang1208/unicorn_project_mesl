@@ -39,6 +39,11 @@ def change_reg(uc):
     print(data)
     uc.reg_write(REG[r_num],int(data))
 
+def change_mem(uc,addr):
+    data = int(input("Input int data : "))
+    res_data = data.to_bytes(4,'little')
+    uc.mem_write(addr,res_data)
+
 def select_mode():
     mode = input("input mode - r(register) or m(memory) : ")
     if mode != 'r' and mode != 'm':
@@ -53,6 +58,9 @@ def select_scenario(uc,address,cmd):
         return
     elif cmd == 'r':
         change_reg(uc)
+    elif cmd == 'r':
+        addr = input("input memory address : ")
+        change_mem(uc,addr)
     elif cmd == 'set':
         mode = select_mode()
         if mode == 'r':
@@ -205,6 +213,7 @@ def print_selection():
     print(" 'p' for pass ")
     print(" 's' for skip ")
     print(" 'r' for register modify ")
+    print(" 'm' for change mem ")
     print(" 'set' for set mem 1 ")
     print(" 'clr' for set mem 0 ")
     print(" 'bf' for flip the bit ")

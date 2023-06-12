@@ -19,7 +19,7 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
 
 # log file setting before the program starts
 filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt"
-elf_file_name = "./Unicorn_development_source/compiled_program/toy_ex_simplify_add"
+elf_file_name = "./Unicorn_development_source/compiled_program/toy_ex_mod"
 
 # making elf loader object for setup address
 e = ElfLoader(elf_file_name) 
@@ -28,7 +28,7 @@ e = ElfLoader(elf_file_name)
 # func_test = e.get_func_address('add')
 e_sec = []
 e_sec = e.section_list_make()
-e.print_section_data()
+#e.print_section_data()
 
 # code update start address
 ADDRESS = e.get_start_add()
@@ -58,9 +58,12 @@ STACK_SIZE = 0x10000
 
 section_insn = []
 copy_mne = []
+InIdx = 0
+count = 0
 
-def make_insn_array():
-
+def make_insn_array(input,addr):
+    global InIdx
+    global count
     # Initialize Capstone in ARM mode
     mc = Cs(CS_ARCH_ARM, CS_MODE_ARM)
 
@@ -70,27 +73,34 @@ def make_insn_array():
 
     # idx : index of array which contains information about intruction
     # copy_mne : array that stores mnemonic data copied
-    idx = 0
+
 
     # copy mnemonics to copy_mne
     # add modified register at copy_mne
-    for insn in mc.disasm(ARM_CODE, ADDRESS):
-        #print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str))
+    for insn in mc.disasm(input, addr):
+        print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str))
         line = []
         copy_mne.append(line)
-        copy_mne[idx].append(insn.mnemonic)
+        copy_mne[InIdx].append(insn.mnemonic)
         (regiread,regi_write) = insn.regs_access()
         for r in regi_write:
-            copy_mne[idx].append(insn.reg_name(r))
-        idx += 1
-    # trace every instruction hook
-    print(len(copy_mne), end = ' / ')
-    print(int(len(ARM_CODE)/4))
-    return copy_mne
+            copy_mne[InIdx].append(insn.reg_name(r))
+        InIdx += 1
+
+    if len(copy_mne)/int(len(ARM_CODE)/4) < 0.99:
+        count += 1
+        line = []
+        copy_mne.append(line)
+        copy_mne[InIdx].append("NONE")
+        InIdx += 1
+        with open(elf_file_name, "rb") as f:
+            f.seek(ADDRESS+InIdx*4,0)
+            code = f.read()
+        make_insn_array(code,ADDRESS+InIdx*4)
     
 # print all register
 def print_all_reg(uc):
-    r0 = uc.reg_read(UC_ARM_REG_R0)
+    r0 = uc.reg_read(UC_ARM_REG_R0) 
     r1 = uc.reg_read(UC_ARM_REG_R1)
     r2 = uc.reg_read(UC_ARM_REG_R2)
     r3 = uc.reg_read(UC_ARM_REG_R3)
@@ -204,8 +214,7 @@ def main():
         mu.reg_write(UC_ARM_REG_FP, STACK_ADDRESS)
         mu.reg_write(UC_ARM_REG_LR, exit_addr)
 
-        make_insn_array()
-
+        make_insn_array(ARM_CODE,ADDRESS)
 
         se_input = []
         print_selection()
