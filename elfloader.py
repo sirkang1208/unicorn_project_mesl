@@ -39,3 +39,25 @@ class ElfLoader:
     def get_start_add(self):
         return list(self.func_sort.values())[0]
 
+    def section_list_make(self):
+        e_sections = []
+        count = 0
+        for section in self.elf_file.sections:
+            line = []
+            e_sections.append(line)
+            e_sections[count].append(section.virtual_address)
+            e_sections[count].append(section.offset)
+            e_sections[count].append(section.original_size)
+            count += 1
+        return e_sections
+    
+    def print_section_data(self):
+        for section in self.elf_file.sections:
+            print('section name : ',end = "")
+            print(section.name)
+            print('section Flash_address : ',end = "")
+            print(section.offset)
+            print('section RAM_address : ',end = "")
+            print(section.virtual_address)
+            print('section content length : ',end = "")
+            print(len(section.content))

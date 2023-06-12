@@ -19,14 +19,16 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
 
 # log file setting before the program starts
 filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt"
-elf_file_name = "./Unicorn_development_source/compiled_program/arm-none_compiled_1"
+elf_file_name = "./Unicorn_development_source/compiled_program/toy_ex_simplify_add"
 
 # making elf loader object for setup address
 e = ElfLoader(elf_file_name) 
 
 # function_skip
 # func_test = e.get_func_address('add')
-
+e_sec = []
+e_sec = e.section_list_make()
+e.print_section_data()
 
 # code update start address
 ADDRESS = e.get_start_add()
@@ -43,7 +45,6 @@ exit_addr = e.get_func_address('exit')
 # _exit addr
 exit_addr_real = e.get_func_address('_exit')
 
-# read file from start address to eof
 with open(elf_file_name, "rb") as f:
     f.seek(ADDRESS,0)
     code = f.read()
@@ -55,9 +56,11 @@ ARM_CODE = code
 STACK_ADDRESS = 0x80000000
 STACK_SIZE = 0x10000
 
+section_insn = []
 copy_mne = []
 
 def make_insn_array():
+
     # Initialize Capstone in ARM mode
     mc = Cs(CS_ARCH_ARM, CS_MODE_ARM)
 
@@ -83,6 +86,7 @@ def make_insn_array():
     # trace every instruction hook
     print(len(copy_mne), end = ' / ')
     print(int(len(ARM_CODE)/4))
+    return copy_mne
     
 # print all register
 def print_all_reg(uc):
@@ -150,6 +154,7 @@ def code_hook(uc, address, size, user_data):
     if address == exit_addr_real:
         uc.emu_stop()
 
+#scenario hook
 def scene_hook(uc,address,size, user_data):
     if user_data[1] == address:
         print("address : ", end = "")
@@ -181,10 +186,18 @@ def main():
         # map stack region as much as stack size
         mu.mem_map(STACK_ADDRESS - STACK_SIZE, STACK_SIZE)
 
+        for i in range(len(e_sec)):
+            # read file from start address to eof
+            with open(elf_file_name, "rb") as f:
+                f.seek(e_sec[i][1],0)
+                cod = f.read(e_sec[i][2])
 
-        # write machine code which should be emulated to memory
-        mu.mem_write(ADDRESS, ARM_CODE)
+            if e_sec[i][0] != 0:
+                mu.mem_write(e_sec[i][0],cod)
+            else:
+                mu.mem_write(e_sec[i][1],cod)            
 
+        # mu.mem_write(ADDRESS,ARM_CODE)
         # initialize machine registers
         # stack pointer must be initialized
         mu.reg_write(UC_ARM_REG_SP, STACK_ADDRESS)
@@ -192,6 +205,7 @@ def main():
         mu.reg_write(UC_ARM_REG_LR, exit_addr)
 
         make_insn_array()
+
 
         se_input = []
         print_selection()
@@ -201,6 +215,8 @@ def main():
             user_insn = input("input skip instruction : ")
             se_input.append(user_insn)
             mu.hook_add(UC_HOOK_CODE, skip_insn_hook, se_input, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
+        elif se_input[0] == 'p':
+            pass
         else:
             set_addr = input("set senario start address :")
             se_input.append(int(set_addr))
@@ -213,7 +229,8 @@ def main():
 
         # save the log file
 
-
+        print(emu_ADDRESS)
+        
         # add address should be same as main function length
         mu.emu_start(emu_ADDRESS, emu_ADDRESS + main_func_length)
 

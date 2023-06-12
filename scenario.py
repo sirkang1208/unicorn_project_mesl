@@ -209,4 +209,3 @@ def print_selection():
     print(" 'clr' for set mem 0 ")
     print(" 'bf' for flip the bit ")
     print(" 'rand' for set mem random data ")
-
