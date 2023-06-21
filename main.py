@@ -24,11 +24,9 @@ elf_file_name = "./Unicorn_development_source/compiled_program/toy_ex_mod"
 # making elf loader object for setup address
 e = ElfLoader(elf_file_name) 
 
-# function_skip
-# func_test = e.get_func_address('add')
+#get section data
 e_sec = []
 e_sec = e.section_list_make()
-#e.print_section_data()
 
 # code update start address
 ADDRESS = e.get_start_add()
@@ -78,7 +76,7 @@ def make_insn_array(input,addr):
     # copy mnemonics to copy_mne
     # add modified register at copy_mne
     for insn in mc.disasm(input, addr):
-        print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str))
+        # print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str))
         line = []
         copy_mne.append(line)
         copy_mne[InIdx].append(insn.mnemonic)
@@ -97,7 +95,7 @@ def make_insn_array(input,addr):
             f.seek(ADDRESS+InIdx*4,0)
             code = f.read()
         make_insn_array(code,ADDRESS+InIdx*4)
-    
+
 # print all register
 def print_all_reg(uc):
     r0 = uc.reg_read(UC_ARM_REG_R0) 
@@ -207,7 +205,6 @@ def main():
             else:
                 mu.mem_write(e_sec[i][1],cod)            
 
-        # mu.mem_write(ADDRESS,ARM_CODE)
         # initialize machine registers
         # stack pointer must be initialized
         mu.reg_write(UC_ARM_REG_SP, STACK_ADDRESS)
@@ -243,8 +240,6 @@ def main():
         # add address should be same as main function length
         mu.emu_start(emu_ADDRESS, emu_ADDRESS + main_func_length)
 
-
-        # TODO error occurs because of return 0; -> no information about return 0 address
         print(">>> Emulation done. Below is the CPU context")
 
     except UcError as e:

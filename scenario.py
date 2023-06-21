@@ -13,6 +13,57 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
             "ip" : UC_ARM_REG_IP, "sp" : UC_ARM_REG_SP, "lr" : UC_ARM_REG_LR, "pc": UC_ARM_REG_PC,
             "cpsr" : UC_ARM_REG_CPSR}
 
+def select_mode():
+    mode = input("input mode - r(register) or m(memory) : ")
+    if mode != 'r' and mode != 'm':
+        print("wrong input, please try again")
+        select_mode
+    return mode
+
+def select_scenario(uc,address,cmd):
+    if cmd == 'p':
+        pass
+    elif cmd == 's':
+        return
+    elif cmd == 'r':
+        change_reg(uc)
+    elif cmd == 'm':
+        addr = int(input("input memory address you want to modify : "))
+        change_mem(uc,addr)
+    elif cmd == 'set':
+        mode = select_mode()
+        if mode == 'r':
+            set_reg(uc,0x1)
+        else:
+            s_range = int(input("input memory range you want to modify : "))
+            set_mem(uc,address,s_range)
+    elif cmd == 'clr':
+        mode = select_mode()
+        if mode == 'r':
+            set_reg(uc,0x0)
+        else:
+            c_range = int(input("input memory range you want to modify : "))
+            clr_mem(uc,address,c_range)
+    elif cmd == 'bf':
+        mode = select_mode()
+        if mode == 'r':
+            bit_flip_reg(uc)
+        else:
+            b_range = int(input("input memory range you want to modify : "))
+            bit_flip_mem(uc,address,b_range)
+    elif cmd == 'rand':
+        mode = select_mode()
+        if mode == 'r':
+            rand_reg(uc)
+        else:
+            r_range = int(input("input memory range you want to modify : "))
+            rand_mem(uc,address,r_range)
+    else:
+        print("wrong input, please enter again")
+        cmd = input("select the senario : ")
+        address = int(input("set senario start address :"))
+        select_scenario(uc,cmd,address)
+
 # change random register 
 def change_reg(uc):
     r_num = random.randint(0,17)
@@ -42,56 +93,10 @@ def change_reg(uc):
 def change_mem(uc,addr):
     data = int(input("Input int data : "))
     res_data = data.to_bytes(4,'little')
+    print(res_data)
     uc.mem_write(addr,res_data)
+    print_mem(uc,addr-4,12)
 
-def select_mode():
-    mode = input("input mode - r(register) or m(memory) : ")
-    if mode != 'r' and mode != 'm':
-        print("wrong input, please try again")
-        select_mode
-    return mode
-
-def select_scenario(uc,address,cmd):
-    if cmd == 'p':
-        pass
-    elif cmd == 's':
-        return
-    elif cmd == 'r':
-        change_reg(uc)
-    elif cmd == 'r':
-        addr = input("input memory address : ")
-        change_mem(uc,addr)
-    elif cmd == 'set':
-        mode = select_mode()
-        if mode == 'r':
-            set_reg(uc,0x1)
-        else:
-            s_range = input("input modify range : ")
-            set_mem(uc,address,s_range)
-    elif cmd == 'clr':
-        mode = select_mode()
-        if mode == 'r':
-            set_reg(uc,0x0)
-        else:
-            c_range = input("input modify range : ")
-            clr_mem(uc,address,c_range)
-    elif cmd == 'bf':
-        mode = select_mode()
-        if mode == 'r':
-            bit_flip_reg(uc)
-        else:
-            b_range = input("input modify range : ")
-            bit_flip_mem(uc,address,b_range)
-    elif cmd == 'rand':
-        mode = select_mode()
-        if mode == 'r':
-            rand_reg(uc)
-        else:
-            r_range = input("input modify range : ")
-            rand_mem(uc,address,r_range)
-    else:
-        print("wrong input, please enter again")
-        select_scenario(uc,cmd,address)
 
 
 # set all reg by data
@@ -118,8 +123,8 @@ def set_reg(uc,data):
 def flip(x):
     if type(x) == bytes:
         cvt_x = int.from_bytes(x, byteorder='little')
-        cvt_x = 0xFFFFFFFF - cvt_x
-        res_x = cvt_x.to_bytes(4,"little")
+        cvt_x = 0xFF - cvt_x
+        res_x = cvt_x.to_bytes(1,"little")
         return res_x
     else:
         cvrt_x = 0xFFFFFFFF - x
@@ -187,27 +192,35 @@ def rand_reg(uc):
 
 # set all data 1 - mem
 def set_mem(uc, address,s_range):
-    for i in range(s_range/4):
-        uc.mem_write(address+i*4, b'\x01\x00\x00\x00')
+    for i in range(s_range):
+        uc.mem_write(address+i, b'\x11')
+
+    print_mem(uc,address,s_range)
 
 # set all data 0 - mem
 def clr_mem(uc, address,c_range):
-    for i in range(c_range/4):
-        uc.mem_write(address+i*4, b'\x00\x00\x00\x00')
+    for i in range(c_range):
+        uc.mem_write(address+i, b'\x00')
+
+    print_mem(uc,address,c_range)
 
 # set all data bit_flip - mem
 def bit_flip_mem(uc, address,b_range):
-    for i in range(b_range/4):
-        x = uc.mem_read(address + i*4)
+    for i in range(b_range):
+        x = uc.mem_read(address + i)
         res_x = flip(x)
-        uc.mem_write(address+i*4, res_x)
+        uc.mem_write(address+i, res_x)
+
+    print_mem(uc,address,b_range)
 
 # set data random - mem
 def rand_mem(uc, address,r_range):
-    for i in range(r_range/4):
-        x = random.randint(0,0xFFFFFFFF)
-        res_x = x.to_bytes(4,'little')
-        uc.mem_write(address+i*4,res_x)
+    for i in range(r_range):
+        x = random.randint(0,0xFF)
+        res_x = x.to_bytes(1,'little')
+        uc.mem_write(address+i,res_x)
+
+    print_mem(uc,address,r_range)
 
 def print_selection():
     print(" 'p' for pass ")
