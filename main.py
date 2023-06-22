@@ -8,8 +8,7 @@ from scenario import *
 #import clock
 import sys
 import datetime
-import random
-import operator
+import math
 
 REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_ARM_REG_R3,
             '4' : UC_ARM_REG_R4, '5' : UC_ARM_REG_R5, '6' : UC_ARM_REG_R6, '7' : UC_ARM_REG_R7,
@@ -43,13 +42,6 @@ exit_addr = e.get_func_address('exit')
 # _exit addr
 exit_addr_real = e.get_func_address('_exit')
 
-with open(elf_file_name, "rb") as f:
-    f.seek(ADDRESS,0)
-    code = f.read()
-
-# code which gonna be emulated
-ARM_CODE = code
-
 # board dependent data, must be set before the emulation
 STACK_ADDRESS = 0x80000000
 STACK_SIZE = 0x10000
@@ -58,6 +50,15 @@ section_insn = []
 copy_mne = []
 InIdx = 0
 count = 0
+
+with open(elf_file_name, "rb") as f:
+    f.seek(ADDRESS,0)
+    code = f.read()
+
+# code which gonna be emulated
+ARM_CODE = code
+
+# make_insn_array(ARM_CODE,ADDRESS)
 
 def make_insn_array(input,addr):
     global InIdx
@@ -72,11 +73,10 @@ def make_insn_array(input,addr):
     # idx : index of array which contains information about intruction
     # copy_mne : array that stores mnemonic data copied
 
-
     # copy mnemonics to copy_mne
     # add modified register at copy_mne
     for insn in mc.disasm(input, addr):
-        # print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str))
+        print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str))
         line = []
         copy_mne.append(line)
         copy_mne[InIdx].append(insn.mnemonic)
@@ -85,16 +85,19 @@ def make_insn_array(input,addr):
             copy_mne[InIdx].append(insn.reg_name(r))
         InIdx += 1
 
-    if len(copy_mne)/int(len(ARM_CODE)/4) < 0.99:
+    if len(copy_mne)/int(len(ARM_CODE)/4) < 1:
         count += 1
         line = []
         copy_mne.append(line)
         copy_mne[InIdx].append("NONE")
         InIdx += 1
+        retaddr = ADDRESS+InIdx*4
         with open(elf_file_name, "rb") as f:
             f.seek(ADDRESS+InIdx*4,0)
             code = f.read()
-        make_insn_array(code,ADDRESS+InIdx*4)
+        
+    return code, retaddr
+
 
 # print all register
 def print_all_reg(uc):
@@ -211,7 +214,13 @@ def main():
         mu.reg_write(UC_ARM_REG_FP, STACK_ADDRESS)
         mu.reg_write(UC_ARM_REG_LR, exit_addr)
 
-        make_insn_array(ARM_CODE,ADDRESS)
+        reccod = code
+        recaddr = ADDRESS
+        while len(copy_mne)/int(len(ARM_CODE)/4) < 0.99:
+            reccod, recaddr = make_insn_array(reccod,recaddr)
+
+
+
 
         se_input = []
         print_selection()
