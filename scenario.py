@@ -3,7 +3,7 @@ from unicorn import *
 from capstone import *
 from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
-from main import *
+from uprint import *
 from elfloader import *
 import random
 
@@ -20,53 +20,41 @@ def select_mode():
         select_mode
     return mode
 
-def select_scenario(uc,address,cmd):
+def select_scenario(uc,address,cmd,dat = 0):
     if cmd == 'p':
         pass
     elif cmd == 's':
-        return
+        skip_insn(uc)
     elif cmd == 'r':
-        change_reg(uc)
+        change_reg(uc,dat)
     elif cmd == 'm':
-        addr = int(input("input memory address you want to modify : "))
-        change_mem(uc,addr)
-    elif cmd == 'set':
-        mode = select_mode()
-        if mode == 'r':
-            set_reg(uc,0x1)
-        else:
-            s_range = int(input("input memory range you want to modify : "))
-            set_mem(uc,address,s_range)
-    elif cmd == 'clr':
-        mode = select_mode()
-        if mode == 'r':
-            set_reg(uc,0x0)
-        else:
-            c_range = int(input("input memory range you want to modify : "))
-            clr_mem(uc,address,c_range)
-    elif cmd == 'bf':
-        mode = select_mode()
-        if mode == 'r':
-            bit_flip_reg(uc)
-        else:
-            b_range = int(input("input memory range you want to modify : "))
-            bit_flip_mem(uc,address,b_range)
-    elif cmd == 'rand':
-        mode = select_mode()
-        if mode == 'r':
-            rand_reg(uc)
-        else:
-            r_range = int(input("input memory range you want to modify : "))
-            rand_mem(uc,address,r_range)
+        change_mem(uc,address,dat)
+    elif cmd == 'setr':
+        set_reg(uc,0xFFFFFFFF)
+    elif cmd == 'setm':
+        set_mem(uc,address,dat)
+    elif cmd == 'clrr':
+        set_reg(uc,0x0)
+    elif cmd == 'clrm':
+        clr_mem(uc,address,dat)
+    elif cmd == 'bfr':
+        bit_flip_reg(uc)
+    elif cmd == 'bfm':
+        bit_flip_mem(uc,address,dat)
+    elif cmd == 'randr':
+        rand_reg(uc)
+    elif cmd == 'randm':
+        rand_mem(uc,address,dat)
     else:
-        print("wrong input, please enter again")
-        cmd = input("select the senario : ")
-        address = int(input("set senario start address :"))
-        select_scenario(uc,cmd,address)
+        pass
+
+def skip_insn(uc):
+    pc_data = uc.reg_read(UC_ARM_REG_PC)
+    uc.reg_write(REG["pc"],pc_data+4)
 
 # change random register 
-def change_reg(uc):
-    r_num = random.randint(0,17)
+def change_reg(uc,data):
+    r_num = random.randint(0,16)
     r_num = str(r_num)
     if r_num == '11':
         r_num = 'fp'
@@ -81,17 +69,9 @@ def change_reg(uc):
     elif r_num == '16':
         r_num = 'cpsr'
     REG.get(r_num,"알 수 없는")
-    if REG == "알 수 없는":
-        print("wrong register number")
-        change_reg(uc)
-    print("selected register is : ", end='')
-    print(r_num)
-    data = input('change data to : ')
-    print(data)
     uc.reg_write(REG[r_num],int(data))
 
-def change_mem(uc,addr):
-    data = int(input("Input int data : "))
+def change_mem(uc,addr,data):
     res_data = data.to_bytes(4,'little')
     print(res_data)
     uc.mem_write(addr,res_data)
@@ -191,43 +171,34 @@ def rand_reg(uc):
     print_all_reg(uc)
 
 # set all data 1 - mem
-def set_mem(uc, address,s_range):
-    for i in range(s_range):
+def set_mem(uc, address,s_size):
+    for i in range(s_size):
         uc.mem_write(address+i, b'\x11')
 
-    print_mem(uc,address,s_range)
+    print_mem(uc,address,s_size)
 
 # set all data 0 - mem
-def clr_mem(uc, address,c_range):
-    for i in range(c_range):
+def clr_mem(uc, address,c_size):
+    for i in range(c_size):
         uc.mem_write(address+i, b'\x00')
 
-    print_mem(uc,address,c_range)
+    print_mem(uc,address,c_size)
 
 # set all data bit_flip - mem
-def bit_flip_mem(uc, address,b_range):
-    for i in range(b_range):
+def bit_flip_mem(uc, address,b_size):
+    for i in range(b_size):
         x = uc.mem_read(address + i)
         res_x = flip(x)
         uc.mem_write(address+i, res_x)
 
-    print_mem(uc,address,b_range)
+    print_mem(uc,address,b_size)
 
 # set data random - mem
-def rand_mem(uc, address,r_range):
-    for i in range(r_range):
+def rand_mem(uc, address,r_size):
+    for i in range(r_size):
         x = random.randint(0,0xFF)
         res_x = x.to_bytes(1,'little')
         uc.mem_write(address+i,res_x)
 
-    print_mem(uc,address,r_range)
+    print_mem(uc,address,r_size)
 
-def print_selection():
-    print(" 'p' for pass ")
-    print(" 's' for skip ")
-    print(" 'r' for register modify ")
-    print(" 'm' for change mem ")
-    print(" 'set' for set mem 1 ")
-    print(" 'clr' for set mem 0 ")
-    print(" 'bf' for flip the bit ")
-    print(" 'rand' for set mem random data ")

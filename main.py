@@ -5,10 +5,9 @@ from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
 from elfloader import *
 from scenario import *
+from uprint import *
 #import clock
 import sys
-import datetime
-import math
 
 REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_ARM_REG_R3,
             '4' : UC_ARM_REG_R4, '5' : UC_ARM_REG_R5, '6' : UC_ARM_REG_R6, '7' : UC_ARM_REG_R7,
@@ -17,8 +16,12 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
             "cpsr" : UC_ARM_REG_CPSR}
 
 # log file setting before the program starts
-filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt"
-elf_file_name = "./Unicorn_development_source/compiled_program/toy_ex_mod"
+name = input("please input log file name : ")
+e_name = input("please input elf file name : ")
+# or get name from text file
+
+filename = "./log/" + name + ".txt"
+elf_file_name = e_name
 
 # making elf loader object for setup address
 e = ElfLoader(elf_file_name) 
@@ -46,11 +49,6 @@ exit_addr_real = e.get_func_address('_exit')
 STACK_ADDRESS = 0x80000000
 STACK_SIZE = 0x10000
 
-section_insn = []
-copy_mne = []
-InIdx = 0
-count = 0
-
 with open(elf_file_name, "rb") as f:
     f.seek(ADDRESS,0)
     code = f.read()
@@ -58,8 +56,12 @@ with open(elf_file_name, "rb") as f:
 # code which gonna be emulated
 ARM_CODE = code
 
-# make_insn_array(ARM_CODE,ADDRESS)
+section_insn = []
+copy_mne = []
+InIdx = 0
+count = 0
 
+# make_insn_array(ARM_CODE,ADDRESS)
 def make_insn_array(input,addr):
     global InIdx
     global count
@@ -94,56 +96,9 @@ def make_insn_array(input,addr):
         retaddr = ADDRESS+InIdx*4
         with open(elf_file_name, "rb") as f:
             f.seek(ADDRESS+InIdx*4,0)
-            code = f.read()
+            fcode = f.read()
         
-    return code, retaddr
-
-
-# print all register
-def print_all_reg(uc):
-    r0 = uc.reg_read(UC_ARM_REG_R0) 
-    r1 = uc.reg_read(UC_ARM_REG_R1)
-    r2 = uc.reg_read(UC_ARM_REG_R2)
-    r3 = uc.reg_read(UC_ARM_REG_R3)
-    r4 = uc.reg_read(UC_ARM_REG_R4)
-    r5 = uc.reg_read(UC_ARM_REG_R5)
-    r6 = uc.reg_read(UC_ARM_REG_R6)
-    r7 = uc.reg_read(UC_ARM_REG_R7)
-    r8 = uc.reg_read(UC_ARM_REG_R8)
-    r9 = uc.reg_read(UC_ARM_REG_R9)
-    r10 = uc.reg_read(UC_ARM_REG_R10)
-    fp = uc.reg_read(UC_ARM_REG_FP)
-    ip = uc.reg_read(UC_ARM_REG_IP)
-    sp = uc.reg_read(UC_ARM_REG_SP)
-    lr = uc.reg_read(UC_ARM_REG_LR)
-    pc = uc.reg_read(UC_ARM_REG_PC)
-    cpsr = uc.reg_read(UC_ARM_REG_CPSR)
-    
-    print("R0 = 0x%x" %r0, end = ', ')
-    print("R1 = 0x%x" %r1, end = ', ')
-    print("R2 = 0x%x" %r2, end = ', ')
-    print("R3 = 0x%x" %r3, end = ', ')
-    print("R4 = 0x%x" %r4, end = ', ')
-    print("R5 = 0x%x" %r5, end = ', ')
-    print("R6 = 0x%x" %r6, end = ', ')
-    print("R7 = 0x%x" %r7, end = ', ')
-    print("R8 = 0x%x" %r8, end = ', ')
-    print("R9 = 0x%x" %r9, end = ', ')
-    print("R10 = 0x%x" %r10, end = ', ')
-    print("FP = 0x%x" %fp, end = ', ')
-    print("IP = 0x%x" %ip, end = ', ')
-    print("SP = 0x%x" %sp, end = ', ')
-    print("LR = 0x%x" %lr, end = ', ')
-    print("PC = 0x%x" %pc, end = ', ')
-    print("CPSR = 0x%x" %cpsr, end = ' ')
-
-# print 'len' length memory at 'addr' address
-def print_mem(uc,addr, m_len):
-    tot_mem = uc.mem_read(addr,m_len)
-    print("/ memory data : ", end = "")
-    for i in range(len(tot_mem)):
-        print("\\x%x" %tot_mem[i], end = "")
-    print()
+    return fcode, retaddr
 
 # hook every instruction and fetch information we need
 def code_hook(uc, address, size, user_data):
@@ -167,16 +122,11 @@ def code_hook(uc, address, size, user_data):
 
 #scenario hook
 def scene_hook(uc,address,size, user_data):
-    if user_data[1] == address:
-        print("address : ", end = "")
-        print(address)
-        select_scenario(uc,address, user_data[0])
-
-# skip instruction
-def skip_insn_hook(uc, address,size, user_data):
-    if copy_mne[int((address-ADDRESS)/4)][0] == user_data[1]:
-        pc_data = uc.reg_read(UC_ARM_REG_PC)
-        uc.reg_write(REG["pc"],pc_data+4)
+    for i in range(len(user_data)):
+        if user_data[i][0] == address:
+            print("address : ", end = "")
+            print(address)
+            select_scenario(uc,address, user_data[i][1],user_data[i][2])
 
 # function_skip
 # def test_hook(uc,b,c,d):
@@ -214,37 +164,22 @@ def main():
         mu.reg_write(UC_ARM_REG_FP, STACK_ADDRESS)
         mu.reg_write(UC_ARM_REG_LR, exit_addr)
 
+        # make copy_mne list until eof
         reccod = code
         recaddr = ADDRESS
         while len(copy_mne)/int(len(ARM_CODE)/4) < 0.99:
             reccod, recaddr = make_insn_array(reccod,recaddr)
 
-
-
-
         se_input = []
-        print_selection()
-        command = input("select the senario : ")
-        se_input.append(command)
-        if se_input[0] == 's':
-            user_insn = input("input skip instruction : ")
-            se_input.append(user_insn)
-            mu.hook_add(UC_HOOK_CODE, skip_insn_hook, se_input, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
-        elif se_input[0] == 'p':
+        if len(se_input) == 0:
             pass
-        else:
-            set_addr = input("set senario start address :")
-            se_input.append(int(set_addr))
+        else :
             mu.hook_add(UC_HOOK_CODE, scene_hook, se_input, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
         
         # function_skip
         # mu.hook_add(UC_HOOK_CODE, test_hook, copy_mne, begin= func_test, end=func_test + 52)
 
         mu.hook_add(UC_HOOK_CODE, code_hook, copy_mne, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
-
-        # save the log file
-
-        print(emu_ADDRESS)
         
         # add address should be same as main function length
         mu.emu_start(emu_ADDRESS, emu_ADDRESS + main_func_length)
