@@ -16,8 +16,11 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
             "cpsr" : UC_ARM_REG_CPSR}
 
 # log file setting before the program starts
-name = input("please input log file name : ")
-e_name = input("please input elf file name : ")
+
+script_name = "script.txt"
+
+#name = ~~~
+#e_name = ~~~
 # or get name from text file
 
 filename = "./log/" + name + ".txt"
@@ -171,6 +174,14 @@ def main():
             reccod, recaddr = make_insn_array(reccod,recaddr)
 
         se_input = []
+        # for i in range(~~):
+        #     line = []
+        #     se_input.append(line)
+        #     se_input[i].append(address)
+        #     se_input[i].append(command)
+        #     se_input[i].append(data)
+            
+        # address command data
         if len(se_input) == 0:
             pass
         else :
