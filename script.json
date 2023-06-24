@@ -1,0 +1,16 @@
+{
+    "FileName" : {
+        "elf_file_path" : "./Unicorn_development_source/compiled_program/toy_ex_mod", 
+        "log_file_name" : "my_log.txt"
+    },
+
+    "SkipLog" : [
+
+    ],
+
+    "Scenario" : [
+        {"address" : 34110, "command": "s", "data" : 1234},
+        {"address" : 34216, "command": "setr", "data" : 1234}
+    ]
+
+}

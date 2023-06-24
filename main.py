@@ -8,6 +8,8 @@ from scenario import *
 from uprint import *
 #import clock
 import sys
+import json
+import datetime
 
 REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_ARM_REG_R3,
             '4' : UC_ARM_REG_R4, '5' : UC_ARM_REG_R5, '6' : UC_ARM_REG_R6, '7' : UC_ARM_REG_R7,
@@ -15,16 +17,18 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
             "ip" : UC_ARM_REG_IP, "sp" : UC_ARM_REG_SP, "lr" : UC_ARM_REG_LR, "pc": UC_ARM_REG_PC,
             "cpsr" : UC_ARM_REG_CPSR}
 
+# open script file
+with open("./script.json", "r") as f:
+    script_data = json.load(f)
+
 # log file setting before the program starts
+# if the log file name is not set, "%Y-%m-%d %H_%M_%S".txt is created.
+try:
+    filename = "./log/" + script_data["FileName"]["log_file_name"]
+except:
+    filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt" 
 
-script_name = "script.txt"
-
-#name = ~~~
-#e_name = ~~~
-# or get name from text file
-
-filename = "./log/" + name + ".txt"
-elf_file_name = e_name
+elf_file_name = script_data["FileName"]["elf_file_path"]
 
 # making elf loader object for setup address
 e = ElfLoader(elf_file_name) 
@@ -52,6 +56,7 @@ exit_addr_real = e.get_func_address('_exit')
 STACK_ADDRESS = 0x80000000
 STACK_SIZE = 0x10000
 
+# open elf file
 with open(elf_file_name, "rb") as f:
     f.seek(ADDRESS,0)
     code = f.read()
@@ -64,10 +69,16 @@ copy_mne = []
 InIdx = 0
 count = 0
 
+#skip log values
+line_count = 0
+skip_len_i = 0
+
 # make_insn_array(ARM_CODE,ADDRESS)
 def make_insn_array(input,addr):
     global InIdx
     global count
+    #sys.stdout = open("./reference.txt",'a') #remove comment when make reference file
+
     # Initialize Capstone in ARM mode
     mc = Cs(CS_ARCH_ARM, CS_MODE_ARM)
 
@@ -81,7 +92,7 @@ def make_insn_array(input,addr):
     # copy mnemonics to copy_mne
     # add modified register at copy_mne
     for insn in mc.disasm(input, addr):
-        print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str))
+        #print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str)) #remove comment when make reference file
         line = []
         copy_mne.append(line)
         copy_mne[InIdx].append(insn.mnemonic)
@@ -103,13 +114,11 @@ def make_insn_array(input,addr):
         
     return fcode, retaddr
 
-# hook every instruction and fetch information we need
-def code_hook(uc, address, size, user_data):
-    #input result in .txt file
-    temp = sys.stdout
-    sys.stdout = open(filename,'a')
+def write_log(uc, address, user_data, line_count):
 
+    temp = sys.stdout
     addr = int((address-ADDRESS)/4)
+    print("[" + str(line_count) + "]", end=' ')
     print("instruction :", user_data[addr][0],end=' ')
     print("/ register data :", end="")
     print_all_reg(uc)
@@ -117,8 +126,26 @@ def code_hook(uc, address, size, user_data):
     print(user_data[addr][1:], end = ' ')
     print_mem(uc,address,4)
     # print("/ clock count: ", clock.cycle_cal(user_data[addr][0]))
-
     sys.stdout = temp
+
+# hook every instruction and fetch information we need
+def code_hook(uc, address, size, user_data):
+    #input result in .txt file
+    global line_count,skip_len_i
+    temp = sys.stdout
+    sys.stdout = open(filename,'a')
+    skip = script_data["SkipLog"]
+    line_count += 1
+    
+    try:
+        if skip[skip_len_i]["point_s"] <= line_count and skip[skip_len_i]["point_f"] >= line_count:
+            write_log(uc, address, user_data, line_count)
+
+        if line_count == skip[skip_len_i]["point_f"] and skip_len_i != len(skip) - 1:
+            skip_len_i += 1
+    
+    except:
+        write_log(uc, address, user_data, line_count) # default: log every instructions
 
     if address == exit_addr_real:
         uc.emu_stop()
@@ -131,14 +158,9 @@ def scene_hook(uc,address,size, user_data):
             print(address)
             select_scenario(uc,address, user_data[i][1],user_data[i][2])
 
-# function_skip
-# def test_hook(uc,b,c,d):
-#     uc.reg_write(REG["pc"], 33404)
-#     함수값 보존하고 싶을 땐 점프 전 r0값 저장해뒀다가 reg_write(r0)로 작성
-
 def main():
 
-    print("Emulate ARM code")
+    print("Emulating the code...")
 
     try:
         # Initialize Unicorn in ARM mode
@@ -168,18 +190,17 @@ def main():
         mu.reg_write(UC_ARM_REG_LR, exit_addr)
 
         # make copy_mne list until eof
+        # used only once when creating a reference file
         reccod = code
         recaddr = ADDRESS
         while len(copy_mne)/int(len(ARM_CODE)/4) < 0.99:
             reccod, recaddr = make_insn_array(reccod,recaddr)
 
         se_input = []
-        # for i in range(~~):
-        #     line = []
-        #     se_input.append(line)
-        #     se_input[i].append(address)
-        #     se_input[i].append(command)
-        #     se_input[i].append(data)
+
+        se_data = script_data["Scenario"]
+        for i in range(len(se_data)):
+            se_input.append(list(se_data[i].values())) # ex: [[34110, 's', 1234], [34216, 'setr', 1234]]
             
         # address command data
         if len(se_input) == 0:
