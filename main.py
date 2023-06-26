@@ -157,7 +157,7 @@ def code_hook(uc, address, size, user_data):
     sys.stdout = temp
 
     if address == exit_addr_real:
-        OutData = get_output_data(uc,OutData_addr,length_addr)
+        OutData = e.get_output_data(uc,OutData_addr,length_addr)
         uc.emu_stop()
 
 #scenario hook
@@ -223,9 +223,8 @@ def main():
         # address command data
         if len(se_input) == 0:
             pass
-        else :
-            pass
-            #mu.hook_add(UC_HOOK_CODE, scene_hook, se_input, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
+        else:
+            mu.hook_add(UC_HOOK_CODE, scene_hook, se_input, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
         
         # function_skip
         # mu.hook_add(UC_HOOK_CODE, test_hook, copy_mne, begin= func_test, end=func_test + 52)

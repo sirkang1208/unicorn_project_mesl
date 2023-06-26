@@ -13,13 +13,6 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
             "ip" : UC_ARM_REG_IP, "sp" : UC_ARM_REG_SP, "lr" : UC_ARM_REG_LR, "pc": UC_ARM_REG_PC,
             "cpsr" : UC_ARM_REG_CPSR}
 
-def select_mode():
-    mode = input("input mode - r(register) or m(memory) : ")
-    if mode != 'r' and mode != 'm':
-        print("wrong input, please try again")
-        select_mode
-    return mode
-
 def select_scenario(uc,address,cmd,dat = 0):
     if cmd == 'p':
         pass
@@ -76,8 +69,6 @@ def change_mem(uc,addr,data):
     print(res_data)
     uc.mem_write(addr,res_data)
     print_mem(uc,addr-4,12)
-
-
 
 # set all reg by data
 def set_reg(uc,data):
@@ -201,6 +192,7 @@ def rand_mem(uc, address,r_size):
         uc.mem_write(address+i,res_x)
 
     print_mem(uc,address,r_size)
+<<<<<<< HEAD
 
 def get_output_data(uc,out_addr,len_addr):
     output = []
@@ -212,3 +204,5 @@ def get_output_data(uc,out_addr,len_addr):
         cvt_output = int.from_bytes(out_mem,byteorder="little")
         output.append(cvt_output)
     return output
+=======
+>>>>>>> 1dce1b95cb067bfa565e586c166554de31317c0f
