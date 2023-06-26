@@ -1,0 +1,7 @@
+{
+    "Files" : {
+        "elf_file_path" : "./Unicorn_development_source/compiled_program/toy_ex_mod_add", 
+        "log_file_name" : "my_log.txt",
+        "cpu_architecture" : "ARM"
+    }
+}
