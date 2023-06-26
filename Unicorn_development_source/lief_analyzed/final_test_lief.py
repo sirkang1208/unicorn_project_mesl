@@ -4,7 +4,7 @@ import unicorn as uc
 import capstone as cs
 import operator
 
-elf_file = lief.parse("/home/kibong/Desktop/unicorn_project_mesl/Unicorn_development_source/compiled_program/toy_ex_mod")
+elf_file = lief.parse("/home/kibong/Desktop/unicorn_project_mesl/Unicorn_development_source/compiled_program/toy_ex_mod_1")
 functions = {}
 
 try:
@@ -42,5 +42,18 @@ func_list = list(func_sort.items())
 main_length = func_list[a+1][1] - addr
 print(hex(main_length))
 
-sys.stdout = open('toy_ex_mod.txt','w')
+symb_out = elf_file.get_symbol("OutData")
+symb_len = elf_file.get_symbol("length")
+print(symb_out)
+print(symb_out.name)
+print(symb_out.size)
+print(symb_out.value)
+print(symb_len)
+print(symb_len.name)
+print(symb_len.size)
+print(symb_len.value)
+
+# bss.content = bytes([0x33] * bss.size)
+
+sys.stdout = open('toy_ex_mod_add.txt','w')
 print(elf_file)

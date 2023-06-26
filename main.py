@@ -4,6 +4,7 @@ from capstone import *
 from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
 from elfloader import *
+
 from scenario import *
 from uprint import *
 #import clock
@@ -73,6 +74,10 @@ count = 0
 line_count = 0
 skip_len_i = 0
 
+#output addr and length addr
+OutData_addr,length_addr = e.output_symbol_data_get();
+OutData = []
+
 # make_insn_array(ARM_CODE,ADDRESS)
 def make_insn_array(input,addr):
     global InIdx
@@ -112,7 +117,9 @@ def make_insn_array(input,addr):
             f.seek(ADDRESS+InIdx*4,0)
             fcode = f.read()
         
-    return fcode, retaddr
+        return fcode, retaddr
+    else:
+        return 0, addr
 
 def write_log(uc, address, user_data, line_count):
 
@@ -131,7 +138,7 @@ def write_log(uc, address, user_data, line_count):
 # hook every instruction and fetch information we need
 def code_hook(uc, address, size, user_data):
     #input result in .txt file
-    global line_count,skip_len_i
+    global line_count,skip_len_i, OutData, OutData_addr, length_addr
     temp = sys.stdout
     sys.stdout = open(filename,'a')
     skip = script_data["SkipLog"]
@@ -147,16 +154,25 @@ def code_hook(uc, address, size, user_data):
     except:
         write_log(uc, address, user_data, line_count) # default: log every instructions
 
+    sys.stdout = temp
+
     if address == exit_addr_real:
+        OutData = get_output_data(uc,OutData_addr,length_addr)
         uc.emu_stop()
 
 #scenario hook
 def scene_hook(uc,address,size, user_data):
     for i in range(len(user_data)):
-        if user_data[i][0] == address:
-            print("address : ", end = "")
-            print(address)
-            select_scenario(uc,address, user_data[i][1],user_data[i][2])
+        if user_data[i][2] == None:
+            if user_data[i][0] == address:
+                print("address : ", end = "")
+                print(address)
+                select_scenario(uc,address, user_data[i][1])
+        else:
+            if user_data[i][0] == address:
+                print("address : ", end = "")
+                print(address)
+                select_scenario(uc,address, user_data[i][1],user_data[i][2])
 
 def main():
 
@@ -166,7 +182,7 @@ def main():
         # Initialize Unicorn in ARM mode
         mu = Uc(UC_ARCH_ARM, UC_MODE_ARM)
 
-        # map 2MB memory for this emulation
+        # map 4MB memory for this emulation
         mu.mem_map(ADDRESS, 4*1024*1024)
         mu.mem_map(0x0,1024)
         # map stack region as much as stack size
@@ -202,7 +218,7 @@ def main():
         for i in range(len(se_data)):
             se_data[i]["address"] = int(se_data[i]["address"], 16)
             se_input.append(list(se_data[i].values())) # ex: [[34110, 's', 1234], [34216, 'setr', 1234]]
-            
+        
         # address command data
         if len(se_input) == 0:
             pass
@@ -218,6 +234,9 @@ def main():
         mu.emu_start(emu_ADDRESS, emu_ADDRESS + main_func_length)
 
         print(">>> Emulation done. Below is the CPU context")
+
+        print("OutData = ", end="")
+        print(OutData)
 
     except UcError as e:
         print("ERROR: %s" % e)

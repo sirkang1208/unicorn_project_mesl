@@ -1,18 +1,17 @@
 {
     "FileName" : {
-        "elf_file_path" : "./Unicorn_development_source/compiled_program/toy_ex_mod", 
+        "elf_file_path" : "./Unicorn_development_source/compiled_program/toy_ex_mod_add", 
         "log_file_name" : "my_log.txt"
     },
 
     "SkipLog" : [
         {"point_s" : 1, "point_f" : 10},
         {"point_s" : 14, "point_f" : 16}
-
     ],
 
     "Scenario" : [
-        {"address" : "0x85A8", "command": "s", "data" : 1234},
-        {"address" : "0x85A9", "command": "setr", "data" : 1234}
+        {"address" : "0x853E", "command": "s", "data" : 1234},
+        {"address" : "0x85A8", "command": "setr", "data" : 1234}
     ]
 
 }

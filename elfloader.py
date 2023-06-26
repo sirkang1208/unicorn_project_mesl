@@ -51,6 +51,13 @@ class ElfLoader:
             count += 1
         return e_sections
     
+    def output_symbol_data_get(self):
+        symb_out = self.elf_file.get_symbol("OutData")
+        symb_len = self.elf_file.get_symbol("length")
+        out_addr = symb_out.value
+        len_addr = symb_len.value
+        return out_addr, len_addr
+
     def print_section_data(self):
         for section in self.elf_file.sections:
             print('section name : ',end = "")
@@ -61,3 +68,4 @@ class ElfLoader:
             print(section.virtual_address)
             print('section content length : ',end = "")
             print(len(section.content))
+

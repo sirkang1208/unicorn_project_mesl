@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <malloc.h>
 
 const uint8_t SBox[256] = {
     0x63,0x7C,0x77,0x7B,0xF2,0x6B,0x6F,0xC5,0x30,0x01,0x67,0x2B,0xFE,0xD7,0xAB,0x76,
@@ -29,6 +30,8 @@ uint32_t InData2[3] = {0x00, 0x37,0x94};
 uint32_t InData3[2] = {0x00, 0x40};
 uint32_t InData4[31] = {0x00,0x01,0x03,0x79,0x44,0x05,0x20,0x10,0x35,0x30,0x07,0x03,0x01,0x03,0x31,0x06,0x55,0x30,0x10,0x11,0x12,0x13,0x14,0x15,0x16,0x17,0x18,0x19,0x20,0x21,0x22};
 uint32_t InData5[2] = {0x00, 0x52};
+uint32_t length = 0;
+uint32_t OutData[32];
 
 void ADD(uint32_t *out, uint32_t *in){
 	out[1] = in[1] + in[2];
@@ -76,34 +79,38 @@ void RAND_XOR(uint32_t *out, uint32_t *in){
 //   }
 // }
 
-void IO_TRANSMIT(uint32_t* output){
-  FILE* fp = fopen("result.txt","w");
-  int output_len = sizeof(output)/sizeof(uint32_t);
-  for(int i = 0; i < output_len; i++){
-    fprintf(fp, "output[%d] = [%zu]", i , &output[i]);
-  }
-  fclose(fp);
-}
+// void IO_TRANSMIT(uint32_t* output){
+//   FILE* fp = fopen("result.txt","w");
+//   int output_len = sizeof(output)/sizeof(uint32_t);
+//   for(int i = 0; i < output_len; i++){
+//     fprintf(fp, "output[%d] = [%zu]", i , &output[i]);
+//   }
+//   fclose(fp);
+// }
 
 void main(void){
-  uint32_t *OutData;
   bool RcvState = true; //IO_RECEIVE(InData);
   if(RcvState == true){
     if(InData[0] == 0x01){ 
-      ADD(OutData, InData1);        
+      ADD(OutData, InData1);
+	  length = sizeof(OutData)/sizeof(uint32_t);
     }
     if(InData[0] == 0x02){
-      MUL(OutData, InData2);        
+      MUL(OutData, InData2);
+	  length = sizeof(OutData)/sizeof(uint32_t);
     }
     if(InData[0] == 0x03){
-      LUT(OutData, InData3);        
+      LUT(OutData, InData3);
+	  length = sizeof(OutData)/sizeof(uint32_t);
     }
     if(InData[0] == 0x04){
       MIXs(OutData, InData4);
+	  length = sizeof(OutData)/sizeof(uint32_t);
     }
     if(InData[0] == 0x05){
       RAND_XOR(OutData, InData5);
+	  length = sizeof(OutData)/sizeof(uint32_t);
     }
-    IO_TRANSMIT(OutData);   
-  }       
+  }
+
 }
