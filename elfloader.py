@@ -49,14 +49,7 @@ class ElfLoader:
             e_sections[count].append(section.offset)
             e_sections[count].append(section.original_size)
             count += 1
-        return e_sections
-    
-    def output_symbol_data_get(self):
-        symb_out = self.elf_file.get_symbol("OutData")
-        symb_len = self.elf_file.get_symbol("length")
-        out_addr = symb_out.value
-        len_addr = symb_len.value
-        return out_addr, len_addr
+        return e_sections    
 
     def print_section_data(self):
         for section in self.elf_file.sections:
@@ -69,3 +62,21 @@ class ElfLoader:
             print('section content length : ',end = "")
             print(len(section.content))
 
+    def output_symbol_data_get(self):
+        symb_out = self.elf_file.get_symbol("OutData")
+        symb_len = self.elf_file.get_symbol("length")
+        out_addr = symb_out.value
+        len_addr = symb_len.value
+        return out_addr, len_addr
+
+    def get_output_data(uc,out_addr,len_addr):
+        output = []
+        len_mem = uc.mem_read(len_addr,4)
+        cvt_len = int.from_bytes(len_mem, byteorder='little')
+        # change mem to int
+        for i in range(cvt_len):
+            out_mem = uc.mem_read(out_addr+i*4,4)
+            print(out_mem)
+            cvt_output = int.from_bytes(out_mem,byteorder="little")
+            output.append(cvt_output)
+        return output

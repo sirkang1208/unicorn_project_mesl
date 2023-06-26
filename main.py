@@ -157,7 +157,7 @@ def code_hook(uc, address, size, user_data):
     sys.stdout = temp
 
     if address == exit_addr_real:
-        OutData = get_output_data(uc,OutData_addr,length_addr)
+        OutData = e.get_output_data(uc,OutData_addr,length_addr)
         uc.emu_stop()
 
 #scenario hook
