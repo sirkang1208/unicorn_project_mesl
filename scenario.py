@@ -209,7 +209,6 @@ def get_output_data(uc,out_addr,len_addr):
     # change mem to int
     for i in range(cvt_len):
         out_mem = uc.mem_read(out_addr+i*4,4)
-        print(out_mem)
         cvt_output = int.from_bytes(out_mem,byteorder="little")
         output.append(cvt_output)
     return output
