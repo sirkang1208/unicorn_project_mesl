@@ -81,38 +81,36 @@ def get_scene():
     return se_input
 
 # write log data to file
-def write_log(uc, address, user_data, line_count):
+def write_log(uc, address, user_data):
 
     temp = sys.stdout
     addr = int((address-ADDRESS)/4)
-    print("[" + str(line_count) + "]", end=' ')
+    print("[" + str(hex(address)) + "]", end=' ')
     print("instruction :", user_data[addr][0],end=' ')
     print("/ register data :", end="")
     print_all_reg(uc)
     print("/ modified register : ", end ='')
     print(user_data[addr][1:], end = ' ')
     print_mem(uc,address,4)
-    # print("/ clock count: ", clock.cycle_cal(user_data[addr][0]))
     sys.stdout = temp
 
 # hook every instruction and fetch information we need
 def code_hook(uc, address, size, user_data):
     #input result in .txt file
-    global line_count,skip_len_i
+    global skip_len_i
     temp = sys.stdout
     sys.stdout = open(filename,'a')
     skip = script_data["SkipLog"]
-    line_count += 1
     
     try:
-        if skip[skip_len_i]["point_s"] <= line_count and skip[skip_len_i]["point_f"] >= line_count:
-            write_log(uc, address, user_data, line_count)
+        if skip[skip_len_i]["point_s"] <= hex(address) and skip[skip_len_i]["point_f"] >= hex(address):
+            write_log(uc, address, user_data)
 
-        if line_count == skip[skip_len_i]["point_f"] and skip_len_i != len(skip) - 1:
+        if hex(address) == skip[skip_len_i]["point_f"] and skip_len_i != len(skip) - 1:
             skip_len_i += 1
     
     except:
-        write_log(uc, address, user_data, line_count) # default: log every instructions
+        write_log(uc, address, user_data) # default: log every instructions
 
     sys.stdout = temp
 

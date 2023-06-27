@@ -7,7 +7,6 @@ STACK_ADDRESS = 0x20000000
 STACK_SIZE = 0x10000
 
 #skip log values
-line_count = 0
 skip_len_i = 0
 
 OutData = []
@@ -48,7 +47,7 @@ emu_ADDRESS = e.get_func_address('main')
 main_func_length = e.get_main_len()
 
 # code which gonna be emulated
-ARM_CODE = e.get_code()
+ARM_CODE = e.get_code(ADDRESS)
 
 #get section data
 e_sec = e.section_list_make()
