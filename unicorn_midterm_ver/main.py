@@ -129,7 +129,7 @@ def main():
         mu.reg_write(UC_ARM_REG_FP, STACK_ADDRESS)
         mu.reg_write(UC_ARM_REG_LR, exit_addr)
 
-        reccod = code
+        reccod = ARM_CODE
         recaddr = ADDRESS
         while len(copy_mne)/int(len(ARM_CODE)/4) < 0.99:
             reccod, recaddr = make_insn_array(reccod,recaddr)
