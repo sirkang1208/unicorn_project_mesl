@@ -11,7 +11,7 @@
 
     "Scenario" : [
         {"address" : "0x853E", "command": "s", "data" : 1234},
-        {"address" : "0x85A8", "command": "setr", "data" : 1234}
+        {"address" : "0x85A8", "command": "setr"}
     ]
 
 }

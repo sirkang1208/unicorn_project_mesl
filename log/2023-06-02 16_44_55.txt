@@ -1,0 +1,3 @@
+instruction : str / register data :R0 = 0x0, R1 = 0x0, R2 = 0x0, R3 = 0x0, R4 = 0x0, R5 = 0x0, R6 = 0x0, R7 = 0x0, R8 = 0x0, R9 = 0x0, R10 = 0x0, FP = 0x0, IP = 0x0, SP = 0x80000000, LR = 0x0, PC = 0x8254, CPSR = 0x400001d3 / modified register : [] / clock cycle:  None
+/ memory data : \x0\x20\x83\xe5
+ERROR: Invalid memory write (UC_ERR_WRITE_UNMAPPED)

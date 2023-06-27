@@ -54,7 +54,7 @@ exit_addr = e.get_func_address('exit')
 exit_addr_real = e.get_func_address('_exit')
 
 # board dependent data, must be set before the emulation
-STACK_ADDRESS = 0x80000000
+STACK_ADDRESS = 0x20000000
 STACK_SIZE = 0x10000
 
 # open elf file
@@ -189,6 +189,7 @@ def main():
         # map stack region as much as stack size
         mu.mem_map(STACK_ADDRESS - STACK_SIZE, STACK_SIZE)
 
+        print(e_sec)
         for i in range(len(e_sec)):
             # read file from start address to eof
             with open(elf_file_name, "rb") as f:
@@ -204,7 +205,7 @@ def main():
         # stack pointer must be initialized
         mu.reg_write(UC_ARM_REG_SP, STACK_ADDRESS)
         mu.reg_write(UC_ARM_REG_FP, STACK_ADDRESS)
-        mu.reg_write(UC_ARM_REG_LR, exit_addr)
+        mu.reg_write(UC_ARM_REG_LR, exit_addr) 
 
         # make copy_mne list until eof
         # used only once when creating a reference file
@@ -223,7 +224,7 @@ def main():
         # address command data
         if len(se_input) == 0:
             pass
-        else :
+        else:
             mu.hook_add(UC_HOOK_CODE, scene_hook, se_input, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
         
         # function_skip

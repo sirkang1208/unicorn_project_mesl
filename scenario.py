@@ -192,3 +192,17 @@ def rand_mem(uc, address,r_size):
         uc.mem_write(address+i,res_x)
 
     print_mem(uc,address,r_size)
+<<<<<<< HEAD
+
+def get_output_data(uc,out_addr,len_addr):
+    output = []
+    len_mem = uc.mem_read(len_addr,4)
+    cvt_len = int.from_bytes(len_mem, byteorder='little')
+    # change mem to int
+    for i in range(cvt_len):
+        out_mem = uc.mem_read(out_addr+i*4,4)
+        cvt_output = int.from_bytes(out_mem,byteorder="little")
+        output.append(cvt_output)
+    return output
+=======
+>>>>>>> 1dce1b95cb067bfa565e586c166554de31317c0f
