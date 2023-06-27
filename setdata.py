@@ -2,10 +2,6 @@ from elfloader import *
 import json
 import datetime
 
-# board dependent data, must be set before the emulation
-STACK_ADDRESS = 0x20000000
-STACK_SIZE = 0x10000
-
 #skip log values
 skip_len_i = 0
 

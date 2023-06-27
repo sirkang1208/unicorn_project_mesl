@@ -1,6 +1,10 @@
 from __future__ import print_function
 from functions import *
 
+# board dependent data, must be set before the emulation
+STACK_ADDRESS = 0x20000000
+STACK_SIZE = 0x10000
+
 def main():
 
     print("Emulating the code...")
@@ -10,7 +14,7 @@ def main():
         mu = Uc(UC_ARCH_ARM, UC_MODE_ARM)
 
         # set memory and data for this emulation
-        auto_set(mu,ADDRESS,4*1024*1024,STACK_ADDRESS,STACK_SIZE)
+        auto_set(mu,4*1024*1024,STACK_ADDRESS,STACK_SIZE)
 
         upload(mu)
 
