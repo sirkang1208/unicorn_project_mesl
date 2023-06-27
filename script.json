@@ -5,8 +5,9 @@
     },
 
     "SkipLog" : [
-        {"point_s" : 1, "point_f" : 10},
-        {"point_s" : 14, "point_f" : 16}
+        {"point_s" : "0x853c", "point_f" : "0x8550"},
+        {"point_s" : "0x8600", "point_f" : "0x8608"}
+
     ],
 
     "Scenario" : [

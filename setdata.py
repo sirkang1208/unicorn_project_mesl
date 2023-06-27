@@ -7,7 +7,6 @@ STACK_ADDRESS = 0x20000000
 STACK_SIZE = 0x10000
 
 #skip log values
-line_count = 0
 skip_len_i = 0
 
 OutData = []
