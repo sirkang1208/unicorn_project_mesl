@@ -4,7 +4,7 @@ from capstone import *
 from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
 from uprint import *
-from elfloader import *
+from elfparser import *
 import random
 
 REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_ARM_REG_R3,

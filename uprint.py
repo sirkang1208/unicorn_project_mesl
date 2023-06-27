@@ -3,7 +3,7 @@ from unicorn import *
 from capstone import *
 from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
-from elfloader import *
+from elfparser import *
 import random
 
 # print all register

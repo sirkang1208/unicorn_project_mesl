@@ -1,4 +1,4 @@
-from elfloader import *
+from elfparser import *
 import json
 import datetime
 
