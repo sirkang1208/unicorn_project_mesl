@@ -40,9 +40,9 @@ class ElfLoader:
     def get_start_add(self):
         return list(self.func_sort.values())[0]
 
-    def get_code(self,ADDRESS):
+    def get_code(self, address):
         with open(self.elf_file_name, "rb") as f:
-            f.seek(ADDRESS,0)
+            f.seek(address,0)
             code = f.read()
         return code
 
