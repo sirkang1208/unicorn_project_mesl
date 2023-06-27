@@ -39,7 +39,7 @@ def main():
         mu.hook_add(UC_HOOK_CODE, code_hook, copy_mne, begin= ADDRESS, end= ADDRESS + len(ARM_CODE))
         
         # add address should be same as main function length
-        mu.emu_start(emu_ADDRESS, emu_ADDRESS + main_func_length)
+        mu.emu_start(emu_ADDRESS, finish_ADDRESS)
 
         print(">>> Emulation done. Below is the CPU context")
 

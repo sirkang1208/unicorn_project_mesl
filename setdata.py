@@ -42,6 +42,9 @@ emu_ADDRESS = e.get_func_address('main')
 # emulation length -> main function length is enough
 main_func_length = e.get_main_len()
 
+# emulation finish address
+finish_ADDRESS = emu_ADDRESS + main_func_length
+
 # code which gonna be emulated
 ARM_CODE = e.get_code(ADDRESS)
 
