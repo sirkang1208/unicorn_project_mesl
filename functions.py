@@ -22,7 +22,7 @@ def auto_set(uc,address, size, stack_addr, stack_len):
     uc.reg_write(UC_ARM_REG_FP, stack_addr)
     uc.reg_write(UC_ARM_REG_LR, exit_addr) 
 
-def upload(uc,elf_file_name,e_sec):
+def upload(uc):
     for i in range(len(e_sec)):
         # read file from start address to eof
         with open(elf_file_name, "rb") as f:

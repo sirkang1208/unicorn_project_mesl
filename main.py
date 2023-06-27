@@ -12,7 +12,7 @@ def main():
         # set memory and data for this emulation
         auto_set(mu,ADDRESS,4*1024*1024,STACK_ADDRESS,STACK_SIZE)
 
-        upload(mu,elf_file_name,e_sec)
+        upload(mu)
 
         # make copy_mne list until eof
         # used only once when creating a reference file
