@@ -69,7 +69,17 @@ def make_insn_array(input,addr):
         return fcode, retaddr
     else:
         return 0, addr
+
+def get_scene():
+    se_input = []
     
+    se_data = script_data["Scenario"]
+    for i in range(len(se_data)):
+        se_data[i]["address"] = int(se_data[i]["address"], 16)
+        se_input.append(list(se_data[i].values())) # ex: [[34110, 's', 1234], [34216, 'setr', 1234]]
+
+    return se_input
+
 # write log data to file
 def write_log(uc, address, user_data, line_count):
 
@@ -112,7 +122,7 @@ def code_hook(uc, address, size, user_data):
 #scenario hook
 def scene_hook(uc,address,size, user_data):
     for i in range(len(user_data)):
-        if user_data[i][2] == None:
+        if len(user_data[i]) == 2:
             if user_data[i][0] == address:
                 print("address : ", end = "")
                 print(address)
@@ -122,16 +132,6 @@ def scene_hook(uc,address,size, user_data):
                 print("address : ", end = "")
                 print(address)
                 select_scenario(uc,address, user_data[i][1],user_data[i][2])
-
-def get_scene():
-    se_input = []
-    
-    se_data = script_data["Scenario"]
-    for i in range(len(se_data)):
-        se_data[i]["address"] = int(se_data[i]["address"], 16)
-        se_input.append(list(se_data[i].values())) # ex: [[34110, 's', 1234], [34216, 'setr', 1234]]
-
-    return se_input
 
 #get output data if you want
 def get_output_data(uc,out_addr,len_addr):

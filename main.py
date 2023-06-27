@@ -31,7 +31,7 @@ def main():
             reccod, recaddr = make_insn_array(reccod,recaddr)
 
         scene_input = get_scene()
-                
+        
         # address command data
         if len(scene_input) == 0:
             pass
