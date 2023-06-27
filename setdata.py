@@ -48,7 +48,7 @@ emu_ADDRESS = e.get_func_address('main')
 main_func_length = e.get_main_len()
 
 # code which gonna be emulated
-ARM_CODE = e.get_code()
+ARM_CODE = e.get_code(ADDRESS)
 
 #get section data
 e_sec = e.section_list_make()

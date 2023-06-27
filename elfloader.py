@@ -23,6 +23,9 @@ class ElfLoader:
         self.func_sort = dict(sorted(self.functions.items(), key = lambda x : x[1]))
         self.func_list = list(self.func_sort.items())
 
+    def get_start_add(self):
+        return list(self.func_sort.values())[0]
+
     def get_func_address(self, func_name):
         try:
             return self.func_sort.get(func_name)
@@ -34,15 +37,11 @@ class ElfLoader:
         for index, (key,elem) in enumerate(self.func_sort.items()):
             if key == 'main':
                 a = index
-                
         return self.func_list[a+1][1] - self.func_sort.get('main')
-    
-    def get_start_add(self):
-        return list(self.func_sort.values())[0]
 
-    def get_code(self,ADDRESS):
+    def get_code(self,address):
         with open(self.elf_file_name, "rb") as f:
-            f.seek(ADDRESS,0)
+            f.seek(address,0)
             code = f.read()
         return code
 
