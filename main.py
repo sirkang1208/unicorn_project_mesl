@@ -9,19 +9,10 @@ def main():
         # Initialize Unicorn in ARM mode
         mu = Uc(UC_ARCH_ARM, UC_MODE_ARM)
 
-        # map 4MB memory for this emulation
-        mu.mem_map(ADDRESS, 4*1024*1024)
-        mu.mem_map(0x0,1024)
-        # map stack region as much as stack size
-        mu.mem_map(STACK_ADDRESS - STACK_SIZE, STACK_SIZE)
+        # set memory and data for this emulation
+        auto_set(mu,ADDRESS,4*1024*1024,STACK_ADDRESS,STACK_SIZE)
 
         upload(mu,elf_file_name,e_sec)
-        
-        # initialize machine registers
-        # stack pointer must be initialized
-        mu.reg_write(UC_ARM_REG_SP, STACK_ADDRESS)
-        mu.reg_write(UC_ARM_REG_FP, STACK_ADDRESS)
-        mu.reg_write(UC_ARM_REG_LR, exit_addr) 
 
         # make copy_mne list until eof
         # used only once when creating a reference file

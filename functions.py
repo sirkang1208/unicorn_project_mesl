@@ -14,6 +14,14 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
             "ip" : UC_ARM_REG_IP, "sp" : UC_ARM_REG_SP, "lr" : UC_ARM_REG_LR, "pc": UC_ARM_REG_PC,
             "cpsr" : UC_ARM_REG_CPSR}
 
+def auto_set(uc,address, size, stack_addr, stack_len):
+    uc.mem_map(0x0,1024)
+    uc.mem_map(address,size)
+    uc.mem_map(stack_addr-stack_len,stack_addr)
+    uc.reg_write(UC_ARM_REG_SP, stack_addr)
+    uc.reg_write(UC_ARM_REG_FP, stack_addr)
+    uc.reg_write(UC_ARM_REG_LR, exit_addr) 
+
 def upload(uc,elf_file_name,e_sec):
     for i in range(len(e_sec)):
         # read file from start address to eof
