@@ -16,7 +16,6 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
 
 def upload(uc,elf_file_name,e_sec):
     for i in range(len(e_sec)):
-        # read file from start address to eof
         with open(elf_file_name, "rb") as f:
             f.seek(e_sec[i][1],0)
             cod = f.read(e_sec[i][2])
@@ -26,27 +25,16 @@ def upload(uc,elf_file_name,e_sec):
         else:
             uc.mem_write(e_sec[i][1],cod) 
 
-# make_insn_array(ARM_CODE,ADDRESS)
 def make_insn_array(input,addr):
     global InIdx
     global count
-    #sys.stdout = open("./reference.txt",'a') #remove comment when make reference file
-    #temp = sys.stdout
-    # Initialize Capstone in ARM mode
+
     mc = Cs(CS_ARCH_ARM, CS_MODE_ARM)
 
-    # prev setting of disassemble
     mc.syntax = None
     mc.detail = True
 
-    # idx : index of array which contains information about intruction
-    # copy_mne : array that stores mnemonic data copied
-
-    # copy mnemonics to copy_mne
-    # add modified register at copy_mne
     for insn in mc.disasm(input, addr):
-        #print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str)) #remove comment when make reference file
-        #sys.stdout = temp
         line = []
         copy_mne.append(line)
         copy_mne[InIdx].append(insn.mnemonic)
@@ -65,7 +53,7 @@ def make_insn_array(input,addr):
         with open(elf_file_name, "rb") as f:
             f.seek(retaddr,0)
             fcode = f.read()
-
+        
         return fcode, retaddr
     else:
         return 0, addr
@@ -76,11 +64,10 @@ def get_scene():
     se_data = script_data["Scenario"]
     for i in range(len(se_data)):
         se_data[i]["address"] = int(se_data[i]["address"], 16)
-        se_input.append(list(se_data[i].values())) # ex: [[34110, 's', 1234], [34216, 'setr', 1234]]
+        se_input.append(list(se_data[i].values()))
 
     return se_input
 
-# write log data to file
 def write_log(uc, address, user_data):
 
     temp = sys.stdout
@@ -113,7 +100,6 @@ def code_hook(uc, address, size, user_data):
 
     if address == exit_addr_real:
         uc.emu_stop()
-
 
 #scenario hook
 def scene_hook(uc,address,size, user_data):

@@ -23,6 +23,9 @@ class ElfLoader:
         self.func_sort = dict(sorted(self.functions.items(), key = lambda x : x[1]))
         self.func_list = list(self.func_sort.items())
 
+    def get_start_add(self):
+        return list(self.func_sort.values())[0]
+
     def get_func_address(self, func_name):
         try:
             return self.func_sort.get(func_name)
@@ -34,18 +37,14 @@ class ElfLoader:
         for index, (key,elem) in enumerate(self.func_sort.items()):
             if key == 'main':
                 a = index
-                
         return self.func_list[a+1][1] - self.func_sort.get('main')
-    
-    def get_start_address(self):
-        return list(self.func_sort.values())[0]
 
-    def get_code(self,ADDRESS):
+    def get_code(self,address):
         with open(self.elf_file_name, "rb") as f:
-            f.seek(ADDRESS,0)
+            f.seek(address,0)
             code = f.read()
         return code
-            
+
     def section_list_make(self):
         e_sections = []
         count = 0
@@ -56,7 +55,7 @@ class ElfLoader:
             e_sections[count].append(section.offset)
             e_sections[count].append(section.original_size)
             count += 1
-        return e_sections
+        return e_sections    
 
     def print_section_data(self):
         for section in self.elf_file.sections:
@@ -68,3 +67,11 @@ class ElfLoader:
             print(section.virtual_address)
             print('section content length : ',end = "")
             print(len(section.content))
+
+    def output_symbol_data_get(self):
+        symb_out = self.elf_file.get_symbol("OutData")
+        symb_len = self.elf_file.get_symbol("length")
+        out_addr = symb_out.value
+        len_addr = symb_len.value
+        return out_addr, len_addr
+

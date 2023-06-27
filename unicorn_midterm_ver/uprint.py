@@ -1,7 +1,10 @@
 from __future__ import print_function
 from unicorn import *
+from capstone import *
+from xprint import to_hex, to_x_32
 from unicorn.arm_const import *
 from elfloader import *
+import random
 
 # print all register
 def print_all_reg(uc):
