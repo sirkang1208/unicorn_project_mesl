@@ -15,6 +15,13 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
             "ip" : UC_ARM_REG_IP, "sp" : UC_ARM_REG_SP, "lr" : UC_ARM_REG_LR, "pc": UC_ARM_REG_PC,
             "cpsr" : UC_ARM_REG_CPSR}
 
+e_sec = []
+copy_mne = []
+InIdx = 0
+count = 0
+STACK_ADDRESS = 0x20000000
+STACK_SIZE = 0x10000
+
 with open("./input.json", "r") as f:
     script_data = json.load(f)
 
@@ -27,32 +34,19 @@ elf_file_name = script_data["Files"]["elf_file_path"]
 
 e = ElfLoader(elf_file_name) 
 
-e_sec = []
-e_sec = e.section_list_make()
-
-ADDRESS = e.get_start_add()
-
-emu_ADDRESS = e.get_func_address('main')
-
-main_func_length = e.get_main_len()
+ADDRESS = e.get_start_address()
 
 exit_addr = e.get_func_address('exit')
 
 exit_addr_real = e.get_func_address('_exit')
 
-STACK_ADDRESS = 0x80000000
-STACK_SIZE = 0x10000
+emu_ADDRESS = e.get_func_address('main')
 
-with open(elf_file_name, "rb") as f:
-    f.seek(ADDRESS,0)
-    code = f.read()
+main_func_length = e.get_main_len()
 
-ARM_CODE = code
+ARM_CODE = e.get_code(ADDRESS)
 
-section_insn = []
-copy_mne = []
-InIdx = 0
-count = 0
+e_sec = e.section_list_make()
 
 def make_insn_array(input,addr):
     global InIdx, count

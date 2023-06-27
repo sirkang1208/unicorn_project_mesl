@@ -25,7 +25,7 @@ with open("./script.json", "r") as f:
 # log file setting before the program starts
 # if the log file name is not set, "%Y-%m-%d %H_%M_%S".txt is created.
 try:
-    filename = "./log/" + script_data["FileName"]["log_file_name"]
+    filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + " " + script_data["FileName"]["log_file_name"] + ".txt"
 except:
     filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt" 
 
@@ -75,7 +75,7 @@ line_count = 0
 skip_len_i = 0
 
 #output addr and length addr
-OutData_addr,length_addr = e.output_symbol_data_get();
+OutData_addr,length_addr = e.output_symbol_data_get()
 OutData = []
 
 # make_insn_array(ARM_CODE,ADDRESS)
@@ -83,7 +83,7 @@ def make_insn_array(input,addr):
     global InIdx
     global count
     #sys.stdout = open("./reference.txt",'a') #remove comment when make reference file
-
+    #temp = sys.stdout
     # Initialize Capstone in ARM mode
     mc = Cs(CS_ARCH_ARM, CS_MODE_ARM)
 
@@ -98,6 +98,7 @@ def make_insn_array(input,addr):
     # add modified register at copy_mne
     for insn in mc.disasm(input, addr):
         #print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str)) #remove comment when make reference file
+        #sys.stdout = temp
         line = []
         copy_mne.append(line)
         copy_mne[InIdx].append(insn.mnemonic)

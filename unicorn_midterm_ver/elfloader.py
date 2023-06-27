@@ -3,6 +3,7 @@ import lief
 class ElfLoader:
     def __init__(self, elf_file):
         self.elf_file = lief.parse(elf_file)
+        self.elf_file_name = elf_file
         self.functions = {}
         self.func_sort = {}
         self.func_list = []
@@ -36,9 +37,15 @@ class ElfLoader:
                 
         return self.func_list[a+1][1] - self.func_sort.get('main')
     
-    def get_start_add(self):
+    def get_start_address(self):
         return list(self.func_sort.values())[0]
 
+    def get_code(self,ADDRESS):
+        with open(self.elf_file_name, "rb") as f:
+            f.seek(ADDRESS,0)
+            code = f.read()
+        return code
+            
     def section_list_make(self):
         e_sections = []
         count = 0

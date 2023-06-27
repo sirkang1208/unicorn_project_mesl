@@ -1,7 +1,7 @@
 {
     "FileName" : {
         "elf_file_path" : "./Unicorn_development_source/compiled_program/toy_ex_mod_add", 
-        "log_file_name" : "my_log.txt"
+        "log_file_name" : "my_log"
     },
 
     "SkipLog" : [
