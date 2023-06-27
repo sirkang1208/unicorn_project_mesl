@@ -41,6 +41,16 @@ def select_scenario(uc,address,cmd,dat = 0):
     else:
         pass
 
+def flip(x):
+    if type(x) == bytes:
+        cvt_x = int.from_bytes(x, byteorder='little')
+        cvt_x = 0xFF - cvt_x
+        res_x = cvt_x.to_bytes(1,"little")
+        return res_x
+    else:
+        cvrt_x = 0xFFFFFFFF - x
+        return cvrt_x
+
 def skip_insn(uc):
     pc_data = uc.reg_read(UC_ARM_REG_PC)
     uc.reg_write(REG["pc"],pc_data+4)
@@ -66,9 +76,7 @@ def change_reg(uc,data):
 
 def change_mem(uc,addr,data):
     res_data = data.to_bytes(4,'little')
-    print(res_data)
     uc.mem_write(addr,res_data)
-    print_mem(uc,addr-4,12)
 
 # set all reg by data
 def set_reg(uc,data):
@@ -89,18 +97,17 @@ def set_reg(uc,data):
     uc.reg_write(REG['lr'],data)
     uc.reg_write(REG['pc'],data)
     uc.reg_write(REG['cpsr'],data)
-    print_all_reg(uc)
 
-def flip(x):
-    if type(x) == bytes:
-        cvt_x = int.from_bytes(x, byteorder='little')
-        cvt_x = 0xFF - cvt_x
-        res_x = cvt_x.to_bytes(1,"little")
-        return res_x
-    else:
-        cvrt_x = 0xFFFFFFFF - x
-        return cvrt_x
-    
+# set all data 1 - mem
+def set_mem(uc, addr,s_size):
+    for i in range(s_size):
+        uc.mem_write(addr+i, b'\xFF')
+
+# set all data 0 - mem
+def clr_mem(uc, addr,c_size):
+    for i in range(c_size):
+        uc.mem_write(addr+i, b'\x00')
+
 # set all reg bit_flip
 def bit_flip_reg(uc):
     r0 = uc.reg_read(UC_ARM_REG_R0)
@@ -138,7 +145,13 @@ def bit_flip_reg(uc):
     uc.reg_write(REG['lr'],flip(lr))
     uc.reg_write(REG['pc'],flip(pc))
     uc.reg_write(REG['cpsr'],flip(cpsr)) 
-    print_all_reg(uc)
+
+# set all data bit_flip - mem
+def bit_flip_mem(uc, addr,b_size):
+    for i in range(b_size):
+        x = uc.mem_read(addr + i)
+        res_x = flip(x)
+        uc.mem_write(addr+i, res_x)
 
 # set reg random
 def rand_reg(uc):
@@ -159,36 +172,10 @@ def rand_reg(uc):
     uc.reg_write(REG['lr'],random.randint(0,0xFFFFFFFF))
     uc.reg_write(REG['pc'],random.randint(0,0xFFFFFFFF))
     uc.reg_write(REG['cpsr'],random.randint(0,0xFFFFFFFF))
-    print_all_reg(uc)
-
-# set all data 1 - mem
-def set_mem(uc, address,s_size):
-    for i in range(s_size):
-        uc.mem_write(address+i, b'\x11')
-
-    print_mem(uc,address,s_size)
-
-# set all data 0 - mem
-def clr_mem(uc, address,c_size):
-    for i in range(c_size):
-        uc.mem_write(address+i, b'\x00')
-
-    print_mem(uc,address,c_size)
-
-# set all data bit_flip - mem
-def bit_flip_mem(uc, address,b_size):
-    for i in range(b_size):
-        x = uc.mem_read(address + i)
-        res_x = flip(x)
-        uc.mem_write(address+i, res_x)
-
-    print_mem(uc,address,b_size)
 
 # set data random - mem
-def rand_mem(uc, address,r_size):
+def rand_mem(uc, addr,r_size):
     for i in range(r_size):
         x = random.randint(0,0xFF)
         res_x = x.to_bytes(1,'little')
-        uc.mem_write(address+i,res_x)
-
-    print_mem(uc,address,r_size)
+        uc.mem_write(addr+i,res_x)
