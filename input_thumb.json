@@ -1,0 +1,18 @@
+{
+    "files" : {
+        "elf_file_path" : "./Unicorn_development_source/compiled_program/toy_ex_mod_add_m4",
+        "log_file_name" : "log"
+    },
+    "hw" : {
+        "cpu" : "ARM",
+        "version" : "v7-M",
+        "core" : "Cortex-M4"
+    },
+
+    "printLog" : [
+
+    ],
+    "scenario" : [
+
+    ]
+}

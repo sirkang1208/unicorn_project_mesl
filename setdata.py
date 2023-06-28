@@ -11,7 +11,7 @@ copy_mne = []
 InIdx = 0
 count = 0
 # reference.txt global val
-refsIdx = 0
+refsIdx = 1
 reffIdx = 0
 
 # open script file
@@ -30,9 +30,18 @@ elf_file_name = script_data["files"]["elf_file_path"]
 # making elf loader object for setup address
 e = ElfLoader(elf_file_name)
 func_list = e.func_list
+print(func_list)
+func_list = e.check_list(func_list)
+print(func_list)
+
+#get section data
+e_sec = e.section_list_make()
+print(e_sec)
+e_sec = e.check_list(e_sec)
+print(e_sec)
 
 # code update start address
-ADDRESS = e.get_start_add()
+ADDRESS = e.get_start_add(e_sec)
 
 # exit addr -> set lr register at the beginning
 exit_addr = e.get_func_address('exit')
@@ -52,9 +61,6 @@ finish_ADDRESS = emu_ADDRESS + main_func_length
 # code which gonna be emulated
 ARM_CODE = e.get_code(ADDRESS)
 
-#get section data
-e_sec = e.section_list_make()
-print(e_sec)
 
 #output addr and length addr
 OutData_addr,length_addr = e.output_symbol_data_get()

@@ -4,7 +4,7 @@ import unicorn as uc
 import capstone as cs
 import operator
 
-elf_file = lief.parse("/home/kibong/Desktop/unicorn_project_mesl/Unicorn_development_source/compiled_program/toy_ex_mod_1")
+elf_file = lief.parse("/home/kibong/Desktop/unicorn_project_mesl/Unicorn_development_source/compiled_program/toy_ex_mod_add_m4")
 functions = {}
 
 try:

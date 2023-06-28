@@ -23,8 +23,8 @@ class ElfLoader:
         self.func_sort = dict(sorted(self.functions.items(), key = lambda x : x[1]))
         self.func_list = list(self.func_sort.items())
 
-    def get_start_add(self):
-        return list(self.func_sort.values())[0]
+    def get_start_add(self,e_sec):
+        return e_sec[1][1]
 
     def get_func_address(self, func_name):
         try:
@@ -76,3 +76,7 @@ class ElfLoader:
         len_addr = symb_len.value
         return out_addr, len_addr
 
+    def check_list(self,list_input):
+        i = 0;
+        a = len(list_input)
+        while i < a:

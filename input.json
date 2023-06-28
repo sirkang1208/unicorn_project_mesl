@@ -10,9 +10,9 @@
     },
 
     "printLog" : [
-        {"point_s" : "0x8518", "point_f" : "0x8604"}
+
     ],
     "scenario" : [
-        { "address" : "0x8234", "command" : "s"}
+
     ]
 }
