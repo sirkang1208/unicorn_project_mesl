@@ -12,7 +12,7 @@ InIdx = 0
 count = 0
 
 # open script file
-with open("./script.json", "r") as f:
+with open("./input.json", "r") as f:
     script_data = json.load(f)
 
 # log file setting before the program starts
@@ -22,7 +22,7 @@ try:
 except:
     filename = "./log/" + datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S") + ".txt" 
 
-elf_file_name = script_data["FileName"]["elf_file_path"]
+elf_file_name = script_data["files"]["elf_file_path"]
 
 # making elf loader object for setup address
 e = ElfLoader(elf_file_name)

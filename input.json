@@ -1,6 +1,6 @@
 {
     "files" : {
-        "elf_file_path" : "./Unicron_developement_sorce ..",
+        "elf_file_path" : "./Unicron_developement_source/compiled_program/toy_ex_mod_add",
         "log_file_name" : "log"
     },
     "hw" : {
@@ -10,11 +10,9 @@
     },
 
     "printLog" : [
-        {"point_s" : "0x8514", "point_f" : "0x8550"},
-        {"point_s" : "0x8600", "point_f" : "0x8608"}
+
     ],
     "scenario" : [
-        {"address" : "0x853E", "command" : "s", "data" : 1234},
-        {"address" : "0X85A8", "command" : "setr"}
+
     ]
 }

@@ -81,7 +81,7 @@ def make_insn_array(input,addr):
 def get_scene():
     se_input = []
     
-    se_data = script_data["Scenario"]
+    se_data = script_data["scenario"]
     for i in range(len(se_data)):
         se_data[i]["address"] = int(se_data[i]["address"], 16)
         se_input.append(list(se_data[i].values())) # ex: [[34110, 's', 1234], [34216, 'setr', 1234]]
