@@ -54,6 +54,7 @@ class ElfLoader:
             e_sections[count].append(section.virtual_address)
             e_sections[count].append(section.offset)
             e_sections[count].append(section.original_size)
+            e_sections[count].append(section.name)
             count += 1
         return e_sections    
 

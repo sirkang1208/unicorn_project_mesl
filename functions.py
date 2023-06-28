@@ -14,10 +14,55 @@ REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_A
             "ip" : UC_ARM_REG_IP, "sp" : UC_ARM_REG_SP, "lr" : UC_ARM_REG_LR, "pc": UC_ARM_REG_PC,
             "cpsr" : UC_ARM_REG_CPSR}
 
+def make_refer(input, addr):
+    global InIdx, count, refsIdx, reffIdx
+    sys.stdout = open("./reference.txt",'w') #remove comment when make reference file
+    temp = sys.stdout
+    # Initialize Capstone in ARM mode
+    mc = Cs(CS_ARCH_ARM, CS_MODE_ARM)
+
+    # prev setting of disassemble
+    mc.syntax = None
+    mc.detail = True
+
+    # copy mnemonics to copy_mne
+    # add modified register at copy_mne
+    for insn in mc.disasm(input, addr):
+        if insn.address == e_sec[refsIdx][1]:
+            print(e_sec[refsIdx][3])
+            refsIdx += 1
+        if insn.address == func_list[reffIdx][1]:
+            print(func_list[reffIdx][0])
+            refsIdx += 1
+        print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str)) #remove comment when make reference file
+        sys.stdout = temp
+        line = []
+        copy_mne.append(line)
+        copy_mne[InIdx].append(insn.mnemonic)
+        (regiread,regi_write) = insn.regs_access()
+        for r in regi_write:
+            copy_mne[InIdx].append(insn.reg_name(r))
+        InIdx += 1
+
+    if len(copy_mne)/int(len(ARM_CODE)/4) < 1:
+        count += 1
+        line = []
+        copy_mne.append(line)
+        copy_mne[InIdx].append("NONE")
+        InIdx += 1
+        retaddr = ADDRESS+InIdx*4
+        with open(elf_file_name, "rb") as f:
+            f.seek(retaddr,0)
+            fcode = f.read()
+
+        return fcode, retaddr
+    else:
+        return 0, addr
+
 def auto_set(uc, size, stack_addr, stack_len):
     uc.mem_map(0x0,1024)
     uc.mem_map(ADDRESS,size)
-    uc.mem_map(stack_addr-stack_len,stack_addr)
+    uc.mem_map(stack_addr-stack_len,stack_len)
     uc.reg_write(UC_ARM_REG_SP, stack_addr)
     uc.reg_write(UC_ARM_REG_FP, stack_addr)
     uc.reg_write(UC_ARM_REG_LR, exit_addr) 
@@ -36,10 +81,7 @@ def upload(uc):
 
 # make_insn_array(ARM_CODE,ADDRESS)
 def make_insn_array(input,addr):
-    global InIdx
-    global count
-    #sys.stdout = open("./reference.txt",'a') #remove comment when make reference file
-    #temp = sys.stdout
+    global InIdx, count
     # Initialize Capstone in ARM mode
     mc = Cs(CS_ARCH_ARM, CS_MODE_ARM)
 
@@ -47,14 +89,9 @@ def make_insn_array(input,addr):
     mc.syntax = None
     mc.detail = True
 
-    # idx : index of array which contains information about intruction
-    # copy_mne : array that stores mnemonic data copied
-
     # copy mnemonics to copy_mne
     # add modified register at copy_mne
     for insn in mc.disasm(input, addr):
-        #print("0x%x:\t%s\t%s" %(insn.address, insn.mnemonic, insn.op_str)) #remove comment when make reference file
-        #sys.stdout = temp
         line = []
         copy_mne.append(line)
         copy_mne[InIdx].append(insn.mnemonic)
@@ -145,7 +182,6 @@ def get_output_data(uc,out_addr,len_addr):
     # change mem to int
     for i in range(cvt_len):
         out_mem = uc.mem_read(out_addr+i*4,4)
-        print(out_mem)
         cvt_output = int.from_bytes(out_mem,byteorder="little")
         output.append(cvt_output)
     return output

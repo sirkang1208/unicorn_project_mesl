@@ -7,6 +7,11 @@ STACK_SIZE = 0x10000
 
 def main():
 
+    refcod = ARM_CODE
+    refaddr = ADDRESS
+    while len(copy_mne)/int(len(ARM_CODE)/4) < 1:
+        refcod, refaddr = make_refer(refcod,refaddr)
+
     print("Emulating the code...")
 
     try:
@@ -22,7 +27,7 @@ def main():
         # used only once when creating a reference file
         reccod = ARM_CODE
         recaddr = ADDRESS
-        while len(copy_mne)/int(len(ARM_CODE)/4) < 0.99:
+        while len(copy_mne)/int(len(ARM_CODE)/4) < 1:
             reccod, recaddr = make_insn_array(reccod,recaddr)
 
         scene_input = get_scene()
