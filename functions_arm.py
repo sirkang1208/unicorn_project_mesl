@@ -31,8 +31,6 @@ def make_refer(input, addr):
         #print("%x, %x, %x" % (insn.address,e_sec[refsIdx][1],func_list[reffIdx][1]))
         if (e_sec[refsIdx][1]) == insn.address:
             f.write("\nsection\t\t : %s\n\n" % (e_sec[refsIdx][3]))
-            print(e_sec[refsIdx])
-            print(refsIdx)
             refsIdx += 1
             if refsIdx == len(e_sec):
                 refsIdx = len(e_sec)-1
@@ -41,8 +39,6 @@ def make_refer(input, addr):
             reffIdx += 1
             if reffIdx == len(func_list):
                 reffIdx = len(func_list)-1
-        if insn.address == 37160:
-            print(e_sec[11])
         f.write("0x%x:\t%s\t%s\n" %(insn.address, insn.mnemonic, insn.op_str)) #remove comment when make reference file
         line = []
         copy_mne.append(line)

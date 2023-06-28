@@ -130,6 +130,9 @@ function	 : _mainCRTStartup
 0x80f6:	movs	r0, r0
 0x80f8:	strh	r5, [r7, #0x28]
 0x80fa:	movs	r0, r0
+
+function	 : ADD
+
 0x80fc:	push	{r7}
 0x80fe:	sub	sp, #0xc
 0x8100:	add	r7, sp, #0
@@ -150,6 +153,9 @@ function	 : _mainCRTStartup
 0x811e:	mov	sp, r7
 0x8120:	pop	{r7}
 0x8122:	bx	lr
+
+function	 : MUL
+
 0x8124:	push	{r7}
 0x8126:	sub	sp, #0xc
 0x8128:	add	r7, sp, #0
@@ -170,6 +176,9 @@ function	 : _mainCRTStartup
 0x8148:	mov	sp, r7
 0x814a:	pop	{r7}
 0x814c:	bx	lr
+
+function	 : LUT
+
 0x814e:	push	{r7}
 0x8150:	sub	sp, #0xc
 0x8152:	add	r7, sp, #0
@@ -191,6 +200,9 @@ function	 : _mainCRTStartup
 0x8172:	bx	lr
 0x8174:	strh	r4, [r5, #0x30]
 0x8176:	movs	r0, r0
+
+function	 : MIXs
+
 0x8178:	push	{r7}
 0x817a:	sub	sp, #0x14
 0x817c:	add	r7, sp, #0
@@ -294,6 +306,9 @@ function	 : _mainCRTStartup
 0x8242:	nop	
 0x8244:	strh	r4, [r5, #0x30]
 0x8246:	movs	r0, r0
+
+function	 : RANDOM
+
 0x8248:	push	{r7, lr}
 0x824a:	sub	sp, #8
 0x824c:	add	r7, sp, #0
@@ -307,6 +322,9 @@ function	 : _mainCRTStartup
 0x825e:	adds	r7, #8
 0x8260:	mov	sp, r7
 0x8262:	pop	{r7, pc}
+
+function	 : RAND_XOR
+
 0x8264:	push	{r7, lr}
 0x8266:	sub	sp, #0x10
 0x8268:	add	r7, sp, #0
@@ -327,6 +345,9 @@ function	 : _mainCRTStartup
 0x828a:	adds	r7, #0x10
 0x828c:	mov	sp, r7
 0x828e:	pop	{r7, pc}
+
+function	 : main
+
 0x8290:	push	{r7, lr}
 0x8292:	sub	sp, #8
 0x8294:	add	r7, sp, #0
@@ -406,6 +427,9 @@ function	 : _mainCRTStartup
 0x8332:	movs	r1, r0
 0x8334:	strh	r4, [r5, #0x3e]
 0x8336:	movs	r1, r0
+
+function	 : __libc_init_array
+
 0x8338:	push	{r4, r5, r6, lr}
 0x833a:	ldr	r6, [pc, #0x34]
 0x833c:	ldr	r5, [pc, #0x34]
@@ -439,6 +463,9 @@ function	 : _mainCRTStartup
 0x837a:	movs	r1, r0
 0x837c:	strh	r4, [r7, #0x38]
 0x837e:	movs	r1, r0
+
+function	 : memset
+
 0x8380:	push	{r4, r5, r6, r7}
 0x8382:	lsls	r6, r0, #0x1e
 0x8384:	beq	#0x8414
@@ -503,6 +530,9 @@ function	 : _mainCRTStartup
 0x841a:	mov	r2, r3
 0x841c:	mov	r6, r4
 0x841e:	b	#0x83e2
+
+function	 : srand
+
 0x8420:	ldr	r3, [pc, #8]
 0x8422:	ldr	r3, [r3]
 0x8424:	movs	r2, #0
@@ -510,6 +540,9 @@ function	 : _mainCRTStartup
 0x842a:	bx	lr
 0x842c:	strh	r4, [r6, #0x3e]
 0x842e:	movs	r1, r0
+
+function	 : rand
+
 0x8430:	ldr	r3, [pc, #0x2c]
 0x8432:	ldr	r0, [pc, #0x30]
 0x8434:	ldr	r1, [r3]
@@ -532,6 +565,9 @@ function	 : _mainCRTStartup
 0x8464:	bic	r8, sp, #0x3440
 0x8468:	ldrb	r5, [r5, #0x1c]
 0x846a:	ldr	r4, [pc, #0x254]
+
+function	 : __call_exitprocs
+
 0x846c:	push.w	{r4, r5, r6, r7, r8, sb, sl, fp, lr}
 0x8470:	ldr	r3, [pc, #0xb4]
 0x8472:	sub	sp, #0xc
@@ -609,11 +645,17 @@ function	 : _mainCRTStartup
 0x852a:	movs	r1, r0
 0x852c:	strh	r4, [r5, #0x38]
 0x852e:	movs	r0, r0
+
+function	 : atexit
+
 0x8530:	movs	r3, #0
 0x8532:	mov	r1, r0
 0x8534:	mov	r2, r3
 0x8536:	mov	r0, r3
 0x8538:	b.w	#0x8590
+
+function	 : __libc_fini_array
+
 0x853c:	push	{r3, r4, r5, lr}
 0x853e:	ldr	r3, [pc, #0x20]
 0x8540:	ldr	r5, [pc, #0x20]
@@ -633,26 +675,59 @@ function	 : _mainCRTStartup
 0x8562:	movs	r1, r0
 0x8564:	strh	r4, [r0, #0x3a]
 0x8566:	movs	r1, r0
+
+function	 : __retarget_lock_init
+
 0x8568:	bx	lr
 0x856a:	nop	
+
+function	 : __retarget_lock_init_recursive
+
 0x856c:	bx	lr
 0x856e:	nop	
+
+function	 : __retarget_lock_close
+
 0x8570:	bx	lr
 0x8572:	nop	
+
+function	 : __retarget_lock_close_recursive
+
 0x8574:	bx	lr
 0x8576:	nop	
+
+function	 : __retarget_lock_acquire
+
 0x8578:	bx	lr
 0x857a:	nop	
+
+function	 : __retarget_lock_acquire_recursive
+
 0x857c:	bx	lr
 0x857e:	nop	
+
+function	 : __retarget_lock_try_acquire
+
 0x8580:	movs	r0, #1
 0x8582:	bx	lr
+
+function	 : __retarget_lock_try_acquire_recursive
+
 0x8584:	movs	r0, #1
 0x8586:	bx	lr
+
+function	 : __retarget_lock_release
+
 0x8588:	bx	lr
 0x858a:	nop	
+
+function	 : __retarget_lock_release_recursive
+
 0x858c:	bx	lr
 0x858e:	nop	
+
+function	 : __register_exitproc
+
 0x8590:	push.w	{r4, r5, r6, r7, r8, sb, sl, lr}
 0x8594:	ldr.w	sl, [pc, #0x80]
 0x8598:	mov	r6, r0
@@ -702,10 +777,16 @@ function	 : _mainCRTStartup
 0x8616:	movs	r0, r0
 0x8618:	ldrh	r0, [r4, #0x20]
 0x861a:	movs	r1, r0
+
+function	 : _exit
+
 0x861c:	b	#0x861c
 0x861e:	nop	
 
 section		 : .fini
+
+
+function	 : _fini
 
 0x8620:	push	{r3, r4, r5, r6, r7, lr}
 0x8622:	nop	
@@ -791,6 +872,9 @@ section		 : .rodata
 0x861a:	movs	r1, r0
 0x861c:	b	#0x861c
 0x861e:	nop	
+
+function	 : _fini
+
 0x8620:	push	{r3, r4, r5, r6, r7, lr}
 0x8622:	nop	
 0x8624:	pop	{r3, r4, r5, r6, r7}

@@ -31,15 +31,11 @@ def make_refer(input, addr):
 
         if (e_sec[refsIdx][1]) == insn.address:
             f.write("\nsection\t\t : %s\n\n" % (e_sec[refsIdx][3]))
-            print(e_sec[refsIdx])
-            print(refsIdx)
             refsIdx += 1
             if refsIdx == len(e_sec):
                 refsIdx = len(e_sec)-1
         if (func_list[reffIdx][1]-1) == insn.address:
             f.write("\nfunction\t : %s\n\n" % (func_list[reffIdx][0]))
-            print(func_list[reffIdx])
-            print(reffIdx)
             reffIdx += 1
             if reffIdx == len(func_list):
                 reffIdx = len(func_list)-1

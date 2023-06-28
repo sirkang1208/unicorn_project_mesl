@@ -78,5 +78,11 @@ class ElfLoader:
 
     def check_list(self,list_input):
         i = 0;
-        a = len(list_input)
+        a = len(list_input)-1
         while i < a:
+            if list_input[i][1] == list_input[i+1][1]:
+                del list_input[i+1]
+                a = a - 1
+                i = i + 1
+            i = i + 1
+        return list_input

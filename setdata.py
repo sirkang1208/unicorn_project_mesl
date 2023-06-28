@@ -29,16 +29,12 @@ elf_file_name = script_data["files"]["elf_file_path"]
 
 # making elf loader object for setup address
 e = ElfLoader(elf_file_name)
-func_list = e.func_list
-print(func_list)
-func_list = e.check_list(func_list)
-print(func_list)
+f_list = e.func_list
+func_list = e.check_list(f_list)
 
 #get section data
-e_sec = e.section_list_make()
-print(e_sec)
-e_sec = e.check_list(e_sec)
-print(e_sec)
+e_s = e.section_list_make()
+e_sec = e.check_list(e_s)
 
 # code update start address
 ADDRESS = e.get_start_add(e_sec)
