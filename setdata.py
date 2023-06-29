@@ -1,4 +1,5 @@
 from elfparser import *
+import cycle
 import json
 import datetime
 
@@ -13,6 +14,9 @@ count = 0
 # reference.txt global val
 refsIdx = 0
 reffIdx = 0
+
+# arch and instruction set for clock count
+clock = cycle.ARM("Cortex-M4",1,1,3)
 
 # open script file
 with open("./input.json", "r") as f:

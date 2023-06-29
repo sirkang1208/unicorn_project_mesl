@@ -5,7 +5,6 @@ from unicorn.arm_const import *
 from scenario import *
 from uprint import *
 from setdata import *
-#import clock
 import sys
 
 REG = {'0' : UC_ARM_REG_R0, '1' : UC_ARM_REG_R1, '2' : UC_ARM_REG_R2, '3' : UC_ARM_REG_R3,
@@ -137,6 +136,8 @@ def write_log(uc, address, user_data):
     print("/ modified register : ", end ='')
     print(user_data[addr][1:], end = ' ')
     print_mem(uc,address,4)
+    print("/ clock count : ", end ='')
+    print(clock.cycle_cal(user_data[addr][0], user_data[addr][1:]))
     sys.stdout = temp
 
 def code_hook(uc, address, size, user_data):

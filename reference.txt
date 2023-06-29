@@ -1,35 +1,190 @@
-_init
-0x8000:	mov	ip, sp
-.init
-_init
-0x8004:	push	{r3, r4, r5, r6, r7, r8, sb, sl, fp, ip, lr, pc}
-_init
-0x8008:	sub	fp, ip, #4
-_init
-0x800c:	sub	sp, fp, #0x28
-_init
-0x8010:	ldm	sp, {r4, r5, r6, r7, r8, sb, sl, fp, sp, lr}
-_init
-0x8014:	bx	lr
-_init
-0x8018:	push	{r4, lr}
-_init
-0x801c:	mov	r1, #0
-_init
-0x8020:	mov	r4, r0
-_init
-0x8024:	bl	#0x8840
-_init
-0x8028:	ldr	r3, [pc, #0x18]
-_init
-0x802c:	ldr	r0, [r3]
-_init
-0x8030:	ldr	r3, [r0, #0x3c]
-_init
-0x8034:	cmp	r3, #0
-_init
-0x8038:	movne	lr, pc
-_init
-0x803c:	bxne	r3
-_init
-0x8040:	mov	r0, r4
+0xa54c:	qsubvs	r4, r2, lr
+0xa550:	ldmdbvs	r2!, {r2, r4, r5, r6, sl, ip, sp, lr} ^
+0xa554:	ldrbvs	r7, [r4, #-0x562]!
+0xa558:	mcrvs	p0, #1, r0, c14, c3, #3
+0xa55c:	stmdbvs	lr!, {r0, r1, r2, r3, r5, r6, r8, fp, sp, lr} ^
+0xa560:	andeq	r0, r0, r4, ror r0
+0xa564:	andeq	r0, r0, r0
+0xa568:	andeq	r0, r0, r0
+0xa56c:	andeq	r0, r0, r0
+0xa570:	andeq	r0, r0, r0
+0xa574:	andeq	r0, r0, r0
+0xa578:	andeq	r0, r0, r0
+0xa57c:	andeq	r0, r0, r0
+0xa580:	andeq	r0, r0, r0
+0xa584:	andeq	r0, r0, r0
+0xa588:	andeq	r0, r0, r0
+0xa58c:	andeq	r0, r0, fp, lsl r0
+0xa590:	andeq	r0, r0, r1
+0xa594:	andeq	r0, r0, r6
+0xa598:	andeq	r8, r0, r0
+0xa59c:	andeq	r8, r0, r0
+0xa5a0:	andeq	r0, r0, r8, lsl r0
+0xa5a4:	andeq	r0, r0, r0
+0xa5a8:	andeq	r0, r0, r0
+0xa5ac:	andeq	r0, r0, r4
+0xa5b0:	andeq	r0, r0, r0
+0xa5b4:	andeq	r0, r0, r1, lsr #32
+0xa5b8:	andeq	r0, r0, r1
+0xa5bc:	andeq	r0, r0, r6
+0xa5c0:	andeq	r8, r0, r8, lsl r0
+0xa5c4:	andeq	r8, r0, r8, lsl r0
+0xa5c8:	strheq	r0, [r0], -r4
+0xa5cc:	andeq	r0, r0, r0
+0xa5d0:	andeq	r0, r0, r0
+0xa5d4:	andeq	r0, r0, r4
+0xa5d8:	andeq	r0, r0, r0
+0xa5dc:	andeq	r0, r0, r7, lsr #32
+0xa5e0:	andeq	r0, r0, r1
+0xa5e4:	andeq	r0, r0, r6
+0xa5e8:	andeq	r8, r0, ip, asr #21
+0xa5ec:	andeq	r8, r0, ip, asr #21
+0xa5f0:	andeq	r0, r0, r8, lsl r0
+0xa5f4:	andeq	r0, r0, r0
+0xa5f8:	andeq	r0, r0, r0
+0xa5fc:	andeq	r0, r0, r4
+0xa600:	andeq	r0, r0, r0
+0xa604:	andeq	r0, r0, sp, lsr #32
+0xa608:	andeq	r0, r0, r1
+0xa60c:	andeq	r0, r0, r2
+0xa610:	andeq	r8, r0, r4, ror #21
+0xa614:	andeq	r8, r0, r4, ror #21
+0xa618:	andeq	r0, r0, r4, lsl #2
+0xa61c:	andeq	r0, r0, r0
+0xa620:	andeq	r0, r0, r0
+0xa624:	andeq	r0, r0, r4
+0xa628:	andeq	r0, r0, r0
+0xa62c:	andeq	r0, r0, r5, lsr r0
+0xa630:	andvc	r0, r0, r1
+0xa634:	andeq	r0, r0, r2, lsl #1
+0xa638:	andeq	r8, r0, r8, ror #23
+0xa63c:	andeq	r8, r0, r8, ror #23
+0xa640:	andeq	r0, r0, r8
+0xa644:	andeq	r0, r0, r2
+0xa648:	andeq	r0, r0, r0
+0xa64c:	andeq	r0, r0, r4
+0xa650:	andeq	r0, r0, r0
+0xa654:	andeq	r0, r0, r0, asr #32
+0xa658:	andeq	r0, r0, r1
+0xa65c:	andeq	r0, r0, r2
+0xa660:	strdeq	r8, sb, [r0], -r0
+0xa664:	strdeq	r8, sb, [r0], -r0
+0xa668:	andeq	r0, r0, r4
+0xa66c:	andeq	r0, r0, r0
+0xa670:	andeq	r0, r0, r0
+0xa674:	andeq	r0, r0, r4
+0xa678:	andeq	r0, r0, r0
+0xa67c:	andeq	r0, r0, sl, asr #32
+0xa680:	andeq	r0, r0, lr
+0xa684:	andeq	r0, r0, r3
+0xa688:	strdeq	r8, sb, [r1], -r4
+0xa68c:	strdeq	r8, sb, [r0], -r4
+0xa690:	andeq	r0, r0, r8
+0xa694:	andeq	r0, r0, r0
+0xa698:	andeq	r0, r0, r0
+0xa69c:	andeq	r0, r0, r4
+0xa6a0:	andeq	r0, r0, r4
+0xa6a4:	andeq	r0, r0, r6, asr r0
+0xa6a8:	andeq	r0, r0, pc
+0xa6ac:	andeq	r0, r0, r3
+0xa6b0:	strdeq	r8, sb, [r1], -ip
+0xa6b4:	strdeq	r8, sb, [r0], -ip
+0xa6b8:	andeq	r0, r0, r4
+0xa6bc:	andeq	r0, r0, r0
+0xa6c0:	andeq	r0, r0, r0
+0xa6c4:	andeq	r0, r0, r4
+0xa6c8:	andeq	r0, r0, r4
+0xa6cc:	andeq	r0, r0, r2, rrx
+0xa6d0:	andeq	r0, r0, r1
+0xa6d4:	andeq	r0, r0, r3
+0xa6d8:	andeq	r8, r1, r0, lsl #24
+0xa6dc:	andeq	r8, r0, r0, lsl #24
+0xa6e0:	ldrdeq	r0, r1, [r0], -ip
+0xa6e4:	andeq	r0, r0, r0
+0xa6e8:	andeq	r0, r0, r0
+0xa6ec:	andeq	r0, r0, r8
+0xa6f0:	andeq	r0, r0, r0
+0xa6f4:	andeq	r0, r0, r8, rrx
+0xa6f8:	andeq	r0, r0, r8
+0xa6fc:	andeq	r0, r0, r3
+0xa700:	ldrdeq	sb, sl, [r1], -ip
+0xa704:	ldrdeq	sb, sl, [r0], -ip
+0xa708:	andeq	r0, r0, r4, asr #1
+0xa70c:	andeq	r0, r0, r0
+0xa710:	andeq	r0, r0, r0
+0xa714:	andeq	r0, r0, r4
+0xa718:	andeq	r0, r0, r0
+0xa71c:	andeq	r0, r0, sp, rrx
+0xa720:	andeq	r0, r0, r1
+0xa724:	andeq	r0, r0, r0, lsr r0
+0xa728:	andeq	r0, r0, r0
+0xa72c:	ldrdeq	sb, sl, [r0], -ip
+0xa730:	andeq	r0, r0, ip, asr #32
+0xa734:	andeq	r0, r0, r0
+0xa738:	andeq	r0, r0, r0
+0xa73c:	andeq	r0, r0, r1
+0xa740:	andeq	r0, r0, r1
+0xa744:	andeq	r0, r0, r6, ror r0
+0xa748:	andeq	r0, r0, r1
+0xa74c:	andeq	r0, r0, r0
+0xa750:	andeq	r0, r0, r0
+0xa754:	andeq	sb, r0, r8, lsr #2
+0xa758:	strheq	r0, [r0], -ip
+0xa75c:	andeq	r0, r0, r0
+0xa760:	andeq	r0, r0, r0
+0xa764:	andeq	r0, r0, r4
+0xa768:	andeq	r0, r0, r0
+0xa76c:	andeq	r0, r0, r3, lsl #1
+0xa770:	andvc	r0, r0, r3
+0xa774:	andeq	r0, r0, r0
+0xa778:	andeq	r0, r0, r0
+0xa77c:	andeq	sb, r0, r4, ror #7
+0xa780:	andeq	r0, r0, r6, lsr #32
+0xa784:	andeq	r0, r0, r0
+0xa788:	andeq	r0, r0, r0
+0xa78c:	andeq	r0, r0, r1
+0xa790:	andeq	r0, r0, r0
+0xa794:	muleq	r0, r3, r0
+0xa798:	andeq	r0, r0, r1
+0xa79c:	andeq	r0, r0, r1
+0xa7a0:	andeq	sb, r1, r0, lsr #3
+0xa7a4:	andeq	sb, r0, sl, lsl #8
+0xa7a8:	andeq	r0, r0, r0
+0xa7ac:	andeq	r0, r0, r0
+0xa7b0:	andeq	r0, r0, r0
+0xa7b4:	andeq	r0, r0, r1
+0xa7b8:	andeq	r0, r0, r0
+0xa7bc:	andeq	r0, r0, r1
+0xa7c0:	andeq	r0, r0, r2
+0xa7c4:	andeq	r0, r0, r0
+0xa7c8:	andeq	r0, r0, r0
+0xa7cc:	andeq	sb, r0, ip, lsl #8
+0xa7d0:	strheq	r0, [r0], -r0
+0xa7d4:	andeq	r0, r0, r0, lsl r0
+0xa7d8:	andeq	r0, r0, ip, rrx
+0xa7dc:	andeq	r0, r0, r4
+0xa7e0:	andeq	r0, r0, r0, lsl r0
+0xa7e4:	andeq	r0, r0, sb
+0xa7e8:	andeq	r0, r0, r3
+0xa7ec:	andeq	r0, r0, r0
+0xa7f0:	andeq	r0, r0, r0
+0xa7f4:	strheq	sb, [r0], -ip
+0xa7f8:	andeq	r0, r0, fp, lsl #12
+0xa7fc:	andeq	r0, r0, r0
+0xa800:	andeq	r0, r0, r0
+0xa804:	andeq	r0, r0, r1
+0xa808:	andeq	r0, r0, r0
+0xa80c:	andeq	r0, r0, r1, lsl r0
+0xa810:	andeq	r0, r0, r3
+0xa814:	andeq	r0, r0, r0
+0xa818:	andeq	r0, r0, r0
+0xa81c:	andeq	sl, r0, r7, asr #9
+0xa820:	muleq	r0, fp, r0
+0xa824:	andeq	r0, r0, r0
+0xa828:	andeq	r0, r0, r0
+0xa82c:	andeq	r0, r0, r1
+0xa830:	andeq	r0, r0, r0
+Emulating the code...
+address : 33332
+>>> Emulation done. Below is the CPU context
+OutData = [841824544, 88, 1965896305, 1952539760, 958409061, 825111342, 842019360, 808726576, 1915232312, 1634036837, 2712947, 12, 4294967295, 2080505857, 855054, 20, 0, 32792, 52, 2215120450, 101890, 12, 4294967295, 2080505857, 855054, 32, 40, 34348, 136, 2215644738, 2248377604, 2013367810]
